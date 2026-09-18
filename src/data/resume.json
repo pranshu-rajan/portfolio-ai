@@ -1,0 +1,152 @@
+{
+  "name": "Pranshu Rajan",
+  "title": "Full Stack Developer & AI Engineer",
+  "email": "pranshurajan9211@gmail.com",
+  "phone": "+91 9316347270",
+  "location": "Ahmedabad, Gujarat, India",
+  "github": "https://github.com/pranshu-rajan",
+  "linkedin": "https://www.linkedin.com/in/pranshu-rajan/",
+  "summary": "Full Stack Developer and AI Engineer passionate about building resilient distributed systems, custom vector databases, high-performance C++ packet analyzers, and modern React/Next.js web applications. Experienced with hybrid RAG pipelines, SEBI-compliant fintech payment integrations, and deep learning architectures.",
+  "skills_categories": {
+    "Programming Languages": ["JavaScript", "TypeScript", "Python", "SQL", "HTML5", "CSS3", "C++17", "Java"],
+    "Frontend Technologies": ["React.js", "Next.js", "Vite", "Tailwind CSS", "Framer Motion", "GSAP", "Three.js", "React Three Fiber", "Chart.js"],
+    "Backend Technologies": ["Node.js", "Express.js", "REST APIs", "JWT Authentication", "OAuth2", "NextAuth", "Prisma ORM", "Stripe", "Razorpay", "n8n Automation", "Spring Boot"],
+    "Databases": ["PostgreSQL", "Supabase", "MongoDB", "MySQL", "Row Level Security", "Database Triggers", "Query Optimization"],
+    "Cloud & DevOps": ["Vercel", "Render", "Railway", "GoDaddy", "Git", "GitHub", "CI/CD Pipelines", "Docker"],
+    "AI / Machine Learning": ["RAG Pipelines", "Large Language Models (LLM)", "OpenAI", "Groq API", "Claude API", "Prompt Engineering", "Vector Embeddings", "pgvector", "HNSW", "KD-Tree", "BM25"],
+    "Web Technologies & Tools": ["Leaflet", "SEO Optimization", "JSON-LD", "Docker"],
+    "Best Practices": ["Code Review", "Unit Testing", "Responsive Design", "System Design", "Team Leadership"]
+  },
+  "education": [
+    {
+      "degree": "Electronics and Instrumentation Engineering",
+      "institution": "Nirma University, Gujarat",
+      "details": "CGPA: 7.88 | Expected Graduation: July 2024 – Jul 2028"
+    },
+    {
+      "degree": "XII (GSEB)",
+      "institution": "Swastik Academy, Gujarat",
+      "details": "Percentage: 80.3% | Year: 2024"
+    }
+  ],
+  "professional_experience": [
+    {
+      "company": "Xtin Capital",
+      "role": "Full Stack Developer Intern",
+      "duration": "May 2026 - July 2026",
+      "location": "Ahmedabad, India",
+      "bullets": [
+        "Architected and redesigned React frontends to match company visual identity and improve user experience across fintech applications.",
+        "Engineered scalable Node.js and Express backend services with optimized database management and clean code architecture.",
+        "Implemented SEBI-compliant hybrid payment architecture utilizing Razorpay and MFU APIs for SIP mandate processing.",
+        "Resolved critical production bugs including data-integrity and race-condition issues affecting payment workflows.",
+        "Conducted responsive design audits across multiple devices and prepared formal QA test reports."
+      ],
+      "technologies": ["React.js", "Node.js", "Express.js", "Razorpay", "MFU APIs", "PostgreSQL", "Fintech Architecture"]
+    },
+    {
+      "company": "Edunet Foundation - IBM SkillsBuild",
+      "role": "AI & Cloud Intern",
+      "duration": "September 2025 - October 2025",
+      "location": "Remote",
+      "bullets": [
+        "Developed end-to-end AI models using Python with IBM Cloud and Watson Studio platform.",
+        "Executed complete machine learning pipeline including data collection, preprocessing, model training, and evaluation.",
+        "Deployed trained models on enterprise cloud infrastructure following production-grade best practices."
+      ],
+      "technologies": ["Python", "IBM Cloud", "Watson Studio", "Machine Learning", "Cloud Deployment"]
+    }
+  ],
+  "projects": [
+    {
+      "title": "UPI Offline Mesh — Peer-to-Peer Offline Payment Prototype",
+      "technologies": "Java, Spring Boot, PostgreSQL, Next.js, TypeScript, REST APIs, Docker",
+      "github": "https://github.com/pranshu-rajan/upi-offline-mesh",
+      "live": "https://upi-offline-rho.vercel.app",
+      "bullets": [
+        "Built an offline payment system that solves zero-connectivity UPI failures by routing encrypted transactions peer-to-peer across nearby devices until a connected phone automatically forwards them to the banking backend.",
+        "Secured data in transit using hybrid encryption (RSA-2048-OAEP + AES-256-GCM), preventing intermediate relay devices from reading sensitive details (amounts, PINs) or altering data without failing cryptographic validation.",
+        "Eliminated double-spending and replay attacks using SHA-256 ciphertext idempotency hashing and database optimistic locking (@Version), validated through multi-threaded concurrency tests and a Next.js live simulation dashboard."
+      ]
+    },
+    {
+      "title": "PacketLens AI - Real-Time Network Forensics & DPI Platform",
+      "technologies": "C++17, FastAPI, Python, Next.js, TypeScript",
+      "github": "https://github.com/pranshu-rajan/dpi-packet-analyser",
+      "live": "https://dpi-packet-analyser.vercel.app",
+      "bullets": [
+        "Built a multi-threaded C++17 packet engine to parse raw PCAP files, track connections, and extract TLS/HTTP headers, eliminating bottlenecks when processing large traffic dumps.",
+        "Developed a scalable backend to persist network telemetry and apply dynamic firewall rules, automating the generation of sanitized PCAP files with blocked traffic removed.",
+        "Created a dashboard with a Wireshark-style packet inspector, synchronized hex viewer, and streaming security copilot, allowing engineers to triage network threats directly in the browser."
+      ]
+    },
+    {
+      "title": "Pranshu’s AI - Production Vector Database and Hybrid RAG Engine",
+      "technologies": "C++17, Python, FastAPI, Next.js, TypeScript, Groq API, SQLite",
+      "github": "https://github.com/pranshu-rajan/pranshu-ai",
+      "live": "https://pranshu-ai.vercel.app",
+      "bullets": [
+        "Built a custom vector engine using C++17 & Python with HNSW and KD-Tree indexing, cutting query latency to sub-milliseconds and eliminating reliance on paid vector databases.",
+        "Engineered a document ingestion pipeline using FastAPI with recursive text chunking and BM25/Dense hybrid search (RRF), preventing context fragmentation and fixing keyword-misses during retrieval.",
+        "Developed a full-stack web dashboard using Next.js 15, TypeScript, and Docker with drag-and-drop file uploads, real-time graph inspection, and latency benchmarks, making index debugging and document management seamless."
+      ]
+    },
+    {
+      "title": "Nuzeal Cultural Fest Platform",
+      "technologies": "Next.js, TypeScript, Tailwind CSS, Vercel",
+      "github": "https://github.com/pranshu-rajan/nuzeal-cultural-fest",
+      "live": "https://nuzeal-2026-live.vercel.app",
+      "bullets": [
+        "Developed a high-traffic web portal for Nirma University cultural festival Nuzeal.",
+        "Built with TypeScript and Next.js ensuring fast page loads, event registrations, and schedule exploration."
+      ]
+    },
+    {
+      "title": "Vaudeville 2026 — The Voyage Begins",
+      "technologies": "React, TypeScript, Vite, Tailwind CSS, Framer Motion, Vercel",
+      "github": "https://github.com/pranshu-rajan/vaudeville-2026",
+      "live": "https://vaudeville-2026.vercel.app/",
+      "bullets": [
+        "A highly cinematic, immersive, pirate-themed college cultural festival web platform.",
+        "Designed with bespoke Cinzel Decorative atmospheric typography, audio effects, interactive schedule exploration, and event registration pipelines."
+      ]
+    },
+    {
+      "title": "Leaf Disease Detection",
+      "technologies": "Python, TensorFlow/PyTorch, Streamlit",
+      "github": "https://github.com/pranshu-rajan/leaf-disease-detection",
+      "live": "https://leafdisease-detection.streamlit.app",
+      "bullets": [
+        "Deep learning computer vision pipeline for automated agricultural leaf pathology diagnosis.",
+        "Interactive web application providing real-time inference on leaf photos."
+      ]
+    }
+  ],
+  "positions_of_responsibility": [
+    {
+      "role": "Executive Committee Board Member",
+      "organization": "International Society of Automation",
+      "duration": "December 2025 - December 2026",
+      "bullets": [
+        "Promoted to Executive Committee Board based on demonstrated leadership and technical contribution record.",
+        "Lead coordination of technical events, workshops, and competitions as part of Nirma University's annual tech fest."
+      ]
+    },
+    {
+      "role": "Member",
+      "organization": "International Society of Automation",
+      "duration": "May 2025 - July 2026",
+      "bullets": [
+        "Coordinated and managed technical events, workshops, and competitions supporting student learning and skill development."
+      ]
+    }
+  ],
+  "certifications": [
+    "SAP Certified Generative AI Developer - SAP",
+    "AI Agents Course - Hugging Face",
+    "Oracle Cloud Infrastructure 2025 Certified Generative AI Professional - Oracle",
+    "Get Started with Databricks for Machine Learning - SimpliLearn",
+    "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate - Oracle",
+    "Certificate of Scholar - Nirma University"
+  ]
+}

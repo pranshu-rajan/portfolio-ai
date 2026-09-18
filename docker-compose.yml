@@ -1,0 +1,57 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: portfolio_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: pranshu_portfolio_db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: portfolio_fastapi_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - PORT=8000
+      - HOST=0.0.0.0
+      - MONGODB_URI=mongodb://mongodb:27017
+      - MONGODB_DB_NAME=pranshu_portfolio_db
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b}
+      - CORS_ORIGINS=["http://localhost:3000","http://127.0.0.1:3000"]
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portfolio_nextjs_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - FASTAPI_BACKEND_URL=http://backend:8000
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b}
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:

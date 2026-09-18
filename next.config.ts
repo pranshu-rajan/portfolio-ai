@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Use standalone output for Docker containerization; Vercel handles native output automatically
+  output: process.env.VERCEL ? undefined : "standalone",
 };
+
+
 
 export default nextConfig;

@@ -10,6 +10,20 @@
 !.yarn/releases
 !.yarn/versions
 
+# python & virtual environments
+.venv/
+backend/.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
 # testing
 /coverage
 
@@ -20,8 +34,9 @@
 # production
 /build
 
-# misc
+# misc & OS
 .DS_Store
+Thumbs.db
 *.pem
 
 # debug
@@ -30,8 +45,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files (allow example files for repository documentation)
+.env
+.env*.local
+.env.development
+.env.test
+.env.production
+backend/.env
+!.env.example
+!backend/.env.example
 
 # vercel
 .vercel
@@ -39,3 +61,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+

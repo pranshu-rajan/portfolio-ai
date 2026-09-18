@@ -1,0 +1,188 @@
+import { Project } from "@/types";
+
+export const projectsData: Project[] = [
+  {
+    id: "pranshu-ai",
+    title: "Pranshu’s AI · Production Vector DB & RAG",
+    tagline: "Custom C++17 Vector Database & Hybrid BM25/Dense Retrieval Engine",
+    category: "AI & ML",
+    description: "A custom vector database and hybrid RAG engine built from scratch using C++17 & Python. Implements HNSW and KD-Tree indexing, cutting query latency to sub-milliseconds without relying on external paid vector services.",
+    highlights: [
+      "Custom C++17 vector engine with HNSW & KD-Tree indexing achieving sub-millisecond query latency",
+      "Document ingestion pipeline using FastAPI with recursive text chunking and BM25/Dense hybrid search (RRF)",
+      "Full-stack web dashboard using Next.js 15, TypeScript, and Docker with drag-and-drop file uploads and real-time graph inspection",
+      "Integrated Groq API LPU inference for high-speed generative answer synthesis"
+    ],
+    technologies: ["C++17", "Python", "FastAPI", "Next.js", "TypeScript", "Groq API", "SQLite", "Docker"],
+    liveUrl: "https://pranshu-ai.vercel.app",
+    githubUrl: "https://github.com/pranshu-rajan/pranshu-ai",
+    featured: true,
+    stars: 1,
+    role: "Creator & Lead Systems Architect",
+    timeline: "2026",
+    metrics: "Sub-millisecond query latency, zero paid DB cost",
+    accentColor: "#8b5cf6",
+    previewGradient: "from-purple-600 via-indigo-600 to-blue-600",
+    icon: "Bot"
+  },
+  {
+    id: "upi-offline-mesh",
+    title: "UPI Offline Mesh · P2P Payment Prototype",
+    tagline: "Cryptographic Peer-to-Peer Offline Payment Relay for Zero-Connectivity Zones",
+    category: "Full Stack",
+    description: "An innovative offline payment system solving zero-connectivity UPI failures by routing encrypted transactions peer-to-peer across nearby devices until a connected phone automatically forwards them to banking backends.",
+    highlights: [
+      "Hybrid encryption (RSA-2048-OAEP + AES-256-GCM) protecting transaction amounts and PINs from intermediate relay devices",
+      "Eliminated double-spending and replay attacks using SHA-256 ciphertext idempotency hashing and database optimistic locking (@Version)",
+      "Validated through multi-threaded concurrency stress tests and live Next.js simulation dashboard",
+      "Full Spring Boot & Java backend paired with reactive Next.js TypeScript interface"
+    ],
+    technologies: ["Java", "Spring Boot", "PostgreSQL", "Next.js", "TypeScript", "REST APIs", "Docker"],
+    liveUrl: "https://upi-offline-rho.vercel.app",
+    githubUrl: "https://github.com/pranshu-rajan/upi-offline-mesh",
+    featured: true,
+    stars: 1,
+    role: "Full Stack & Cryptography Engineer",
+    timeline: "2026",
+    metrics: "Zero-data-leakage relay, 100% replay attack defense",
+    accentColor: "#10b981",
+    previewGradient: "from-emerald-500 via-teal-600 to-cyan-600",
+    icon: "Share2"
+  },
+  {
+    id: "dpi-packet-analyser",
+    title: "PacketLens AI · Network Forensics & DPI",
+    tagline: "Multi-threaded C++17 Deep Packet Inspection Engine with Live Security Copilot",
+    category: "Systems & Tools",
+    description: "A high-throughput packet inspection and network security platform powered by a multi-threaded C++17 engine. Parses raw PCAP files, tracks network connections, extracts TLS/HTTP headers, and streams AI triage insights in real time.",
+    highlights: [
+      "Multi-threaded C++17 packet engine to parse raw PCAP dumps and extract headers without processing bottlenecks",
+      "Scalable backend persisting telemetry and applying dynamic firewall rules to sanitize PCAP files automatically",
+      "Wireshark-style browser packet inspector with synchronized hex viewer and streaming security copilot"
+    ],
+    technologies: ["C++17", "FastAPI", "Python", "Next.js", "TypeScript", "Tailwind CSS"],
+    liveUrl: "https://dpi-packet-analyser.vercel.app",
+    githubUrl: "https://github.com/pranshu-rajan/dpi-packet-analyser",
+    featured: true,
+    stars: 1,
+    role: "Systems & Security Engineer",
+    timeline: "2026",
+    metrics: "Parses gigabyte-scale PCAP dumps at native C++ speeds",
+    accentColor: "#3b82f6",
+    previewGradient: "from-blue-600 via-sky-600 to-cyan-500",
+    icon: "Server"
+  },
+  {
+    id: "nuzeal-website",
+    title: "Nuzeal 2026 · Cultural Fest Platform",
+    tagline: "High-Traffic Official Fest Web Portal for Nirma University",
+    category: "Full Stack",
+    description: "The official web platform for Nirma University's annual cultural fest, serving thousands of student participants with schedule agendas, event registrations, and dynamic visual interactions.",
+    highlights: [
+      "Interactive 3D and responsive UI animations built with Next.js and Tailwind CSS",
+      "Optimized static page generation and server-side caching delivering sub-second load times during peak traffic",
+      "Mobile-first responsive architecture supporting live updates"
+    ],
+    technologies: ["TypeScript", "Next.js", "Tailwind CSS", "Vercel", "Framer Motion"],
+    liveUrl: "https://nuzeal-2026-live.vercel.app",
+    githubUrl: "https://github.com/pranshu-rajan/nuzeal-website",
+    featured: false,
+    stars: 1,
+    role: "Lead Frontend Developer",
+    timeline: "2026",
+    metrics: "Handled thousands of concurrent active student users",
+    accentColor: "#f59e0b",
+    previewGradient: "from-amber-500 via-orange-600 to-red-500",
+    icon: "Sparkles"
+  },
+  {
+    id: "vaudeville-2026",
+    title: "Vaudeville 2026 · The Voyage Begins",
+    tagline: "Cinematic, Immersive Pirate-Themed College Cultural Fest Platform",
+    category: "Full Stack",
+    description: "A highly cinematic, immersive, pirate-themed college cultural festival platform featuring dynamic animations, event scheduling, team registrations, and interactive lore.",
+    highlights: [
+      "Custom atmospheric pirate theme designed with bespoke Cinzel Decorative typography and audio effects",
+      "Interactive event registration pipelines and responsive schedule exploration",
+      "High-performance client rendering built with React, TypeScript, and Vite with zero lag"
+    ],
+    technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "Vercel"],
+    liveUrl: "https://vaudeville-2026.vercel.app/",
+    githubUrl: "https://github.com/pranshu-rajan/vaudeville-2026",
+    featured: true,
+    stars: 1,
+    role: "Lead Frontend Engineer",
+    timeline: "2026",
+    metrics: "Immersive pirate-themed cultural fest web portal",
+    accentColor: "#d97706",
+    previewGradient: "from-amber-600 via-yellow-600 to-stone-800",
+    icon: "Compass"
+  },
+  {
+    id: "leaf-disease-detection",
+    title: "Agricultural Leaf Disease Detection",
+    tagline: "Computer Vision Model for Automated Plant Pathology Diagnosis",
+    category: "AI & ML",
+    description: "An automated agricultural health assessment system utilizing deep learning convolutional models to classify leaf diseases from photographs and provide treatment guidance.",
+    highlights: [
+      "End-to-end computer vision pipeline trained on plant pathology datasets",
+      "Interactive Streamlit web interface with real-time image upload, inference, and classification confidence",
+      "Lightweight model architecture optimized for rapid CPU/GPU inference"
+    ],
+    technologies: ["Python", "PyTorch", "Streamlit", "Computer Vision", "PIL"],
+    liveUrl: "https://leafdisease-detection.streamlit.app",
+    githubUrl: "https://github.com/pranshu-rajan/leaf-disease-detection",
+    featured: false,
+    stars: 1,
+    role: "ML Engineer",
+    timeline: "2026",
+    metrics: "Instant diagnostic inference with top-3 confidence scores",
+    accentColor: "#84cc16",
+    previewGradient: "from-lime-500 via-emerald-600 to-green-700",
+    icon: "Leaf"
+  },
+  {
+    id: "finbert-lstm-stock",
+    title: "Reliance Stock Prediction with FinBERT + LSTM",
+    tagline: "Hybrid NLP Sentiment & Recurrent Neural Network for Stock Price Forecasting",
+    category: "AI & ML",
+    description: "A hybrid deep learning forecasting model integrating financial news sentiment analysis with LSTM neural networks. Fine-tuned with Optuna for automated hyperparameter optimization.",
+    highlights: [
+      "Integrated FinBERT transformer embeddings to quantify market sentiment from financial headlines",
+      "Coupled sentiment vectors with historical price time-series inside multi-layer LSTM networks",
+      "Optuna hyperparameter tuning optimizing learning rate, hidden units, and sequence lookback windows"
+    ],
+    technologies: ["Python", "FinBERT", "PyTorch", "LSTM", "Optuna", "Pandas"],
+    githubUrl: "https://github.com/pranshu-rajan/Reliance-Stock-Prediction-FinBERT-LSTM",
+    featured: false,
+    stars: 1,
+    role: "Deep Learning Researcher",
+    timeline: "2025",
+    metrics: "Reduced forecasting RMSE through hybrid sentiment fusion",
+    accentColor: "#6366f1",
+    previewGradient: "from-indigo-600 via-purple-700 to-pink-700",
+    icon: "TrendingUp"
+  },
+  {
+    id: "hf-agent",
+    title: "Autonomous Tool-Calling Agent (hf-agent)",
+    tagline: "Reasoning and Action Autonomous AI Agent Architecture",
+    category: "AI & ML",
+    description: "An autonomous agent pipeline built on Hugging Face models capable of multi-step task decomposition, external tool invocation, and iterative validation.",
+    highlights: [
+      "Tool-calling interface allowing the agent to fetch external data and run code snippets",
+      "ReAct (Reasoning + Action) execution loop handling complex multi-part queries",
+      "Modular Python codebase ready for enterprise task automation"
+    ],
+    technologies: ["Python", "Hugging Face", "Transformers", "Tool Calling"],
+    githubUrl: "https://github.com/pranshu-rajan/hf-agent",
+    featured: false,
+    stars: 1,
+    role: "AI Agent Developer",
+    timeline: "2026",
+    metrics: "Multi-turn task autonomy with tool verification",
+    accentColor: "#ec4899",
+    previewGradient: "from-pink-500 via-rose-600 to-red-600",
+    icon: "Bot"
+  }
+];
