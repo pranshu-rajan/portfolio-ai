@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { useWindowManager } from "@/hooks/useWindowManager";
 import { MenuBar } from "@/components/desktop/MenuBar";
 import { Dock } from "@/components/desktop/Dock";
@@ -18,18 +19,10 @@ import { TerminalApp } from "@/components/apps/TerminalApp";
 import { ResumeApp } from "@/components/apps/ResumeApp";
 import { MailApp } from "@/components/apps/MailApp";
 import { SettingsApp } from "@/components/apps/SettingsApp";
+import { ContactsApp } from "@/components/apps/ContactsApp";
 
 import { AppId, WallpaperId, Project } from "@/types";
 import { sounds } from "@/utils/sound";
-import { 
-  FolderGit2, 
-  Bot, 
-  FileText, 
-  Terminal as TerminalIcon, 
-  Compass, 
-  Mail as MailIcon,
-  Sparkles 
-} from "lucide-react";
 
 export default function Desktop() {
   const [isMobile, setIsMobile] = useState(false);
@@ -107,7 +100,7 @@ export default function Desktop() {
       <div className="w-screen h-screen bg-[#0d0d11] flex items-center justify-center text-white text-xs font-mono">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping" />
-          <span>Booting macOS Portfolio...</span>
+          <span>Booting Pranshu&apos;s Portfolio...</span>
         </div>
       </div>
     );
@@ -126,8 +119,19 @@ export default function Desktop() {
           setContextMenu((prev) => ({ ...prev, isOpen: false }));
         }
       }}
-      className={`relative w-screen h-screen overflow-hidden select-none wallpaper-${wallpaper} transition-all duration-700`}
+      className="relative w-screen h-screen overflow-hidden select-none"
     >
+      {/* Authentic macOS Silk Wave Wallpaper */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <Image
+          src="/images/wallpaper.png"
+          alt="macOS Desktop Wallpaper"
+          fill
+          priority
+          className="object-cover"
+        />
+      </div>
+
       {/* Top Menu Bar */}
       <MenuBar
         activeApp={activeApp}
@@ -137,174 +141,257 @@ export default function Desktop() {
         onSelectWallpaper={setWallpaper}
       />
 
-      {/* Desktop Icons Grid (Left Side) */}
-      <div className="absolute top-12 left-5 z-20 flex flex-col gap-4">
+      {/* Center Welcome Hero (as in saurabh-kushwaha.vercel.app with Pranshu) */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-10 px-4">
+        <h1 className="font-aubrey text-2xl sm:text-3xl md:text-4xl text-white tracking-wide flex items-center justify-center flex-wrap drop-shadow-md">
+          {"Hey, I'm Pranshu! welcome to my".split("").map((char, i) => (
+            <span
+              key={i}
+              className="hover-letter pointer-events-auto cursor-default font-normal text-white/95"
+            >
+              {char === " " ? "\u00A0" : char}
+            </span>
+          ))}
+        </h1>
+        <h1 className="font-lacquer text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white tracking-wider uppercase mt-1 flex items-center justify-center flex-wrap drop-shadow-2xl">
+          {"PORTFOLIO".split("").map((char, i) => (
+            <span
+              key={i}
+              className="hover-letter pointer-events-auto cursor-default text-white"
+            >
+              {char}
+            </span>
+          ))}
+        </h1>
+      </div>
+
+      {/* Desktop Icons (Left Side) */}
+      <div className="absolute top-12 left-6 z-20 flex flex-col gap-4">
         <DesktopIcon
           id="finder"
-          title="Projects"
+          title="AnyDrop"
           icon={
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg border border-white/20">
-              <FolderGit2 className="w-6 h-6 text-blue-100" />
+            <div className="relative w-14 h-14 drop-shadow-lg">
+              <Image
+                src="/images/folder.png"
+                alt="AnyDrop Folder"
+                fill
+                className="object-contain"
+                sizes="64px"
+              />
             </div>
           }
           onOpen={() => openWindow("finder")}
         />
 
         <DesktopIcon
-          id="aichat"
-          title="HireMe AI"
+          id="finder"
+          title="CoinInsight"
           icon={
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-violet-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-lg border border-white/20 relative">
-              <Bot className="w-6 h-6 text-white" />
-              <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-black" />
+            <div className="relative w-14 h-14 drop-shadow-lg">
+              <Image
+                src="/images/folder.png"
+                alt="CoinInsight Folder"
+                fill
+                className="object-contain"
+                sizes="64px"
+              />
             </div>
           }
-          onOpen={() => openWindow("aichat")}
+          onOpen={() => openWindow("finder")}
+        />
+
+        <DesktopIcon
+          id="finder"
+          title="Frog Safari"
+          icon={
+            <div className="relative w-14 h-14 drop-shadow-lg">
+              <Image
+                src="/images/folder.png"
+                alt="Frog Safari Folder"
+                fill
+                className="object-contain"
+                sizes="64px"
+              />
+            </div>
+          }
+          onOpen={() => openWindow("finder")}
+        />
+
+        <DesktopIcon
+          id="finder"
+          title="PrepMate"
+          icon={
+            <div className="relative w-14 h-14 drop-shadow-lg">
+              <Image
+                src="/images/folder.png"
+                alt="PrepMate Folder"
+                fill
+                className="object-contain"
+                sizes="64px"
+              />
+            </div>
+          }
+          onOpen={() => openWindow("finder")}
         />
 
         <DesktopIcon
           id="resume"
           title="Resume.pdf"
           icon={
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-white shadow-lg border border-white/20">
-              <FileText className="w-6 h-6 text-white" />
+            <div className="relative w-14 h-14 drop-shadow-lg">
+              <Image
+                src="/images/pdf.png"
+                alt="Resume PDF"
+                fill
+                className="object-contain"
+                sizes="64px"
+              />
             </div>
           }
           onOpen={() => openWindow("resume")}
         />
-
-        <DesktopIcon
-          id="terminal"
-          title="Terminal"
-          icon={
-            <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-emerald-400 shadow-lg">
-              <TerminalIcon className="w-6 h-6" />
-            </div>
-          }
-          onOpen={() => openWindow("terminal")}
-        />
-
-        <DesktopIcon
-          id="safari"
-          title="Live Demos"
-          icon={
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-sky-400 to-blue-600 flex items-center justify-center text-white shadow-lg border border-white/20">
-              <Compass className="w-6 h-6" />
-            </div>
-          }
-          onOpen={() => openWindow("safari")}
-        />
       </div>
 
       {/* Windows Manager Layer */}
-      {/* 1. HireMe AI Chat App */}
-      <WindowFrame
-        window={windows.aichat}
-        isActive={activeApp === "aichat"}
-        onFocus={() => bringToFront("aichat")}
-        onClose={() => closeWindow("aichat")}
-        onMinimize={() => minimizeWindow("aichat")}
-        onMaximize={() => toggleMaximize("aichat")}
-        onUpdatePosition={(pos) => updatePosition("aichat", pos)}
-        onUpdateSize={(size) => updateSize("aichat", size)}
-      >
-        <AiChatApp />
-      </WindowFrame>
+      {/* 1. HireMe AI Chat App ("Ask Me") */}
+      {windows.aichat && (
+        <WindowFrame
+          window={windows.aichat}
+          isActive={activeApp === "aichat"}
+          onFocus={() => bringToFront("aichat")}
+          onClose={() => closeWindow("aichat")}
+          onMinimize={() => minimizeWindow("aichat")}
+          onMaximize={() => toggleMaximize("aichat")}
+          onUpdatePosition={(pos) => updatePosition("aichat", pos)}
+          onUpdateSize={(size) => updateSize("aichat", size)}
+        >
+          <AiChatApp />
+        </WindowFrame>
+      )}
 
       {/* 2. Projects Finder App */}
-      <WindowFrame
-        window={windows.finder}
-        isActive={activeApp === "finder"}
-        onFocus={() => bringToFront("finder")}
-        onClose={() => closeWindow("finder")}
-        onMinimize={() => minimizeWindow("finder")}
-        onMaximize={() => toggleMaximize("finder")}
-        onUpdatePosition={(pos) => updatePosition("finder", pos)}
-        onUpdateSize={(size) => updateSize("finder", size)}
-      >
-        <ProjectsApp
-          onOpenApp={openWindow}
-          onPreviewInSafari={(url) => {
-            openWindow("safari");
-          }}
-          onAskAiAboutProject={(projName) => {
-            openWindow("aichat");
-          }}
-        />
-      </WindowFrame>
+      {windows.finder && (
+        <WindowFrame
+          window={windows.finder}
+          isActive={activeApp === "finder"}
+          onFocus={() => bringToFront("finder")}
+          onClose={() => closeWindow("finder")}
+          onMinimize={() => minimizeWindow("finder")}
+          onMaximize={() => toggleMaximize("finder")}
+          onUpdatePosition={(pos) => updatePosition("finder", pos)}
+          onUpdateSize={(size) => updateSize("finder", size)}
+        >
+          <ProjectsApp
+            onOpenApp={openWindow}
+            onPreviewInSafari={() => {
+              openWindow("safari");
+            }}
+            onAskAiAboutProject={() => {
+              openWindow("aichat");
+            }}
+          />
+        </WindowFrame>
+      )}
 
       {/* 3. Safari Browser App */}
-      <WindowFrame
-        window={windows.safari}
-        isActive={activeApp === "safari"}
-        onFocus={() => bringToFront("safari")}
-        onClose={() => closeWindow("safari")}
-        onMinimize={() => minimizeWindow("safari")}
-        onMaximize={() => toggleMaximize("safari")}
-        onUpdatePosition={(pos) => updatePosition("safari", pos)}
-        onUpdateSize={(size) => updateSize("safari", size)}
-      >
-        <SafariApp />
-      </WindowFrame>
+      {windows.safari && (
+        <WindowFrame
+          window={windows.safari}
+          isActive={activeApp === "safari"}
+          onFocus={() => bringToFront("safari")}
+          onClose={() => closeWindow("safari")}
+          onMinimize={() => minimizeWindow("safari")}
+          onMaximize={() => toggleMaximize("safari")}
+          onUpdatePosition={(pos) => updatePosition("safari", pos)}
+          onUpdateSize={(size) => updateSize("safari", size)}
+        >
+          <SafariApp />
+        </WindowFrame>
+      )}
 
       {/* 4. Terminal App */}
-      <WindowFrame
-        window={windows.terminal}
-        isActive={activeApp === "terminal"}
-        onFocus={() => bringToFront("terminal")}
-        onClose={() => closeWindow("terminal")}
-        onMinimize={() => minimizeWindow("terminal")}
-        onMaximize={() => toggleMaximize("terminal")}
-        onUpdatePosition={(pos) => updatePosition("terminal", pos)}
-        onUpdateSize={(size) => updateSize("terminal", size)}
-      >
-        <TerminalApp onOpenApp={openWindow} />
-      </WindowFrame>
+      {windows.terminal && (
+        <WindowFrame
+          window={windows.terminal}
+          isActive={activeApp === "terminal"}
+          onFocus={() => bringToFront("terminal")}
+          onClose={() => closeWindow("terminal")}
+          onMinimize={() => minimizeWindow("terminal")}
+          onMaximize={() => toggleMaximize("terminal")}
+          onUpdatePosition={(pos) => updatePosition("terminal", pos)}
+          onUpdateSize={(size) => updateSize("terminal", size)}
+        >
+          <TerminalApp onOpenApp={openWindow} />
+        </WindowFrame>
+      )}
 
       {/* 5. Resume Preview App */}
-      <WindowFrame
-        window={windows.resume}
-        isActive={activeApp === "resume"}
-        onFocus={() => bringToFront("resume")}
-        onClose={() => closeWindow("resume")}
-        onMinimize={() => minimizeWindow("resume")}
-        onMaximize={() => toggleMaximize("resume")}
-        onUpdatePosition={(pos) => updatePosition("resume", pos)}
-        onUpdateSize={(size) => updateSize("resume", size)}
-      >
-        <ResumeApp />
-      </WindowFrame>
+      {windows.resume && (
+        <WindowFrame
+          window={windows.resume}
+          isActive={activeApp === "resume"}
+          onFocus={() => bringToFront("resume")}
+          onClose={() => closeWindow("resume")}
+          onMinimize={() => minimizeWindow("resume")}
+          onMaximize={() => toggleMaximize("resume")}
+          onUpdatePosition={(pos) => updatePosition("resume", pos)}
+          onUpdateSize={(size) => updateSize("resume", size)}
+        >
+          <ResumeApp />
+        </WindowFrame>
+      )}
 
-      {/* 6. Mail App */}
-      <WindowFrame
-        window={windows.mail}
-        isActive={activeApp === "mail"}
-        onFocus={() => bringToFront("mail")}
-        onClose={() => closeWindow("mail")}
-        onMinimize={() => minimizeWindow("mail")}
-        onMaximize={() => toggleMaximize("mail")}
-        onUpdatePosition={(pos) => updatePosition("mail", pos)}
-        onUpdateSize={(size) => updateSize("mail", size)}
-      >
-        <MailApp />
-      </WindowFrame>
+      {/* 6. Contacts App (Replaces standalone mail & settings in dock) */}
+      {windows.contacts && (
+        <WindowFrame
+          window={windows.contacts}
+          isActive={activeApp === "contacts"}
+          onFocus={() => bringToFront("contacts")}
+          onClose={() => closeWindow("contacts")}
+          onMinimize={() => minimizeWindow("contacts")}
+          onMaximize={() => toggleMaximize("contacts")}
+          onUpdatePosition={(pos) => updatePosition("contacts", pos)}
+          onUpdateSize={(size) => updateSize("contacts", size)}
+        >
+          <ContactsApp onOpenApp={openWindow} />
+        </WindowFrame>
+      )}
 
-      {/* 7. System Settings App */}
-      <WindowFrame
-        window={windows.settings}
-        isActive={activeApp === "settings"}
-        onFocus={() => bringToFront("settings")}
-        onClose={() => closeWindow("settings")}
-        onMinimize={() => minimizeWindow("settings")}
-        onMaximize={() => toggleMaximize("settings")}
-        onUpdatePosition={(pos) => updatePosition("settings", pos)}
-        onUpdateSize={(size) => updateSize("settings", size)}
-      >
-        <SettingsApp
-          currentWallpaper={wallpaper}
-          onSelectWallpaper={setWallpaper}
-        />
-      </WindowFrame>
+      {/* 7. Mail App (also available if opened directly) */}
+      {windows.mail && (
+        <WindowFrame
+          window={windows.mail}
+          isActive={activeApp === "mail"}
+          onFocus={() => bringToFront("mail")}
+          onClose={() => closeWindow("mail")}
+          onMinimize={() => minimizeWindow("mail")}
+          onMaximize={() => toggleMaximize("mail")}
+          onUpdatePosition={(pos) => updatePosition("mail", pos)}
+          onUpdateSize={(size) => updateSize("mail", size)}
+        >
+          <MailApp />
+        </WindowFrame>
+      )}
+
+      {/* 8. System Settings App */}
+      {windows.settings && (
+        <WindowFrame
+          window={windows.settings}
+          isActive={activeApp === "settings"}
+          onFocus={() => bringToFront("settings")}
+          onClose={() => closeWindow("settings")}
+          onMinimize={() => minimizeWindow("settings")}
+          onMaximize={() => toggleMaximize("settings")}
+          onUpdatePosition={(pos) => updatePosition("settings", pos)}
+          onUpdateSize={(size) => updateSize("settings", size)}
+        >
+          <SettingsApp
+            currentWallpaper={wallpaper}
+            onSelectWallpaper={setWallpaper}
+          />
+        </WindowFrame>
+      )}
 
       {/* Right-click Context Menu */}
       <ContextMenu
@@ -322,10 +409,10 @@ export default function Desktop() {
         isOpen={spotlightOpen}
         onClose={() => setSpotlightOpen(false)}
         onOpenApp={openWindow}
-        onAskAi={(question) => {
+        onAskAi={() => {
           openWindow("aichat");
         }}
-        onSelectProject={(proj) => {
+        onSelectProject={() => {
           openWindow("finder");
         }}
       />

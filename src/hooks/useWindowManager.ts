@@ -82,6 +82,28 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
     defaultSize: { width: 600, height: 460 },
     minSize: { width: 440, height: 340 },
   },
+  contacts: {
+    id: "contacts",
+    title: "Contacts · Pranshu Rajan",
+    icon: "Users",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    size: { width: 720, height: 500 },
+    defaultSize: { width: 720, height: 500 },
+    minSize: { width: 480, height: 360 },
+  },
+  photos: {
+    id: "photos",
+    title: "Photos · Project Showcase",
+    icon: "Image",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    size: { width: 800, height: 520 },
+    defaultSize: { width: 800, height: 520 },
+    minSize: { width: 500, height: 380 },
+  },
 };
 
 export function useWindowManager() {

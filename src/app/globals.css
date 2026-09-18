@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Aubrey&family=Lacquer&display=swap');
 @import "tailwindcss";
 
 @layer base {
@@ -11,6 +12,26 @@
     overflow: hidden;
   }
 }
+
+.font-aubrey {
+  font-family: 'Aubrey', cursive, sans-serif;
+}
+
+.font-lacquer {
+  font-family: 'Lacquer', cursive, sans-serif;
+}
+
+.hover-letter {
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.hover-letter:hover {
+  transform: translateY(-8px) scale(1.15);
+  color: #60a5fa;
+  text-shadow: 0 0 16px rgba(96, 165, 250, 0.6);
+}
+
 
 /* Dynamic 4K Wallpaper Gradients */
 .wallpaper-sequoia {

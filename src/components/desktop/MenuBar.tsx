@@ -34,6 +34,8 @@ const APP_NAMES: Record<AppId, string> = {
   resume: "Preview",
   mail: "Mail",
   settings: "Settings",
+  contacts: "Contacts",
+  photos: "Photos",
 };
 
 export function MenuBar({
@@ -147,31 +149,24 @@ export function MenuBar({
           </span>
 
           {/* Menu Items */}
-          <div className="hidden sm:flex items-center gap-3 text-white/70">
+          <div className="hidden sm:flex items-center gap-3 text-white/70 text-xs">
             <button
               onClick={() => onOpenApp("finder")}
-              className="hover:text-white transition-colors cursor-default"
+              className="hover:text-white transition-colors cursor-pointer px-1 py-0.5 rounded"
             >
               Projects
             </button>
             <button
-              onClick={() => onOpenApp("aichat")}
-              className="hover:text-white transition-colors cursor-default flex items-center gap-1"
+              onClick={() => onOpenApp("contacts")}
+              className="hover:text-white transition-colors cursor-pointer px-1 py-0.5 rounded"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Ask AI
+              Contact
             </button>
             <button
               onClick={() => onOpenApp("resume")}
-              className="hover:text-white transition-colors cursor-default"
+              className="hover:text-white transition-colors cursor-pointer px-1 py-0.5 rounded"
             >
               Resume
-            </button>
-            <button
-              onClick={() => onOpenApp("mail")}
-              className="hover:text-white transition-colors cursor-default"
-            >
-              Contact
             </button>
           </div>
         </div>

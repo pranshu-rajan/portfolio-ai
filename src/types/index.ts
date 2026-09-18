@@ -5,7 +5,10 @@ export type AppId =
   | "terminal" 
   | "resume" 
   | "mail" 
-  | "settings";
+  | "settings"
+  | "contacts"
+  | "photos";
+
 
 export interface WindowState {
   id: AppId;

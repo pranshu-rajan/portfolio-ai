@@ -18,6 +18,7 @@ export function DesktopIcon({ title, icon, onOpen }: DesktopIconProps) {
     e.stopPropagation();
     setIsSelected(true);
     sounds.playClick();
+    onOpen();
   };
 
   const handleDoubleClick = (e: React.MouseEvent) => {
