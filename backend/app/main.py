@@ -49,7 +49,19 @@ app.add_middleware(
 )
 
 
+# Root Welcome Endpoint
+@app.get("/", include_in_schema=False)
+async def root():
+    return {
+        "service": "Pranshu Rajan Portfolio & AI Twin API",
+        "status": "online",
+        "docs": "/docs",
+        "health": "/health",
+        "version": "1.0.0"
+    }
+
 # Health Checks
+
 @app.get("/health", tags=["Health"])
 @app.get("/api/v1/health", tags=["Health"])
 async def health_check():
