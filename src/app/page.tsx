@@ -167,92 +167,98 @@ export default function Desktop() {
         </div>
       </div>
 
-      {/* Desktop Icons (Left Side) */}
-      <div className="absolute top-12 left-6 z-20 flex flex-col gap-3">
-        <DesktopIcon
-          id="finder"
-          title="UPI Offline Mesh"
-          icon={
-            <div className="relative w-13 h-13 drop-shadow-lg">
-              <Image
-                src="/images/folder.png"
-                alt="UPI Offline Mesh"
-                fill
-                className="object-contain"
-                sizes="64px"
-              />
-            </div>
-          }
-          onOpen={() => openWindow("finder")}
-        />
+      {/* Desktop Area: 2-Column Grid (Folders in Col 1, Resume.pdf in Col 2) */}
+      <div className="absolute top-10 left-5 z-20 hidden md:flex flex-row gap-3 pointer-events-auto">
+        {/* Column 1: Best 4 Project Folders */}
+        <div className="flex flex-col gap-2 w-[100px] items-center">
+          <DesktopIcon
+            id="finder"
+            title="UPI Offline Mesh"
+            icon={
+              <div className="relative w-14 h-14 drop-shadow-lg">
+                <Image
+                  src="/images/folder.png"
+                  alt="UPI Offline Mesh"
+                  fill
+                  className="object-contain"
+                  sizes="64px"
+                />
+              </div>
+            }
+            onOpen={() => openWindow("finder")}
+          />
 
-        <DesktopIcon
-          id="finder"
-          title="PacketLens AI"
-          icon={
-            <div className="relative w-13 h-13 drop-shadow-lg">
-              <Image
-                src="/images/folder.png"
-                alt="PacketLens AI DPI"
-                fill
-                className="object-contain"
-                sizes="64px"
-              />
-            </div>
-          }
-          onOpen={() => openWindow("finder")}
-        />
+          <DesktopIcon
+            id="finder"
+            title="PacketLens AI"
+            icon={
+              <div className="relative w-14 h-14 drop-shadow-lg">
+                <Image
+                  src="/images/folder.png"
+                  alt="PacketLens AI DPI"
+                  fill
+                  className="object-contain"
+                  sizes="64px"
+                />
+              </div>
+            }
+            onOpen={() => openWindow("finder")}
+          />
 
-        <DesktopIcon
-          id="finder"
-          title="Pranshu's AI"
-          icon={
-            <div className="relative w-13 h-13 drop-shadow-lg">
-              <Image
-                src="/images/folder.png"
-                alt="Pranshu's AI Vector DB"
-                fill
-                className="object-contain"
-                sizes="64px"
-              />
-            </div>
-          }
-          onOpen={() => openWindow("finder")}
-        />
+          <DesktopIcon
+            id="finder"
+            title="Pranshu's AI"
+            icon={
+              <div className="relative w-14 h-14 drop-shadow-lg">
+                <Image
+                  src="/images/folder.png"
+                  alt="Pranshu's AI Vector DB"
+                  fill
+                  className="object-contain"
+                  sizes="64px"
+                />
+              </div>
+            }
+            onOpen={() => openWindow("finder")}
+          />
 
-        <DesktopIcon
-          id="finder"
-          title="Leaf Disease Detection"
-          icon={
-            <div className="relative w-13 h-13 drop-shadow-lg">
-              <Image
-                src="/images/folder.png"
-                alt="Agricultural Leaf Disease Detection"
-                fill
-                className="object-contain"
-                sizes="64px"
-              />
-            </div>
-          }
-          onOpen={() => openWindow("finder")}
-        />
+          <DesktopIcon
+            id="finder"
+            title="Leaf Disease Detection"
+            icon={
+              <div className="relative w-14 h-14 drop-shadow-lg">
+                <Image
+                  src="/images/folder.png"
+                  alt="Agricultural Leaf Disease Detection"
+                  fill
+                  className="object-contain"
+                  sizes="64px"
+                />
+              </div>
+            }
+            onOpen={() => openWindow("finder")}
+          />
+        </div>
 
-        <DesktopIcon
-          id="resume"
-          title="Resume.pdf"
-          icon={
-            <div className="relative w-13 h-13 drop-shadow-lg">
-              <Image
-                src="/images/pdf.png"
-                alt="Resume PDF"
-                fill
-                className="object-contain"
-                sizes="64px"
-              />
-            </div>
-          }
-          onOpen={() => openWindow("resume")}
-        />
+        {/* Column 2: Documents */}
+        <div className="flex flex-col gap-2 w-[100px] items-center">
+          <DesktopIcon
+            id="resume"
+            title="Resume.pdf"
+            icon={
+              <div className="relative w-14 h-14 drop-shadow-lg">
+                <Image
+                  src="/images/pdf.png"
+                  alt="Resume PDF"
+                  fill
+                  className="object-contain"
+                  sizes="64px"
+                />
+              </div>
+            }
+            onOpen={() => openWindow("resume")}
+          />
+        </div>
       </div>
 
       {/* Windows Manager Layer */}
