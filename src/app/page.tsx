@@ -142,27 +142,29 @@ export default function Desktop() {
       />
 
       {/* Center Welcome Hero (as in saurabh-kushwaha.vercel.app with Pranshu) */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-10 px-4">
-        <h1 className="font-aubrey text-2xl sm:text-3xl md:text-4xl text-white tracking-wide flex items-center justify-center flex-wrap drop-shadow-md">
-          {"Hey, I'm Pranshu! welcome to my".split("").map((char, i) => (
-            <span
-              key={i}
-              className="hover-letter pointer-events-auto cursor-default font-normal text-white/95"
-            >
-              {char === " " ? "\u00A0" : char}
-            </span>
-          ))}
-        </h1>
-        <h1 className="font-lacquer text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white tracking-wider uppercase mt-1 flex items-center justify-center flex-wrap drop-shadow-2xl">
-          {"PORTFOLIO".split("").map((char, i) => (
-            <span
-              key={i}
-              className="hover-letter pointer-events-auto cursor-default text-white"
-            >
-              {char}
-            </span>
-          ))}
-        </h1>
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-10 px-4 pb-12">
+        <div className="flex flex-col items-center justify-center text-center">
+          <h1 className="font-aubrey text-lg sm:text-2xl md:text-3xl text-white tracking-wide whitespace-nowrap drop-shadow-md m-0">
+            {"Hey, I'm Pranshu! welcome to my".split("").map((char, i) => (
+              <span
+                key={i}
+                className="hover-letter pointer-events-auto cursor-default font-normal text-white/95"
+              >
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
+          </h1>
+          <h1 className="font-lacquer text-4xl sm:text-5xl md:text-6xl text-white tracking-normal whitespace-nowrap -mt-2 sm:-mt-3.5 drop-shadow-xl m-0">
+            {"portfolio".split("").map((char, i) => (
+              <span
+                key={i}
+                className="hover-letter pointer-events-auto cursor-default text-white"
+              >
+                {char}
+              </span>
+            ))}
+          </h1>
+        </div>
       </div>
 
       {/* Desktop Icons (Left Side) */}
