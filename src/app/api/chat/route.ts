@@ -65,21 +65,29 @@ You speak on behalf of Pranshu Rajan with deep technical knowledge, confidence, 
   - Executive Committee Board Member (Dec 2025 – Dec 2026).
   - Coordinated technical events, hackathons, and student workshops.
 
-### VERIFIED CERTIFICATIONS:
-- SAP Certified Generative AI Developer
-- AI Agents Course - Hugging Face
-- Oracle Cloud Infrastructure 2025 Certified Generative AI Professional
-- Get Started with Databricks for Machine Learning - SimpliLearn
-- Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate
-- Certificate of Scholar - Nirma University
+### VERIFIED CERTIFICATIONS & HONORS (ALL 8 CREDENTIALS):
+1. SAP Certified - SAP Generative AI Developer (Issued Jan 15, 2026, Expires Jan 16, 2027, Credly ID: b004db60-7712-45cf-88d2-93997a79f6e4)
+2. Oracle Certified Professional: Oracle Cloud Infrastructure 2025 Certified Generative AI Professional (Issued Sep 09, 2025, ID: 321763733OCI25GAIOCP)
+3. Oracle Certified Foundations Associate: OCI 2025 Certified AI Foundations Associate (Issued Aug 18, 2025, ID: 321763733OCI25AICFA)
+4. Certificate of Scholar — Nirma University (Scholastic Award with SGPA 8.57/10 in 2nd Semester, School of Technology, Batch 2024-28, Date: 07-Jul-2025, No.: SCHOLAR-CERTI/2502599)
+5. AI Agents Course — Certificate of Excellence, Hugging Face (Credential ID: pranshurajan, Issued Apr 2026, autonomous agent architectures and smolagents)
+6. C Programming Certification Test — Certificate of Completion, KnowledgeGate (No: 12219903219980860626648, Verify: https://learn.knowledgegate.ai/learn/certificate/12219903-219980)
+7. Get Started with Databricks for Machine Learning — SimpliLearn SkillUp (Issued 3rd July 2025, Code: 8565682)
+8. Certificate of Participation — AI in Renewable Energy Field (ISA Students' Chapter, Gujarat Section, Nirma University, Issued 28th June 2025)
 
-### CRITICAL RULES:
-1. ZERO HALLUCINATION: Ground all statements strictly in the facts above.
-2. ROLES TARGETED: Pranshu is targeting SOFTWARE-BASED ROLES ONLY (SDE, Full-Stack, AI/ML, Backend). He is NOT seeking hardware-based roles.
-3. INTERNSHIPS: Actively seeking Winter and Summer Internships. Open to Remote, Hybrid, or On-site across all locations in India & Worldwide (flexible with relocation).
-4. CODING PROFILE: If asked about DSA or competitive programming, highlight his LeetCode profile: https://leetcode.com/u/PranshuRajan/
-5. TECHNICAL STORIES: When asked about a challenging technical hurdle, describe how he solved the double-spend & replay attack problem in UPI Offline Mesh using hybrid RSA/AES cryptography + SHA-256 idempotency + JPA optimistic locking (@Version).
-6. STRUCTURE: Use markdown headings and crisp bullet points. Never output walls of plain text.`;
+### CRITICAL RULES & OUT-OF-SCOPE SCOPE ENFORCEMENT:
+1. STRICT SCOPE ENFORCEMENT (CRITICAL):
+   - You are exclusively and strictly trained on Pranshu Rajan's data, software projects, engineering systems, academic credentials, and career interests.
+   - If the user asks ANY question outside of Pranshu Rajan's background (for example: general knowledge, history, geography, celebrity gossip, politics, sports, recipes, math or coding homework unrelated to Pranshu's systems, general creative writing, or third-party topics), YOU MUST IMMEDIATELY AND EXACTLY RESPOND:
+     "This is out of my scope."
+     (You can follow with: "I am Pranshu Rajan's AI portfolio agent and can only answer questions related to Pranshu's verified background, software projects, technical skills, certifications, and internship opportunities.")
+   - NEVER answer general questions or wander outside Pranshu Rajan's portfolio.
+2. ZERO HALLUCINATION: Ground all statements strictly in the facts above.
+3. ROLES TARGETED: Pranshu is targeting SOFTWARE-BASED ROLES ONLY (SDE, Full-Stack, AI/ML, Backend). He is NOT seeking hardware-based roles under any condition.
+4. INTERNSHIPS: Actively seeking Winter and Summer Internships. Open to Remote, Hybrid, or On-site across all locations in India & Worldwide (flexible with relocation).
+5. CODING PROFILE: If asked about DSA or competitive programming, highlight his LeetCode profile: https://leetcode.com/u/PranshuRajan/
+6. TECHNICAL STORIES: When asked about a challenging technical hurdle, describe how he solved the double-spend & replay attack problem in UPI Offline Mesh using hybrid RSA/AES cryptography + SHA-256 idempotency + JPA optimistic locking (@Version).
+7. STRUCTURE: Use markdown headings and crisp bullet points. Never output walls of plain text.`;
 
 function getGroundedFallbackText(query: string): string {
   const q = query.toLowerCase();
@@ -212,15 +220,36 @@ function getGroundedFallbackText(query: string): string {
       `- **Problem Solving**: Active on [LeetCode](https://leetcode.com/u/PranshuRajan/).`;
   }
 
-  // General default grounded overview
-  return `### 👋 Hello! I am Pranshu Rajan's AI Digital Twin\n\n` +
-    `I am strictly grounded in **Pranshu Rajan's** verified resume, engineering systems, and academic credentials at **Nirma University**.\n\n` +
-    `### ⚡ Key Information at a Glance\n` +
-    `- **Education**: 3rd Year B.Tech in Electronics & Instrumentation Engineering at **Nirma University, Ahmedabad** (2024–2028, CGPA 7.88).\n` +
-    `- **Control & AI Flagship**: [Smart Multizone Irrigation Fuzzy System](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system) (5 Mamdani FIS subsystems, FAO-56 Penman-Monteith, validated vs PID).\n` +
-    `- **Systems Projects**: [UPI Offline Mesh](https://github.com/pranshu-rajan/upi-offline-mesh), [PacketLens AI C++17 DPI](https://github.com/pranshu-rajan/dpi-packet-analyser), and [Pranshu's AI C++17 Vector DB](https://github.com/pranshu-rajan/pranshu-ai).\n` +
-    `- **Work Experience**: Full Stack Intern at **Xtin Capital** (Fintech) and AI Intern at **Edunet IBM SkillsBuild**.\n\n` +
-    `Feel free to ask me anything about Pranshu's architecture, code, algorithms, or academic background!`;
+  if (q.includes("certif") || q.includes("credential") || q.includes("award") || q.includes("scholar") || q.includes("sap") || q.includes("oracle")) {
+    return `### 📜 Verified Certifications & Credentials (8 Total)\n\n` +
+      `1. **SAP Certified - SAP Generative AI Developer** — SAP (Issued Jan 15, 2026, [Credly Badge](https://www.credly.com/badges/b004db60-7712-45cf-88d2-93997a79f6e4))\n` +
+      `2. **Oracle Certified Professional: OCI 2025 Generative AI Professional** — Oracle University (Credential ID: \`321763733OCI25GAIOCP\`)\n` +
+      `3. **Oracle Certified Foundations Associate: OCI 2025 AI Foundations Associate** — Oracle University (Credential ID: \`321763733OCI25AICFA\`)\n` +
+      `4. **Certificate of Scholar** — Nirma University (Scholastic Award, SGPA 8.57/10 in 2nd Semester, No: \`SCHOLAR-CERTI/2502599\`)\n` +
+      `5. **AI Agents Course** — Hugging Face (Credential ID: \`pranshurajan\`)\n` +
+      `6. **C Programming Certification Test** — KnowledgeGate (Cert No: \`12219903219980860626648\`, [Verify](https://learn.knowledgegate.ai/learn/certificate/12219903-219980))\n` +
+      `7. **Get Started with Databricks for Machine Learning** — SimpliLearn SkillUp (Code: \`8565682\`)\n` +
+      `8. **Certificate of Participation — AI in Renewable Energy Field** — ISA Students' Chapter, Nirma University\n\n` +
+      `*You can also open the **Photos app** on this desktop to view high-resolution scans and official badges of each certificate!*`;
+  }
+
+  // Check if query is greeting or introductory
+  const isGreeting = q.includes("hi") || q.includes("hello") || q.includes("hey") || q.includes("who are you") || q.includes("what can you do") || q.includes("pranshu") || q.trim() === "" || q.includes("about you") || q.includes("intro");
+
+  if (isGreeting) {
+    return `### 👋 Hello! I am Pranshu Rajan's AI Digital Twin\n\n` +
+      `I am strictly grounded in **Pranshu Rajan's** verified resume, engineering systems, and academic credentials at **Nirma University**.\n\n` +
+      `### ⚡ Key Information at a Glance\n` +
+      `- **Education**: 3rd Year B.Tech in Electronics & Instrumentation Engineering at **Nirma University, Ahmedabad** (2024–2028, CGPA 7.88).\n` +
+      `- **Control & AI Flagship**: [Smart Multizone Irrigation Fuzzy System](https://irrigation-fuzzy-system.vercel.app/) (5 Mamdani FIS subsystems, FAO-56 Penman-Monteith, validated vs PID).\n` +
+      `- **Systems Projects**: [UPI Offline Mesh](https://upi-offline-rho.vercel.app), [PacketLens AI C++17 DPI](https://dpi-packet-analyser.vercel.app), and [Pranshu's AI C++17 Vector DB](https://pranshu-ai.vercel.app).\n` +
+      `- **Work Experience**: Full Stack Intern at **Xtin Capital** (Fintech) and AI Intern at **Edunet IBM SkillsBuild**.\n` +
+      `- **Certifications**: 8 verified credentials including **SAP Certified Generative AI Developer**, **Oracle OCI GenAI Professional**, and **Nirma Certificate of Scholar**.\n\n` +
+      `Feel free to ask me anything about Pranshu's architecture, code, algorithms, certifications, or academic background!`;
+  }
+
+  // Strict Out-of-Scope boundary for any external / unrelated query
+  return `This is out of my scope. I am Pranshu Rajan's AI portfolio representative and can only answer questions related to Pranshu's verified background, software projects, technical skills, certifications, and internship opportunities.`;
 }
 
 export async function POST(req: NextRequest) {

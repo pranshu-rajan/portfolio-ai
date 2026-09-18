@@ -20,6 +20,7 @@ import { ResumeApp } from "@/components/apps/ResumeApp";
 import { MailApp } from "@/components/apps/MailApp";
 import { SettingsApp } from "@/components/apps/SettingsApp";
 import { ContactsApp } from "@/components/apps/ContactsApp";
+import { PhotosApp } from "@/components/apps/PhotosApp";
 
 import { AppId, WallpaperId, Project } from "@/types";
 import { sounds } from "@/utils/sound";
@@ -400,6 +401,22 @@ export default function Desktop() {
             currentWallpaper={wallpaper}
             onSelectWallpaper={setWallpaper}
           />
+        </WindowFrame>
+      )}
+
+      {/* 9. Photos App (Certifications & Credentials) */}
+      {windows.photos && (
+        <WindowFrame
+          window={windows.photos}
+          isActive={activeApp === "photos"}
+          onFocus={() => bringToFront("photos")}
+          onClose={() => closeWindow("photos")}
+          onMinimize={() => minimizeWindow("photos")}
+          onMaximize={() => toggleMaximize("photos")}
+          onUpdatePosition={(pos) => updatePosition("photos", pos)}
+          onUpdateSize={(size) => updateSize("photos", size)}
+        >
+          <PhotosApp />
         </WindowFrame>
       )}
 

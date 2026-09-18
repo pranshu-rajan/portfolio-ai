@@ -95,7 +95,7 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
   },
   photos: {
     id: "photos",
-    title: "Photos · Project Showcase",
+    title: "Photos · Certifications & Credentials",
     icon: "Image",
     isOpen: false,
     isMinimized: false,

@@ -507,14 +507,17 @@ function generateFallbackAnswer(query: string): string {
       `- **Best Practices**: Code Review, Unit Testing, Responsive Design, System Design, Team Leadership.`;
   }
 
-  if (q.includes("certif") || q.includes("credential") || q.includes("award")) {
-    return `### 📜 Verified Certifications & Credentials\n\n` +
-      `1. **SAP Certified Generative AI Developer** — SAP\n` +
-      `2. **AI Agents Course** — Hugging Face\n` +
-      `3. **Oracle Cloud Infrastructure 2025 Certified Generative AI Professional** — Oracle\n` +
-      `4. **Get Started with Databricks for Machine Learning** — SimpliLearn\n` +
-      `5. **Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate** — Oracle\n` +
-      `6. **Certificate of Scholar** — Nirma University`;
+  if (q.includes("certif") || q.includes("credential") || q.includes("award") || q.includes("scholar") || q.includes("sap") || q.includes("oracle")) {
+    return `### 📜 Verified Certifications & Credentials (8 Total)\n\n` +
+      `1. **SAP Certified - SAP Generative AI Developer** — SAP (Issued Jan 15, 2026, [Credly Badge](https://www.credly.com/badges/b004db60-7712-45cf-88d2-93997a79f6e4))\n` +
+      `2. **Oracle Certified Professional**: OCI 2025 Generative AI Professional — Oracle (ID: \`321763733OCI25GAIOCP\`)\n` +
+      `3. **Oracle Certified Foundations Associate**: OCI 2025 AI Foundations Associate — Oracle (ID: \`321763733OCI25AICFA\`)\n` +
+      `4. **Certificate of Scholar** — Nirma University (Scholastic Award, SGPA 8.57/10 in 2nd Semester, No: \`SCHOLAR-CERTI/2502599\`)\n` +
+      `5. **AI Agents Course** — Hugging Face (Credential ID: \`pranshurajan\`)\n` +
+      `6. **C Programming Certification Test** — KnowledgeGate (Cert No: \`12219903219980860626648\`, [Verify](https://learn.knowledgegate.ai/learn/certificate/12219903-219980))\n` +
+      `7. **Get Started with Databricks for Machine Learning** — SimpliLearn SkillUp (Code: \`8565682\`)\n` +
+      `8. **Certificate of Participation — AI in Renewable Energy Field** — ISA Students' Chapter, Nirma University\n\n` +
+      `*You can also open the **Photos app** on this desktop to view high-resolution scans and official badges of each certificate!*`;
   }
 
   if (q.includes("education") || q.includes("nirma") || q.includes("college") || q.includes("degree") || q.includes("study") || q.includes("year")) {
@@ -550,12 +553,20 @@ function generateFallbackAnswer(query: string): string {
       `- **LinkedIn**: [linkedin.com/in/pranshu-rajan](https://www.linkedin.com/in/pranshu-rajan/)\n\nYou can also launch the **Mail app** on this desktop to draft a direct message right away!`;
   }
 
-  return `### 👋 Hello! I am ${candidateProfile.name}'s AI Digital Twin\n\n` +
-    `${candidateProfile.bio}\n\n` +
-    `### ⚡ Verified Background\n` +
-    `- **Education**: B.Tech in Electronics & Instrumentation Engineering at **Nirma University, Ahmedabad** (2024–2028, currently in 3rd Year, CGPA 7.88)\n` +
-    `- **Flagship Control Systems**: [Smart Multizone Irrigation Fuzzy System](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system) (5 Mamdani FIS engines, FAO-56 Penman-Monteith, validated vs PID)\n` +
-    `- **Systems & Fintech**: [UPI Offline Mesh](https://github.com/pranshu-rajan/upi-offline-mesh), [PacketLens AI C++17 DPI](https://github.com/pranshu-rajan/dpi-packet-analyser), and [Pranshu's AI Vector DB](https://github.com/pranshu-rajan/pranshu-ai)\n` +
-    `- **Internships**: Full Stack Developer Intern at **Xtin Capital** & AI/Cloud Intern at **Edunet (IBM SkillsBuild)**\n\n` +
-    `What would you like to explore about ${candidateProfile.name}'s background?`;
+  const isGreeting = q.includes("hi") || q.includes("hello") || q.includes("hey") || q.includes("who are you") || q.includes("what can you do") || q.includes("pranshu") || q.trim() === "" || q.includes("about you") || q.includes("intro");
+
+  if (isGreeting) {
+    return `### 👋 Hello! I am ${candidateProfile.name}'s AI Digital Twin\n\n` +
+      `${candidateProfile.bio}\n\n` +
+      `### ⚡ Verified Background\n` +
+      `- **Education**: B.Tech in Electronics & Instrumentation Engineering at **Nirma University, Ahmedabad** (2024–2028, currently in 3rd Year, CGPA 7.88)\n` +
+      `- **Flagship Control Systems**: [Smart Multizone Irrigation Fuzzy System](https://irrigation-fuzzy-system.vercel.app/) (5 Mamdani FIS engines, FAO-56 Penman-Monteith, validated vs PID)\n` +
+      `- **Systems & Fintech**: [UPI Offline Mesh](https://upi-offline-rho.vercel.app), [PacketLens AI C++17 DPI](https://dpi-packet-analyser.vercel.app), and [Pranshu's AI Vector DB](https://pranshu-ai.vercel.app)\n` +
+      `- **Internships**: Full Stack Developer Intern at **Xtin Capital** & AI/Cloud Intern at **Edunet (IBM SkillsBuild)**\n` +
+      `- **Certifications**: 8 verified credentials including **SAP Certified Generative AI Developer**, **Oracle OCI GenAI Professional**, and **Nirma Certificate of Scholar**.\n\n` +
+      `What would you like to explore about ${candidateProfile.name}'s background?`;
+  }
+
+  // Strict Out-of-Scope boundary for any external / unrelated query
+  return `This is out of my scope. I am Pranshu Rajan's AI portfolio representative and can only answer questions related to Pranshu's verified background, software projects, technical skills, certifications, and internship opportunities.`;
 }
