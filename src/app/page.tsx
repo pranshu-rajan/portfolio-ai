@@ -168,15 +168,15 @@ export default function Desktop() {
       </div>
 
       {/* Desktop Icons (Left Side) */}
-      <div className="absolute top-12 left-6 z-20 flex flex-col gap-4">
+      <div className="absolute top-12 left-6 z-20 flex flex-col gap-3">
         <DesktopIcon
           id="finder"
-          title="AnyDrop"
+          title="Smart Irrigation"
           icon={
-            <div className="relative w-14 h-14 drop-shadow-lg">
+            <div className="relative w-13 h-13 drop-shadow-lg">
               <Image
                 src="/images/folder.png"
-                alt="AnyDrop Folder"
+                alt="Smart Irrigation Fuzzy System"
                 fill
                 className="object-contain"
                 sizes="64px"
@@ -188,12 +188,12 @@ export default function Desktop() {
 
         <DesktopIcon
           id="finder"
-          title="CoinInsight"
+          title="UPI Offline Mesh"
           icon={
-            <div className="relative w-14 h-14 drop-shadow-lg">
+            <div className="relative w-13 h-13 drop-shadow-lg">
               <Image
                 src="/images/folder.png"
-                alt="CoinInsight Folder"
+                alt="UPI Offline Mesh"
                 fill
                 className="object-contain"
                 sizes="64px"
@@ -205,12 +205,12 @@ export default function Desktop() {
 
         <DesktopIcon
           id="finder"
-          title="Frog Safari"
+          title="PacketLens AI"
           icon={
-            <div className="relative w-14 h-14 drop-shadow-lg">
+            <div className="relative w-13 h-13 drop-shadow-lg">
               <Image
                 src="/images/folder.png"
-                alt="Frog Safari Folder"
+                alt="PacketLens AI DPI"
                 fill
                 className="object-contain"
                 sizes="64px"
@@ -222,12 +222,29 @@ export default function Desktop() {
 
         <DesktopIcon
           id="finder"
-          title="PrepMate"
+          title="Pranshu's AI"
           icon={
-            <div className="relative w-14 h-14 drop-shadow-lg">
+            <div className="relative w-13 h-13 drop-shadow-lg">
               <Image
                 src="/images/folder.png"
-                alt="PrepMate Folder"
+                alt="Pranshu's AI Vector DB"
+                fill
+                className="object-contain"
+                sizes="64px"
+              />
+            </div>
+          }
+          onOpen={() => openWindow("finder")}
+        />
+
+        <DesktopIcon
+          id="finder"
+          title="Nuzeal Fest"
+          icon={
+            <div className="relative w-13 h-13 drop-shadow-lg">
+              <Image
+                src="/images/folder.png"
+                alt="Nuzeal Cultural Fest"
                 fill
                 className="object-contain"
                 sizes="64px"
@@ -241,7 +258,7 @@ export default function Desktop() {
           id="resume"
           title="Resume.pdf"
           icon={
-            <div className="relative w-14 h-14 drop-shadow-lg">
+            <div className="relative w-13 h-13 drop-shadow-lg">
               <Image
                 src="/images/pdf.png"
                 alt="Resume PDF"

@@ -230,7 +230,7 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
 
                 <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
                   <div className="text-white/40 w-24">Education</div>
-                  <span className="text-white/90">Indus University · B.Tech Computer Science</span>
+                  <span className="text-white/90">Nirma University, Ahmedabad · B.Tech Electronics &amp; Instrumentation (2024–2028, 3rd Year)</span>
                 </div>
 
                 <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">

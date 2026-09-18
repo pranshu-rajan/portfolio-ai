@@ -280,11 +280,11 @@ export function ResumeApp() {
                 <div className="space-y-2 text-[11.5px]">
                   <div>
                     <div className="flex justify-between items-baseline font-bold text-neutral-900">
-                      <span>Electronics and Instrumentation Engineering | Nirma University, Gujarat</span>
+                      <span>B.Tech in Electronics and Instrumentation Engineering | Nirma University, Ahmedabad</span>
                       <span className="font-medium text-neutral-700">CGPA: 7.88</span>
                     </div>
                     <div className="text-neutral-600 text-[11px]">
-                      Expected Graduation: July 2024 – Jul 2028
+                      July 2024 – July 2028 (Currently in 3rd Year)
                     </div>
                   </div>
                   <div>
@@ -395,6 +395,32 @@ export function ResumeApp() {
               style={{ transform: `scale(${zoom / 100})`, transformOrigin: "top center" }}
               className="w-[740px] min-h-[1020px] bg-white text-neutral-900 shadow-2xl p-10 font-sans text-xs transition-transform duration-150 shrink-0 leading-normal rounded-sm"
             >
+              {/* Smart Multizone Irrigation Fuzzy System */}
+              <div className="mb-4">
+                <div className="font-bold text-neutral-900 text-[12px]">
+                  Smart Multizone Irrigation & Water Resource Management Using Hierarchical Adaptive Fuzzy Control
+                </div>
+                <div className="text-[11px] text-neutral-700 italic">
+                  Technologies: Python, Fuzzy Logic, scikit-fuzzy, FAO-56 Penman-Monteith, Control Systems, MATLAB, Simulink
+                </div>
+                <div className="text-[11px] text-neutral-600 mb-1">
+                  GitHub:{" "}
+                  <a
+                    href="https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    github.com/pranshu-rajan/smart-irrigation-fuzzy-system
+                  </a>
+                </div>
+                <ul className="list-disc list-outside pl-4 space-y-1 text-neutral-800 text-[11px] leading-relaxed">
+                  <li>Designed a closed-loop hierarchical adaptive Mamdani fuzzy control system across 5 modular FIS engines (Soil Stress, Weather Stress, Water Demand, Main Irrigation, Water Allocation) with Centroid defuzzification.</li>
+                  <li>Formulated reference evapotranspiration via physics-based FAO-56 Penman-Monteith and modeled dynamic soil-water balance to arbitrate zone competition without black-box ML.</li>
+                  <li>Benchmarked mathematically against traditional On-Off and PID controllers with MATLAB/Simulink and Python validation.</li>
+                </ul>
+              </div>
+
               {/* Continued UPI Offline Mesh */}
               <div className="mb-4">
                 <ul className="list-disc list-outside pl-4 space-y-1 text-neutral-800 text-[11px] leading-relaxed">

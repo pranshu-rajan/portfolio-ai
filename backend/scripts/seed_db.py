@@ -129,6 +129,31 @@ async def seed_collections() -> int:
     # 2. Seed Projects Collection
     projects_data = [
         {
+            "slug": "smart-irrigation",
+            "title": "Smart Multizone Irrigation Fuzzy Control System",
+            "tagline": "Hierarchical Adaptive Closed-Loop Fuzzy Control System for Precision Water Management",
+            "category": "AI / ML & Systems",
+            "description": "A hierarchical adaptive closed-loop fuzzy control architecture orchestrating 5 modular FIS engines to dynamically manage soil moisture, atmospheric vapor pressure deficits, and evapotranspiration demands for multi-crop zones with resource prioritization.",
+            "highlights": [
+                "Engineered 5-engine hierarchical Mamdani FIS: Soil Stress, Weather Stress, Crop Water Demand, Main Irrigation Demand, and Resource Allocation",
+                "Incorporated FAO-56 Penman-Monteith reference evapotranspiration (ETo) dynamic calculations and vapor pressure deficit metrics",
+                "Simulated non-linear soil hydraulic moisture depletion dynamics with hysteresis compensation across Sandy Loam, Clay, and Silt soils",
+                "Built Centroid defuzzification producing smooth, continuous valve flow-rates and pump frequency outputs with zero overshoot vs bang-bang/PID",
+                "Validated via dual-platform implementation in MATLAB/Simulink and Python (scikit-fuzzy, NumPy, SciPy) with full unit test suite"
+            ],
+            "technologies": ["Python", "MATLAB", "Simulink", "scikit-fuzzy", "NumPy", "SciPy", "Control Systems", "Fuzzy Logic"],
+            "live_url": "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
+            "github_url": "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
+            "featured": True,
+            "stars": 1,
+            "role": "Control Systems & Instrumentation Engineer",
+            "timeline": "2026",
+            "metrics": "5 FIS Engines, 30-40% water savings vs On-Off",
+            "accent_color": "#059669",
+            "preview_gradient": "from-emerald-600 via-teal-700 to-cyan-800",
+            "icon": "Cpu"
+        },
+        {
             "slug": "upi-offline-mesh",
             "title": "UPI Offline Mesh · P2P Payment Prototype",
             "tagline": "Cryptographic Peer-to-Peer Offline Payment Relay for Zero-Connectivity Zones",

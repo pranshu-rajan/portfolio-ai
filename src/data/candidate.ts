@@ -79,10 +79,10 @@ export const candidateProfile: CandidateProfile = {
   ],
   education: [
     {
-      degree: "B.Tech in Electronics and Instrumentation Engineering",
-      school: "Nirma University, Gujarat",
+      degree: "B.Tech in Electronics and Instrumentation Engineering (Currently in 3rd Year)",
+      school: "Nirma University, Ahmedabad, Gujarat",
       year: "2024 — 2028",
-      description: "CGPA: 7.88. Coursework in Data Structures, Systems Engineering, Microcontrollers, and Signal Processing."
+      description: "CGPA: 7.88. Coursework in Control Systems, Fuzzy Logic & Intelligent Control, Microcontrollers, Signal Processing, and Distributed Systems."
     },
     {
       degree: "Class XII (GSEB)",

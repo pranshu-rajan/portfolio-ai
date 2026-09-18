@@ -2,6 +2,29 @@ import { Project } from "@/types";
 
 export const projectsData: Project[] = [
   {
+    id: "smart-irrigation",
+    title: "Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control",
+    tagline: "Academic Control Systems & Instrumentation Project at Nirma University",
+    category: "AI & ML",
+    description: "A closed-loop, intelligent multizone irrigation and water resource management system using Hierarchical Adaptive Mamdani Fuzzy Control. Ingests dynamic environmental parameters, computes reference evapotranspiration via FAO-56 Penman-Monteith, and coordinates 5 modular Fuzzy Inference Systems (Soil Stress, Weather Stress, Water Demand, Main Irrigation, Water Allocation) with Centroid defuzzification, outperforming traditional On-Off and PID controllers.",
+    highlights: [
+      "Designed 5 modular Mamdani Fuzzy Inference Systems (FIS) resolving multi-zone resource competition with centroid defuzzification",
+      "Integrated physics-based FAO-56 Penman-Monteith evapotranspiration formulation and dynamic soil-water balance modeling",
+      "Closed-loop feedback tracking moisture error e(t) and normalized relative soil moisture across competing agricultural zones",
+      "Benchmarked mathematically against traditional bang-bang and PID controllers with MATLAB/Simulink and Python validation"
+    ],
+    technologies: ["Python", "Fuzzy Logic", "scikit-fuzzy", "Control Systems", "FAO-56 Penman-Monteith", "MATLAB", "Simulink", "NumPy"],
+    githubUrl: "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
+    featured: true,
+    stars: 1,
+    role: "Lead Control Systems Researcher & Developer",
+    timeline: "2026",
+    metrics: "5 Hierarchical FIS engines, zero black-box ML, validated vs PID",
+    accentColor: "#10b981",
+    previewGradient: "from-emerald-600 via-teal-600 to-cyan-600",
+    icon: "Cpu"
+  },
+  {
     id: "pranshu-ai",
     title: "Pranshu’s AI · Production Vector DB & RAG",
     tagline: "Custom C++17 Vector Database & Hybrid BM25/Dense Retrieval Engine",

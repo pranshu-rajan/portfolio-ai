@@ -26,22 +26,22 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: "welcome-1",
     role: "assistant",
-    content: `### 👋 Welcome! I am ${candidateProfile.name}'s AI Digital Twin\n\nI am an autonomous candidate representative grounded directly in **${candidateProfile.name}'s** verified resume, systems architecture, engineering projects, and internships.\n\n### ⚡ Quick Explore\n- **Flagship Projects**: UPI Offline Mesh, PacketLens AI, Pranshu's AI Vector DB, Vaudeville 2026\n- **Work Experience**: Xtin Capital (Fintech) & Edunet IBM SkillsBuild (AI/Cloud)\n- **Education**: Nirma University (CGPA 7.88) & ISA Board\n\nWhat would you like to explore about my background?`,
+    content: `### 👋 Welcome! I am ${candidateProfile.name}'s AI Digital Twin\n\nI am strictly grounded in **${candidateProfile.name}'s** verified resume, control systems architecture, engineering projects, and internships.\n\n### ⚡ Quick Explore\n- **Flagship Control Systems**: [Smart Multizone Irrigation Fuzzy System](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system) (5 Mamdani FIS Subsystems, FAO-56 Penman-Monteith, validated vs PID)\n- **Systems & Fintech**: [UPI Offline Mesh](https://github.com/pranshu-rajan/upi-offline-mesh), [PacketLens AI C++17 DPI](https://github.com/pranshu-rajan/dpi-packet-analyser), [Pranshu's AI Vector DB](https://github.com/pranshu-rajan/pranshu-ai)\n- **Education**: Nirma University, Ahmedabad (2024–2028, 3rd Year B.Tech Electronics & Instrumentation, CGPA 7.88)\n- **Work Experience**: Xtin Capital (Fintech) & Edunet IBM SkillsBuild (AI & Cloud)\n\nWhat would you like to explore about my background?`,
     timestamp: "Just now",
     suggestedFollowUps: [
+      "Tell me about the Smart Irrigation Fuzzy System",
       "Why should we hire you?",
-      "Tell me about UPI Offline Mesh",
-      "Explain Pranshu's AI Vector DB",
-      "Tell me about Vaudeville 2026",
+      "How does UPI Offline Mesh encryption work?",
+      "Explain your education at Nirma University",
     ],
   },
 ];
 
 const PROMPT_SUGGESTIONS = [
-  { label: "Why should we hire you?", icon: Award },
+  { label: "Smart Irrigation Fuzzy Control", icon: Award },
   { label: "Top projects (UPI Mesh & Vector DB)", icon: Briefcase },
+  { label: "Nirma University education & CGPA", icon: GraduationCap },
   { label: "Full technical skills & stack", icon: Layers },
-  { label: "Internships & work experience", icon: GraduationCap },
 ];
 
 export function AiChatApp() {
@@ -72,7 +72,20 @@ export function AiChatApp() {
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     };
 
-    setMessages((prev) => [...prev, userMsg]);
+    const aiMsgId = `ai-${Date.now()}`;
+    const assistantMsgPlaceholder: ChatMessage = {
+      id: aiMsgId,
+      role: "assistant",
+      content: "",
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      suggestedFollowUps: [
+        "Tell me about the Smart Irrigation Fuzzy System",
+        "Explain your education at Nirma University",
+        "How does UPI Offline Mesh work?",
+      ],
+    };
+
+    setMessages((prev) => [...prev, userMsg, assistantMsgPlaceholder]);
     setInput("");
     setIsLoading(true);
 
@@ -87,31 +100,44 @@ export function AiChatApp() {
         throw new Error("API call returned non-200");
       }
 
-      const data = await res.json();
-      const assistantMsg: ChatMessage = {
-        id: `ai-${Date.now()}`,
-        role: "assistant",
-        content: data.answer || generateFallbackAnswer(query),
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        suggestedFollowUps: data.suggestedFollowUps || [],
-      };
+      if (!res.body) {
+        throw new Error("No response body");
+      }
 
-      setMessages((prev) => [...prev, assistantMsg]);
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let streamedContent = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const textChunk = decoder.decode(value, { stream: true });
+        streamedContent += textChunk;
+
+        setMessages((prev) => {
+          return prev.map((msg) => {
+            if (msg.id === aiMsgId) {
+              return { ...msg, content: streamedContent };
+            }
+            return msg;
+          });
+        });
+      }
     } catch {
-      // Zero-latency grounded fallback answer
+      // Fallback if network or stream interrupted
       const fallbackAnswer = generateFallbackAnswer(query);
-      const assistantMsg: ChatMessage = {
-        id: `ai-${Date.now()}`,
-        role: "assistant",
-        content: fallbackAnswer,
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        suggestedFollowUps: [
-          "Tell me about UPI Offline Mesh",
-          "What did you build at Xtin Capital?",
-          "What are your verified certifications?",
-        ],
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
+      setMessages((prev) => {
+        return prev.map((msg) => {
+          if (msg.id === aiMsgId) {
+            return {
+              ...msg,
+              content: msg.content || fallbackAnswer,
+            };
+          }
+          return msg;
+        });
+      });
     } finally {
       setIsLoading(false);
       sounds.playChime();
@@ -379,10 +405,23 @@ function generateFallbackAnswer(query: string): string {
       `- **Leadership & Verified Credentials**: Executive Committee Board Member at **ISA Nirma University** (CGPA 7.88), holding 6 certifications including SAP Generative AI Developer and Oracle OCI GenAI Professional.`;
   }
 
+  if (q.includes("irrigation") || q.includes("fuzzy") || q.includes("water") || q.includes("agriculture")) {
+    return `### 🌾 Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control\n\n` +
+      `This is **Pranshu Rajan's** flagship academic control systems project at **Nirma University** (3rd-Year Electronics & Instrumentation Engineering).\n\n` +
+      `### 🛠️ Core Control Theory & Architecture\n` +
+      `- **Theoretical Foundation**: Implements a closed-loop hierarchical adaptive Mamdani fuzzy control system, avoiding black-box ML or crude hysteresis switching.\n` +
+      `- **5 Modular Fuzzy Inference Systems (FIS)**: Soil Stress FIS, Weather Stress FIS, Water Demand FIS, Main Irrigation Demand FIS, and Water Allocation FIS using Centroid defuzzification.\n` +
+      `- **Physics-Based Modeling**: Formulates reference evapotranspiration ($ET_0$) via **FAO-56 Penman-Monteith** and models dynamic soil-water balance to arbitrate zone competition.\n` +
+      `- **Validation**: Benchmarked against traditional On-Off (bang-bang) and PID controllers using MATLAB/Simulink and Python (**scikit-fuzzy**).\n\n` +
+      `### 🔗 Repository\n` +
+      `- **GitHub Source**: [github.com/pranshu-rajan/smart-irrigation-fuzzy-system](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)`;
+  }
+
   if (q.includes("project") || q.includes("built") || q.includes("work") || q.includes("portfolio")) {
     return `### 🚀 Flagship Engineering Projects\n\n` +
       `Here are the verified systems and platforms engineered by **${candidateProfile.name}**:\n\n` +
       `### ⚡ Featured Systems\n` +
+      `- **Smart Multizone Irrigation Fuzzy System** (Python, Fuzzy Logic, MATLAB, Simulink): Closed-loop hierarchical adaptive Mamdani fuzzy control system across 5 modular FIS engines, incorporating FAO-56 Penman-Monteith. [Code](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)\n` +
       `- **UPI Offline Mesh** (Java, Spring Boot, PostgreSQL, Next.js, Docker): Offline P2P payment prototype relaying encrypted transactions across nearby devices to solve zero-connectivity UPI failures. Secured with RSA-2048 + AES-256-GCM and SHA-256 idempotency. [Live Demo](https://upi-offline-rho.vercel.app) · [Code](https://github.com/pranshu-rajan/upi-offline-mesh)\n` +
       `- **PacketLens AI** (C++17, FastAPI, Python, Next.js, TypeScript): Multi-threaded C++17 network forensics platform with a Wireshark-style packet inspector, synchronized hex viewer, and streaming security copilot. [Live Demo](https://dpi-packet-analyser.vercel.app) · [Code](https://github.com/pranshu-rajan/dpi-packet-analyser)\n` +
       `- **Pranshu’s AI** (C++17, Python, FastAPI, Next.js, Groq API, SQLite): Custom vector database with HNSW and KD-Tree indexing, cutting query latency to sub-milliseconds, paired with BM25 hybrid RAG. [Live Demo](https://pranshu-ai.vercel.app) · [Code](https://github.com/pranshu-rajan/pranshu-ai)\n` +
@@ -477,13 +516,16 @@ function generateFallbackAnswer(query: string): string {
       `6. **Certificate of Scholar** — Nirma University`;
   }
 
-  if (q.includes("education") || q.includes("nirma") || q.includes("college") || q.includes("degree")) {
+  if (q.includes("education") || q.includes("nirma") || q.includes("college") || q.includes("degree") || q.includes("study") || q.includes("year")) {
     return `### 🎓 Academic Background\n\n` +
-      `- **B.Tech in Electronics and Instrumentation Engineering** — Nirma University, Gujarat\n` +
-      `  - CGPA: **7.88** (July 2024 – July 2028)\n` +
-      `  - Executive Committee Board Member at **International Society of Automation (ISA)**\n\n` +
+      `- **B.Tech in Electronics and Instrumentation Engineering** — Nirma University, Ahmedabad\n` +
+      `  - **Academic Standing**: Currently in **3rd Year** (Duration: **July 2024 – July 2028**)\n` +
+      `  - **Cumulative GPA**: **7.88 / 10.0**\n` +
+      `  - **Key Coursework**: Control Systems, Fuzzy Logic & Intelligent Control, Microcontrollers, Digital Signal Processing, Distributed Systems\n` +
+      `  - **Leadership**: Executive Committee Board Member at **International Society of Automation (ISA)** Nirma Chapter\n` +
+      `  - **Scholarship**: Recipient of the **Certificate of Scholar** from Nirma University\n\n` +
       `- **Class XII (GSEB)** — Swastik Academy, Gujarat\n` +
-      `  - Scored **80.3%** (2024)`;
+      `  - Scored **80.3%** in Science & Mathematics (2024)`;
   }
 
   if (q.includes("isa") || q.includes("leadership") || q.includes("responsibility") || q.includes("position")) {
@@ -510,8 +552,9 @@ function generateFallbackAnswer(query: string): string {
   return `### 👋 Hello! I am ${candidateProfile.name}'s AI Digital Twin\n\n` +
     `${candidateProfile.bio}\n\n` +
     `### ⚡ Verified Background\n` +
-    `- **Education**: B.Tech in Electronics & Instrumentation at Nirma University (CGPA 7.88)\n` +
-    `- **Internships**: Full Stack Developer Intern at Xtin Capital & AI/Cloud Intern at Edunet (IBM SkillsBuild)\n` +
-    `- **Flagship Projects**: UPI Offline Mesh, PacketLens AI, Pranshu's AI Vector Database, Vaudeville 2026\n\n` +
+    `- **Education**: B.Tech in Electronics & Instrumentation Engineering at **Nirma University, Ahmedabad** (2024–2028, currently in 3rd Year, CGPA 7.88)\n` +
+    `- **Flagship Control Systems**: [Smart Multizone Irrigation Fuzzy System](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system) (5 Mamdani FIS engines, FAO-56 Penman-Monteith, validated vs PID)\n` +
+    `- **Systems & Fintech**: [UPI Offline Mesh](https://github.com/pranshu-rajan/upi-offline-mesh), [PacketLens AI C++17 DPI](https://github.com/pranshu-rajan/dpi-packet-analyser), and [Pranshu's AI Vector DB](https://github.com/pranshu-rajan/pranshu-ai)\n` +
+    `- **Internships**: Full Stack Developer Intern at **Xtin Capital** & AI/Cloud Intern at **Edunet (IBM SkillsBuild)**\n\n` +
     `What would you like to explore about ${candidateProfile.name}'s background?`;
 }
