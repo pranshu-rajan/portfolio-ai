@@ -1,0 +1,5 @@
+# Ignore backend folder on Vercel builds (hosted on Render)
+backend/
+Dockerfile
+docker-compose.yml
+render.yaml
