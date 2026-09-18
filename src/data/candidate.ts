@@ -8,11 +8,12 @@ export const candidateProfile: CandidateProfile = {
   email: "pranshurajan9211@gmail.com",
   github: "https://github.com/pranshu-rajan",
   linkedin: "https://www.linkedin.com/in/pranshu-rajan/",
+  leetcode: "https://leetcode.com/u/PranshuRajan/",
   twitter: "https://x.com",
   portfolioUrl: "https://github.com/pranshu-rajan",
-  status: "Open to Full Stack Developer & AI Engineering Opportunities",
-  availability: "Available for Roles & Collaborative Projects",
-  bio: "Full Stack Developer and AI Engineer passionate about building resilient distributed systems, custom vector databases, high-performance C++ packet analyzers, and modern React/Next.js web applications. Experienced with hybrid RAG pipelines, SEBI-compliant fintech payment integrations, and deep learning architectures.",
+  status: "Targeting Software-Based Roles · Seeking Winter & Summer Internships",
+  availability: "Open to Remote / Hybrid / On-site · Open to Relocation across all India & Worldwide",
+  bio: "Full Stack Developer and AI Engineer actively seeking Winter and Summer Internships for software-based roles (Software Engineering, Full-Stack, AI/ML, Backend). High-impact problem solver with demonstrated expertise in distributed cryptography (UPI Offline Mesh), custom C++17 vector databases (Pranshu's AI), multi-threaded packet inspection (PacketLens AI), and computer vision models (Leaf Disease Detection).",
   skills: [
     {
       category: "Programming Languages",

@@ -64,6 +64,7 @@ export interface CandidateProfile {
   github: string;
   linkedin: string;
   twitter: string;
+  leetcode?: string;
   portfolioUrl: string;
   bio: string;
   status: string;

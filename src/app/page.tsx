@@ -171,23 +171,6 @@ export default function Desktop() {
       <div className="absolute top-12 left-6 z-20 flex flex-col gap-3">
         <DesktopIcon
           id="finder"
-          title="Smart Irrigation"
-          icon={
-            <div className="relative w-13 h-13 drop-shadow-lg">
-              <Image
-                src="/images/folder.png"
-                alt="Smart Irrigation Fuzzy System"
-                fill
-                className="object-contain"
-                sizes="64px"
-              />
-            </div>
-          }
-          onOpen={() => openWindow("finder")}
-        />
-
-        <DesktopIcon
-          id="finder"
           title="UPI Offline Mesh"
           icon={
             <div className="relative w-13 h-13 drop-shadow-lg">
@@ -239,12 +222,12 @@ export default function Desktop() {
 
         <DesktopIcon
           id="finder"
-          title="Nuzeal Fest"
+          title="Leaf Disease Detection"
           icon={
             <div className="relative w-13 h-13 drop-shadow-lg">
               <Image
                 src="/images/folder.png"
-                alt="Nuzeal Cultural Fest"
+                alt="Agricultural Leaf Disease Detection"
                 fill
                 className="object-contain"
                 sizes="64px"

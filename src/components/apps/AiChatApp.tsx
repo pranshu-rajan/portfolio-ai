@@ -26,22 +26,22 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: "welcome-1",
     role: "assistant",
-    content: `### 👋 Welcome! I am ${candidateProfile.name}'s AI Digital Twin\n\nI am strictly grounded in **${candidateProfile.name}'s** verified resume, control systems architecture, engineering projects, and internships.\n\n### ⚡ Quick Explore\n- **Flagship Control Systems**: [Smart Multizone Irrigation Fuzzy System](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system) (5 Mamdani FIS Subsystems, FAO-56 Penman-Monteith, validated vs PID)\n- **Systems & Fintech**: [UPI Offline Mesh](https://github.com/pranshu-rajan/upi-offline-mesh), [PacketLens AI C++17 DPI](https://github.com/pranshu-rajan/dpi-packet-analyser), [Pranshu's AI Vector DB](https://github.com/pranshu-rajan/pranshu-ai)\n- **Education**: Nirma University, Ahmedabad (2024–2028, 3rd Year B.Tech Electronics & Instrumentation, CGPA 7.88)\n- **Work Experience**: Xtin Capital (Fintech) & Edunet IBM SkillsBuild (AI & Cloud)\n\nWhat would you like to explore about my background?`,
+    content: `### 👋 Welcome! I am ${candidateProfile.name}'s AI Digital Twin\n\nI am strictly grounded in **${candidateProfile.name}'s** verified background, projects, LeetCode track record, and software engineering internships.\n\n### ⚡ Quick Facts\n- **Target Roles**: **Software-Based Roles Only** (SDE, Full-Stack, AI/ML, Backend Internships). Seeking **Winter & Summer Internships** across all modes (Remote / Hybrid / On-site).\n- **Location & Relocation**: Based in India; **open to relocation** across India & globally.\n- **Top 4 Software Projects**: [UPI Offline Mesh](https://github.com/pranshu-rajan/upi-offline-mesh), [PacketLens AI C++17 DPI](https://github.com/pranshu-rajan/dpi-packet-analyser), [Pranshu's AI Vector DB](https://github.com/pranshu-rajan/pranshu-ai), and [Leaf Disease Detection](https://github.com/pranshu-rajan/leaf-disease-detection).\n- **Problem Solving**: Active on [LeetCode](https://leetcode.com/u/PranshuRajan/).\n- **Education**: Nirma University, Ahmedabad (2024–2028, currently in 3rd Year, CGPA 7.88).\n\nWhat would you like to explore about my engineering background?`,
     timestamp: "Just now",
     suggestedFollowUps: [
-      "Tell me about the Smart Irrigation Fuzzy System",
-      "Why should we hire you?",
-      "How does UPI Offline Mesh encryption work?",
+      "What roles and internships are you targeting?",
+      "How did you solve double-spending in UPI Offline Mesh?",
+      "Tell me about your C++17 projects & LeetCode",
       "Explain your education at Nirma University",
     ],
   },
 ];
 
 const PROMPT_SUGGESTIONS = [
-  { label: "Smart Irrigation Fuzzy Control", icon: Award },
-  { label: "Top projects (UPI Mesh & Vector DB)", icon: Briefcase },
+  { label: "Target roles & internship availability", icon: Briefcase },
+  { label: "UPI Mesh cryptographic replay defense", icon: Award },
+  { label: "LeetCode & algorithmic skills", icon: Layers },
   { label: "Nirma University education & CGPA", icon: GraduationCap },
-  { label: "Full technical skills & stack", icon: Layers },
 ];
 
 export function AiChatApp() {

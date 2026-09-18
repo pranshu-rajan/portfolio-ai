@@ -15,7 +15,7 @@ import { sounds } from "@/utils/sound";
 export function ResumeApp() {
   const [zoom, setZoom] = useState(100);
   const [activePage, setActivePage] = useState<1 | 2>(1);
-  const [viewMode, setViewMode] = useState<"document" | "native">("document");
+  const [viewMode, setViewMode] = useState<"document" | "native">("native");
   const page1Ref = useRef<HTMLDivElement>(null);
   const page2Ref = useRef<HTMLDivElement>(null);
 
@@ -115,20 +115,6 @@ export function ResumeApp() {
             <div className="flex items-center bg-black/30 p-0.5 rounded-lg border border-white/10 text-xs">
               <button
                 onClick={() => {
-                  setViewMode("document");
-                  sounds.playClick();
-                }}
-                className={`px-2 py-1 rounded-md text-[11px] font-medium transition-colors flex items-center gap-1 ${
-                  viewMode === "document"
-                    ? "bg-white/20 text-white shadow-sm"
-                    : "text-white/60 hover:text-white"
-                }`}
-              >
-                <FileCheck className="w-3 h-3 text-blue-400" />
-                <span>Document</span>
-              </button>
-              <button
-                onClick={() => {
                   setViewMode("native");
                   sounds.playClick();
                 }}
@@ -139,7 +125,21 @@ export function ResumeApp() {
                 }`}
               >
                 <Eye className="w-3 h-3 text-emerald-400" />
-                <span>Native PDF</span>
+                <span>Original PDF</span>
+              </button>
+              <button
+                onClick={() => {
+                  setViewMode("document");
+                  sounds.playClick();
+                }}
+                className={`px-2 py-1 rounded-md text-[11px] font-medium transition-colors flex items-center gap-1 ${
+                  viewMode === "document"
+                    ? "bg-white/20 text-white shadow-sm"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                <FileCheck className="w-3 h-3 text-blue-400" />
+                <span>Document View</span>
               </button>
             </div>
 
@@ -226,6 +226,18 @@ export function ResumeApp() {
                       className="text-blue-600 hover:underline font-medium"
                     >
                       linkedin.com/in/pranshu-rajan
+                    </a>
+                  </span>
+                  <span>|</span>
+                  <span>
+                    LeetCode:{" "}
+                    <a
+                      href="https://leetcode.com/u/PranshuRajan/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline font-medium"
+                    >
+                      leetcode.com/u/PranshuRajan
                     </a>
                   </span>
                 </div>
@@ -395,32 +407,6 @@ export function ResumeApp() {
               style={{ transform: `scale(${zoom / 100})`, transformOrigin: "top center" }}
               className="w-[740px] min-h-[1020px] bg-white text-neutral-900 shadow-2xl p-10 font-sans text-xs transition-transform duration-150 shrink-0 leading-normal rounded-sm"
             >
-              {/* Smart Multizone Irrigation Fuzzy System */}
-              <div className="mb-4">
-                <div className="font-bold text-neutral-900 text-[12px]">
-                  Smart Multizone Irrigation & Water Resource Management Using Hierarchical Adaptive Fuzzy Control
-                </div>
-                <div className="text-[11px] text-neutral-700 italic">
-                  Technologies: Python, Fuzzy Logic, scikit-fuzzy, FAO-56 Penman-Monteith, Control Systems, MATLAB, Simulink
-                </div>
-                <div className="text-[11px] text-neutral-600 mb-1">
-                  GitHub:{" "}
-                  <a
-                    href="https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
-                  >
-                    github.com/pranshu-rajan/smart-irrigation-fuzzy-system
-                  </a>
-                </div>
-                <ul className="list-disc list-outside pl-4 space-y-1 text-neutral-800 text-[11px] leading-relaxed">
-                  <li>Designed a closed-loop hierarchical adaptive Mamdani fuzzy control system across 5 modular FIS engines (Soil Stress, Weather Stress, Water Demand, Main Irrigation, Water Allocation) with Centroid defuzzification.</li>
-                  <li>Formulated reference evapotranspiration via physics-based FAO-56 Penman-Monteith and modeled dynamic soil-water balance to arbitrate zone competition without black-box ML.</li>
-                  <li>Benchmarked mathematically against traditional On-Off and PID controllers with MATLAB/Simulink and Python validation.</li>
-                </ul>
-              </div>
-
               {/* Continued UPI Offline Mesh */}
               <div className="mb-4">
                 <ul className="list-disc list-outside pl-4 space-y-1 text-neutral-800 text-[11px] leading-relaxed">
@@ -496,6 +482,41 @@ export function ResumeApp() {
                   <li>Built a custom vector engine using C++17 & Python with HNSW and KD-Tree indexing, cutting query latency to sub-milliseconds and eliminating reliance on paid vector databases.</li>
                   <li>Engineered a document ingestion pipeline using FastAPI with recursive text chunking and BM25/Dense hybrid search (RRF), preventing context fragmentation and fixing keyword-misses during retrieval.</li>
                   <li>Developed a full-stack web dashboard using Next.js 15, TypeScript, and Docker with drag-and-drop file uploads, real-time graph inspection, and latency benchmarks, making index debugging and document management seamless.</li>
+                </ul>
+              </div>
+
+              {/* Agricultural Leaf Disease Detection */}
+              <div className="mb-5">
+                <div className="font-bold text-neutral-900 text-[12px]">
+                  Agricultural Leaf Disease Detection
+                </div>
+                <div className="text-[11px] text-neutral-700 italic">
+                  Technologies: Python, PyTorch, Streamlit, Computer Vision, PIL
+                </div>
+                <div className="text-[11px] text-neutral-600 mb-1">
+                  GitHub:{" "}
+                  <a
+                    href="https://github.com/pranshu-rajan/leaf-disease-detection"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    github.com/pranshu-rajan/leaf-disease-detection
+                  </a>{" "}
+                  | Live:{" "}
+                  <a
+                    href="https://leafdisease-detection.streamlit.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    leafdisease-detection.streamlit.app
+                  </a>
+                </div>
+                <ul className="list-disc list-outside pl-4 space-y-1 text-neutral-800 text-[11px] leading-relaxed">
+                  <li>Built an automated agricultural health assessment system utilizing deep learning convolutional models to classify leaf diseases from photographs with instant diagnostic accuracy.</li>
+                  <li>Developed an interactive Streamlit web interface with real-time image upload, inference, and classification confidence scores.</li>
+                  <li>Optimized lightweight model architecture for rapid low-latency CPU and GPU inference without deployment timeouts.</li>
                 </ul>
               </div>
 

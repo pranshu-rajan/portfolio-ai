@@ -6,7 +6,8 @@
   "location": "Ahmedabad, Gujarat, India",
   "github": "https://github.com/pranshu-rajan",
   "linkedin": "https://www.linkedin.com/in/pranshu-rajan/",
-  "summary": "Full Stack Developer and AI Engineer passionate about building resilient distributed systems, custom vector databases, high-performance C++ packet analyzers, and modern React/Next.js web applications. Experienced with hybrid RAG pipelines, SEBI-compliant fintech payment integrations, and deep learning architectures.",
+  "leetcode": "https://leetcode.com/u/PranshuRajan/",
+  "summary": "Full Stack Developer and AI Engineer actively seeking Winter & Summer Internships for software-based roles (Software Engineering, Full-Stack, AI/ML, Backend). Open to all modes (Remote / Hybrid / On-site) and flexible to relocate across India and globally. Proven track record building resilient distributed systems, custom vector databases, high-performance C++ packet analyzers, and modern React/Next.js web applications. Solved cryptographic replay attacks in zero-connectivity P2P payment relays (UPI Mesh) and engineered deep learning pathology models (Leaf Disease Detection).",
   "skills_categories": {
     "Programming Languages": ["JavaScript", "TypeScript", "Python", "SQL", "HTML5", "CSS3", "C++17", "Java"],
     "Frontend Technologies": ["React.js", "Next.js", "Vite", "Tailwind CSS", "Framer Motion", "GSAP", "Three.js", "React Three Fiber", "Chart.js"],
@@ -59,16 +60,6 @@
   ],
   "projects": [
     {
-      "title": "Smart Multizone Irrigation & Water Resource Management Using Hierarchical Adaptive Fuzzy Control",
-      "technologies": "Python, Fuzzy Logic, scikit-fuzzy, FAO-56 Penman-Monteith, Control Systems, MATLAB, Simulink",
-      "github": "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
-      "bullets": [
-        "Architected a closed-loop hierarchical adaptive Mamdani fuzzy control system across 5 modular inference engines (Soil Stress, Weather Stress, Water Demand, Main Irrigation, Water Allocation) with Centroid defuzzification.",
-        "Integrated physics-based FAO-56 Penman-Monteith reference evapotranspiration (ET0) and dynamic soil-water balance modeling to resolve inter-zone resource competition.",
-        "Benchmarked mathematically against traditional On-Off (bang-bang) and PID controllers, proving superior water savings and dynamic crop stress mitigation without black-box machine learning."
-      ]
-    },
-    {
       "title": "UPI Offline Mesh — Peer-to-Peer Offline Payment Prototype",
       "technologies": "Java, Spring Boot, PostgreSQL, Next.js, TypeScript, REST APIs, Docker",
       "github": "https://github.com/pranshu-rajan/upi-offline-mesh",
@@ -102,6 +93,27 @@
       ]
     },
     {
+      "title": "Agricultural Leaf Disease Detection",
+      "technologies": "Python, PyTorch, Streamlit, Computer Vision, PIL",
+      "github": "https://github.com/pranshu-rajan/leaf-disease-detection",
+      "live": "https://leafdisease-detection.streamlit.app",
+      "bullets": [
+        "Developed a deep learning computer vision pipeline for automated agricultural leaf pathology diagnosis with high classification accuracy.",
+        "Built an interactive Streamlit web application providing real-time image uploads, top-3 confidence scores, and crop treatment recommendations.",
+        "Optimized model inference architecture for rapid low-latency CPU and GPU execution, preventing deployment timeouts."
+      ]
+    },
+    {
+      "title": "Smart Multizone Irrigation & Water Resource Management Using Hierarchical Adaptive Fuzzy Control",
+      "technologies": "Python, Fuzzy Logic, scikit-fuzzy, FAO-56 Penman-Monteith, Control Systems, MATLAB, Simulink",
+      "github": "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
+      "bullets": [
+        "Architected a closed-loop hierarchical adaptive Mamdani fuzzy control system across 5 modular inference engines (Soil Stress, Weather Stress, Water Demand, Main Irrigation, Water Allocation) with Centroid defuzzification.",
+        "Integrated physics-based FAO-56 Penman-Monteith reference evapotranspiration (ET0) and dynamic soil-water balance modeling to resolve inter-zone resource competition.",
+        "Benchmarked mathematically against traditional On-Off (bang-bang) and PID controllers, proving superior water savings and dynamic crop stress mitigation without black-box machine learning."
+      ]
+    },
+    {
       "title": "Nuzeal Cultural Fest Platform",
       "technologies": "Next.js, TypeScript, Tailwind CSS, Vercel",
       "github": "https://github.com/pranshu-rajan/nuzeal-cultural-fest",
@@ -119,16 +131,6 @@
       "bullets": [
         "A highly cinematic, immersive, pirate-themed college cultural festival web platform.",
         "Designed with bespoke Cinzel Decorative atmospheric typography, audio effects, interactive schedule exploration, and event registration pipelines."
-      ]
-    },
-    {
-      "title": "Leaf Disease Detection",
-      "technologies": "Python, TensorFlow/PyTorch, Streamlit",
-      "github": "https://github.com/pranshu-rajan/leaf-disease-detection",
-      "live": "https://leafdisease-detection.streamlit.app",
-      "bullets": [
-        "Deep learning computer vision pipeline for automated agricultural leaf pathology diagnosis.",
-        "Interactive web application providing real-time inference on leaf photos."
       ]
     }
   ],

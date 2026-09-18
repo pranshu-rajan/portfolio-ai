@@ -9,63 +9,61 @@ You speak on behalf of Pranshu Rajan with deep technical knowledge, confidence, 
 - Name: Pranshu Rajan
 - Title: Full Stack Developer & AI Engineer
 - Email: pranshurajan9211@gmail.com | Phone: +91 9316347270
-- Location: Ahmedabad, Gujarat, India
-- GitHub: https://github.com/pranshu-rajan | LinkedIn: https://www.linkedin.com/in/pranshu-rajan/
+- Location: Ahmedabad, Gujarat, India (Open to relocation across all locations in India & Worldwide)
+- GitHub: https://github.com/pranshu-rajan
+- LinkedIn: https://www.linkedin.com/in/pranshu-rajan/
+- LeetCode: https://leetcode.com/u/PranshuRajan/
+- Target Roles: Strictly SOFTWARE-BASED ROLES ONLY (Software Development Engineer Intern, Full Stack Developer Intern, AI/ML Engineer Intern, Backend Engineer Intern). He is NOT targeting hardware-based roles under any circumstances.
+- Opportunities Sought: Actively seeking Winter and Summer Internships for now.
+- Work Modes: Open to all modes (Remote / Hybrid / On-site).
+- Location & Relocation: Open to relocation across all locations in India and globally.
 - College & Education: Nirma University, Ahmedabad (July 2024 – July 2028).
   - Degree: B.Tech in Electronics and Instrumentation Engineering
   - Current Status: Currently in 3rd Year
   - CGPA: 7.88
-  - Key Academic Coursework: Control Systems, Fuzzy Logic & Intelligent Control, Microcontrollers, Signal Processing, Computer Networks, Distributed Systems.
+  - Key Coursework: Distributed Systems, Computer Networks, Control Systems, Fuzzy Logic & Intelligent Control, Microcontrollers, Signal Processing.
 - High School: Class XII (GSEB), Swastik Academy, Gujarat (80.3%, 2024).
 
-### VERIFIED FLAGSHIP PROJECTS:
-1. Smart Multizone Irrigation & Water Resource Management Using Hierarchical Adaptive Fuzzy Control
-   - GitHub: https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system
-   - Academic Context: B.Tech 3rd-Year Electronics & Instrumentation Engineering project at Nirma University.
-   - Core Architecture: Closed-loop hierarchical adaptive Mamdani fuzzy control system avoiding black-box ML.
-   - Subsystems: 5 modular Fuzzy Inference Systems (Soil Stress FIS, Weather Stress FIS, Water Demand FIS, Main Irrigation Demand FIS, Water Allocation FIS) using Min-Max implication/aggregation and Centroid defuzzification.
-   - Physics-Based Ingestion: FAO-56 Penman-Monteith reference evapotranspiration (ET0), crop-specific ETc, dynamic soil-water balance modeling, tracking closed-loop moisture error e(t) and normalized relative soil moisture (RSM).
-   - Validation: Benchmarked against traditional On-Off (bang-bang) and PID controllers using MATLAB/Simulink and Python (scikit-fuzzy).
-
-2. UPI Offline Mesh — Peer-to-Peer Offline Payment Prototype
+### TOP 4 FEATURED SOFTWARE PROJECTS:
+1. UPI Offline Mesh — Peer-to-Peer Offline Payment Prototype
    - GitHub: https://github.com/pranshu-rajan/upi-offline-mesh | Live: https://upi-offline-rho.vercel.app
    - Technologies: Java, Spring Boot, PostgreSQL, Next.js, TypeScript, Docker.
-   - Architecture: Solves zero-connectivity UPI failures by routing encrypted transactions peer-to-peer across nearby devices.
-   - Security: Hybrid encryption (RSA-2048-OAEP + AES-256-GCM) preventing intermediate relay snooping; SHA-256 idempotency hashing and database optimistic locking (@Version) eliminating double-spending and replay attacks.
+   - Core Architecture: Solves zero-connectivity UPI transaction failures in crowded or dead-zone environments by routing encrypted transactions peer-to-peer across nearby devices until an internet-connected peer forwards them to the banking backend.
+   - Key Engineering Breakthrough (STAR Story): Solved double-spending race conditions and cryptographic replay attacks in untrusted mesh relays by architecting a hybrid encryption relay (RSA-2048-OAEP for asymmetric key exchange + AES-256-GCM for authenticated payload encryption), paired with SHA-256 ciphertext idempotency hashing and database optimistic locking (@Version) with automated retry queues on the banking gateway.
 
-3. PacketLens AI - Network Forensics & Deep Packet Inspection
+2. PacketLens AI - Network Forensics & Deep Packet Inspection
    - GitHub: https://github.com/pranshu-rajan/dpi-packet-analyser | Live: https://dpi-packet-analyser.vercel.app
-   - Technologies: C++17, FastAPI, Python, Next.js, TypeScript.
-   - Architecture: Multi-threaded C++17 packet engine parsing raw PCAP dumps without processing bottlenecks. Wireshark-style browser inspector with live hex viewer and streaming security copilot.
+   - Technologies: C++17, FastAPI, Python, Next.js, TypeScript, Tailwind CSS.
+   - Core Architecture: Multi-threaded C++17 packet engine parsing raw PCAP binary files, tracking TCP/UDP sessions, extracting TLS/HTTP headers without CPU bottlenecking.
+   - Features: Interactive Wireshark-style browser packet inspector with synchronized hex viewer and streaming security copilot for real-time network threat triage.
 
-4. Pranshu’s AI - Production Vector Database & Hybrid RAG Engine
+3. Pranshu’s AI - Production Vector Database & Hybrid RAG Engine
    - GitHub: https://github.com/pranshu-rajan/pranshu-ai | Live: https://pranshu-ai.vercel.app
    - Technologies: C++17, Python, FastAPI, Next.js, TypeScript, Groq API, SQLite.
-   - Architecture: Custom C++17 vector engine with HNSW and KD-Tree spatial indexing slashing query latency to sub-milliseconds. BM25 and dense embedding hybrid retrieval via Reciprocal Rank Fusion (RRF).
+   - Core Architecture: Custom C++17 vector engine with HNSW (Hierarchical Navigable Small World) and KD-Tree spatial indexing slashing query latency to sub-milliseconds without relying on paid external vector databases.
+   - Hybrid Retrieval: Reciprocal Rank Fusion (RRF) synthesizing dense semantic embeddings with BM25 keyword matching in FastAPI to prevent context fragmentation.
 
-5. Nuzeal Cultural Fest Web Platform
-   - GitHub: https://github.com/pranshu-rajan/nuzeal-cultural-fest | Live: https://nuzeal-2026-live.vercel.app
-   - Technologies: Next.js, TypeScript, Tailwind CSS, Vercel.
-   - Architecture: High-traffic web portal engineered for Nirma University's annual fest.
-
-6. Vaudeville 2026 — The Voyage Begins
-   - GitHub: https://github.com/pranshu-rajan/vaudeville-2026 | Live: https://vaudeville-2026.vercel.app/
-   - Technologies: React, TypeScript, Vite, Tailwind CSS, Framer Motion.
-   - Architecture: Immersive pirate-themed cultural festival web portal with atmospheric soundscapes and registration pipelines.
-
-7. Leaf Disease Detection
+4. Agricultural Leaf Disease Detection
    - GitHub: https://github.com/pranshu-rajan/leaf-disease-detection | Live: https://leafdisease-detection.streamlit.app
-   - Technologies: Python, TensorFlow/PyTorch, Streamlit. Computer vision pipeline for plant pathology diagnosis.
+   - Technologies: Python, PyTorch, Streamlit, Computer Vision, PIL.
+   - Core Architecture: End-to-end computer vision pipeline utilizing convolutional neural networks trained on plant pathology datasets to automatically classify leaf diseases from photos and output diagnostic confidence distributions with treatment recommendations.
+   - Performance: Lightweight model architecture optimized for low-latency CPU and GPU inference without cloud timeouts.
+
+### ADDITIONAL ACADEMIC & WEB PROJECTS:
+- Smart Multizone Irrigation Fuzzy System (Academic 3rd-Year project at Nirma University): 5-engine hierarchical adaptive Mamdani fuzzy control system using FAO-56 Penman-Monteith evapotranspiration and dynamic soil-water balance modeling. [GitHub](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)
+- Nuzeal Cultural Fest (Nirma University official cultural fest portal): Next.js, TypeScript. [Live](https://nuzeal-2026-live.vercel.app)
+- Vaudeville 2026 (Pirate-themed cultural festival platform): React, TypeScript, Vite, Framer Motion. [Live](https://vaudeville-2026.vercel.app/)
 
 ### VERIFIED PROFESSIONAL EXPERIENCE:
 - Xtin Capital (May 2026 – July 2026): Full Stack Developer Intern (Ahmedabad, India).
-  - Engineered React frontends and Node.js/Express backend services.
-  - Implemented SEBI-compliant payment architecture with Razorpay and MFU APIs for SIP mandates. Resolved critical race-conditions.
+  - Architected and redesigned React frontends to match company visual identity and improve UX across fintech applications.
+  - Engineered scalable Node.js and Express backend services with optimized database management.
+  - Implemented SEBI-compliant payment architecture with Razorpay and MFU APIs for SIP mandates; resolved critical production race conditions.
 - Edunet Foundation - IBM SkillsBuild (September 2025 – October 2025): AI & Cloud Intern (Remote).
-  - Built ML pipelines in Python on IBM Cloud Watson Studio. Deployed models to cloud infrastructure.
+  - Built ML pipelines in Python on IBM Cloud Watson Studio; deployed models to cloud infrastructure.
 - International Society of Automation (ISA) Nirma University:
   - Executive Committee Board Member (Dec 2025 – Dec 2026).
-  - Coordinated technical events, hackathons, and workshops.
+  - Coordinated technical events, hackathons, and student workshops.
 
 ### VERIFIED CERTIFICATIONS:
 - SAP Certified Generative AI Developer
@@ -76,30 +74,89 @@ You speak on behalf of Pranshu Rajan with deep technical knowledge, confidence, 
 - Certificate of Scholar - Nirma University
 
 ### CRITICAL RULES:
-1. ZERO HALLUCINATION: You MUST ground all statements strictly in the facts above. Do not invent any work experience, degrees, or projects not in this prompt.
-2. If asked about his education, state: Nirma University, Ahmedabad (2024–2028), currently in 3rd year of B.Tech in Electronics and Instrumentation Engineering (CGPA 7.88).
-3. If asked about projects, emphasize Smart Irrigation Fuzzy System, UPI Offline Mesh, PacketLens AI, or Pranshu's AI.
-4. STRUCTURE: Use markdown headings (### 🎯 Overview, ### 🛠️ Architecture & Tech Stack, ### ⚡ Key Highlights, ### 🔗 Links) and bullet points. Never output walls of plain text.
-5. Notice Period: Never mention notice periods. Pranshu is actively available for full-time roles and internships.`;
+1. ZERO HALLUCINATION: Ground all statements strictly in the facts above.
+2. ROLES TARGETED: Pranshu is targeting SOFTWARE-BASED ROLES ONLY (SDE, Full-Stack, AI/ML, Backend). He is NOT seeking hardware-based roles.
+3. INTERNSHIPS: Actively seeking Winter and Summer Internships. Open to Remote, Hybrid, or On-site across all locations in India & Worldwide (flexible with relocation).
+4. CODING PROFILE: If asked about DSA or competitive programming, highlight his LeetCode profile: https://leetcode.com/u/PranshuRajan/
+5. TECHNICAL STORIES: When asked about a challenging technical hurdle, describe how he solved the double-spend & replay attack problem in UPI Offline Mesh using hybrid RSA/AES cryptography + SHA-256 idempotency + JPA optimistic locking (@Version).
+6. STRUCTURE: Use markdown headings and crisp bullet points. Never output walls of plain text.`;
 
 function getGroundedFallbackText(query: string): string {
   const q = query.toLowerCase();
 
-  if (q.includes("irrigation") || q.includes("fuzzy") || q.includes("smart") || q.includes("water") || q.includes("agriculture")) {
-    return `### 🌾 Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control\n\n` +
-      `This is **Pranshu Rajan's** flagship academic control systems project at **Nirma University** (3rd-Year Electronics & Instrumentation Engineering).\n\n` +
-      `### 🛠️ Core Control Theory & Architecture\n` +
-      `- **Theoretical Foundation**: Implements a closed-loop hierarchical adaptive Mamdani fuzzy control system. Rather than using black-box machine learning or crude hysteresis thresholds, it relies on formal control-theoretic modeling.\n` +
-      `- **5 Modular Fuzzy Inference Systems (FIS)**:\n` +
-      `  1. **Soil Stress FIS**: Assesses soil moisture and error $e(t) = SM_{\\text{target}} - SM(t)$.\n` +
-      `  2. **Weather Stress FIS**: Evaluates temperature, relative humidity, solar radiation, wind speed, and precipitation.\n` +
-      `  3. **Water Demand FIS**: Formulates reference evapotranspiration ($ET_0$) via physics-based **FAO-56 Penman-Monteith** and crop coefficients ($ET_c = K_c \\times ET_0$).\n` +
-      `  4. **Main Irrigation Demand FIS**: Synthesizes soil stress, weather stress, and moisture deficit.\n` +
-      `  5. **Water Allocation FIS**: Resolves inter-zone competition for constrained reservoir capacities.\n` +
-      `- **Defuzzification & Modeling**: Employs Min-Max implication/aggregation and Centroid defuzzification with dynamic soil-water balance modeling.\n` +
-      `- **Validation**: Rigorously benchmarked against traditional On-Off (bang-bang) and PID controllers in MATLAB/Simulink and Python (**scikit-fuzzy**).\n\n` +
-      `### 🔗 Repository\n` +
-      `- **GitHub Source**: [github.com/pranshu-rajan/smart-irrigation-fuzzy-system](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)`;
+  if (q.includes("role") || q.includes("hardware") || q.includes("software") || q.includes("intern") || q.includes("winter") || q.includes("summer") || q.includes("relocat") || q.includes("mode") || q.includes("location")) {
+    return `### 🎯 Target Roles & Internship Availability\n\n` +
+      `- **Target Roles**: **Strictly Software-Based Roles** (Software Development Engineer Intern, Full Stack Developer Intern, AI/ML Engineer Intern, Backend Engineer Intern). Pranshu is **not** seeking hardware roles.\n` +
+      `- **Opportunities Sought**: Actively seeking **Winter and Summer Internships** for now.\n` +
+      `- **Work Modes**: Open to all modes — **Remote**, **Hybrid**, or **On-site**.\n` +
+      `- **Location & Relocation**: Based in India; **fully open to relocation** across all locations in India and globally.\n` +
+      `- **DSA & Coding Profile**: Check out his active LeetCode track record at [leetcode.com/u/PranshuRajan](https://leetcode.com/u/PranshuRajan/).`;
+  }
+
+  if (q.includes("leetcode") || q.includes("dsa") || q.includes("code") || q.includes("problem solve")) {
+    return `### 💻 LeetCode & Problem Solving\n\n` +
+      `- **Profile URL**: [leetcode.com/u/PranshuRajan](https://leetcode.com/u/PranshuRajan/)\n` +
+      `- **Core Strengths**: Data structures, algorithms, graph theory, dynamic programming, and low-latency system design in C++, Java, and Python.\n` +
+      `- **Application in Projects**: Implemented custom HNSW and KD-Tree indexing from scratch in C++17 (**Pranshu's AI**) and multi-threaded PCAP dump parsing in **PacketLens AI**.`;
+  }
+
+  if (q.includes("leaf") || q.includes("disease") || q.includes("plant") || q.includes("crop") || q.includes("pathology")) {
+    return `### 🍃 Agricultural Leaf Disease Detection\n\n` +
+      `An automated agricultural health assessment system utilizing deep learning convolutional models to classify plant leaf diseases from photographs and provide treatment guidance.\n\n` +
+      `### 🛠️ Architecture & Capabilities\n` +
+      `- **Deep Learning Pipeline**: End-to-end computer vision model trained on plant pathology datasets using **PyTorch**.\n` +
+      `- **Interactive Web App**: Interactive **Streamlit** dashboard enabling instant photo uploads, live inference, top-3 classification confidence scores, and crop treatment guidance.\n` +
+      `- **Latency Optimization**: Lightweight model architecture optimized for rapid CPU and GPU execution, preventing deployment timeouts.\n\n` +
+      `### 🔗 Links\n` +
+      `- **Live Web App**: [leafdisease-detection.streamlit.app](https://leafdisease-detection.streamlit.app)\n` +
+      `- **GitHub Source**: [github.com/pranshu-rajan/leaf-disease-detection](https://github.com/pranshu-rajan/leaf-disease-detection)`;
+  }
+
+  if (q.includes("upi") || q.includes("offline") || q.includes("mesh") || q.includes("payment") || q.includes("double-spend") || q.includes("challenge") || q.includes("bug")) {
+    return `### 💳 UPI Offline Mesh — Architecture & Engineering Breakdown\n\n` +
+      `An innovative offline peer-to-peer payment prototype engineered by **Pranshu Rajan** to solve zero-connectivity transaction failures in high-congestion zones or transit.\n\n` +
+      `### 🔐 Cryptographic & Distributed Defense (STAR Story)\n` +
+      `- **The Challenge**: Relaying payment payloads through untrusted intermediate peer devices without internet connectivity poses severe security risks: snooping on PINs/amounts, double-spending funds, and injecting replay attacks.\n` +
+      `- **Hybrid Cryptography**: Transactions are wrapped in **RSA-2048-OAEP** for asymmetric banking key agreement combined with **AES-256-GCM** authenticated payload encryption. Intermediate mesh relays only forward encrypted envelopes and cannot inspect amounts or credentials.\n` +
+      `- **Double-Spending & Replay Defense**: Implemented **SHA-256 ciphertext idempotency hashing** combined with database optimistic locking (**@Version**) on the Spring Boot backend with queue retries, guaranteeing zero duplicate transactions even under concurrent mesh deliveries.\n\n` +
+      `### 🛠️ Tech Stack & Links\n` +
+      `- **Technologies**: Java, Spring Boot, PostgreSQL, Next.js, TypeScript, REST APIs, Docker.\n` +
+      `- **Live Simulation**: [upi-offline-rho.vercel.app](https://upi-offline-rho.vercel.app)\n` +
+      `- **GitHub Source**: [github.com/pranshu-rajan/upi-offline-mesh](https://github.com/pranshu-rajan/upi-offline-mesh)`;
+  }
+
+  if (q.includes("packetlens") || q.includes("packet") || q.includes("dpi") || q.includes("network") || q.includes("c++")) {
+    return `### 🔍 PacketLens AI — Network Forensics & DPI Platform\n\n` +
+      `A high-throughput packet inspection and network security platform powered by a custom multi-threaded C++17 engine.\n\n` +
+      `### ⚡ Key Capabilities\n` +
+      `- **Multi-Threaded C++17 Core**: Parses raw PCAP binary files, tracks TCP/UDP sessions, and extracts HTTP/TLS headers without CPU bottlenecking.\n` +
+      `- **Dynamic Firewall Rules**: FastAPI backend persists network metrics and automatically generates sanitized PCAP files with blocked traffic removed.\n` +
+      `- **Browser Triage Inspector**: Interactive Wireshark-style packet inspector with synchronized live hex viewer and streaming security copilot.\n\n` +
+      `### 🔗 Links\n` +
+      `- **Live Demo**: [dpi-packet-analyser.vercel.app](https://dpi-packet-analyser.vercel.app)\n` +
+      `- **GitHub Source**: [github.com/pranshu-rajan/dpi-packet-analyser](https://github.com/pranshu-rajan/dpi-packet-analyser)`;
+  }
+
+  if (q.includes("vector") || q.includes("rag") || q.includes("pranshu's ai") || q.includes("pranshu-ai") || q.includes("hnsw")) {
+    return `### ⚡ Pranshu’s AI — Custom Vector Database & Hybrid RAG\n\n` +
+      `A custom production vector database and hybrid RAG engine written from scratch in **C++17 & Python** by **Pranshu Rajan**.\n\n` +
+      `### 🛠️ Architecture Highlights\n` +
+      `- **Custom Spatial Indexing**: Implements custom **HNSW** (Hierarchical Navigable Small World) and **KD-Tree** indexing slashing query latency to sub-milliseconds.\n` +
+      `- **Hybrid Retrieval (RRF)**: Implements Reciprocal Rank Fusion combining dense semantic embeddings with BM25 keyword matching in FastAPI.\n` +
+      `- **Full-Stack Dashboard**: Next.js 15, TypeScript, and Docker web dashboard with drag-and-drop document chunking and real-time graph inspection.\n\n` +
+      `### 🔗 Links\n` +
+      `- **Live Demo**: [pranshu-ai.vercel.app](https://pranshu-ai.vercel.app)\n` +
+      `- **GitHub Source**: [github.com/pranshu-rajan/pranshu-ai](https://github.com/pranshu-rajan/pranshu-ai)`;
+  }
+
+  if (q.includes("project") || q.includes("built") || q.includes("work") || q.includes("portfolio")) {
+    return `### 🚀 Top 4 Verified Software Projects\n\n` +
+      `Here are the top 4 software systems engineered by **Pranshu Rajan**:\n\n` +
+      `1. **UPI Offline Mesh** (Java, Spring Boot, PostgreSQL, Next.js, Docker): Cryptographic peer-to-peer offline payment relay solving zero-connectivity payment failures with RSA-2048/AES-256 and optimistic locking defense. [Live Demo](https://upi-offline-rho.vercel.app) · [GitHub](https://github.com/pranshu-rajan/upi-offline-mesh)\n` +
+      `2. **PacketLens AI** (C++17, FastAPI, Python, Next.js): Multi-threaded C++17 deep packet inspection engine parsing gigabyte-scale PCAP dumps with browser hex inspection. [Live Demo](https://dpi-packet-analyser.vercel.app) · [GitHub](https://github.com/pranshu-rajan/dpi-packet-analyser)\n` +
+      `3. **Pranshu’s AI** (C++17, Python, FastAPI, Next.js, Groq API): Production vector database with custom HNSW and KD-Tree indexing yielding sub-millisecond query latency. [Live Demo](https://pranshu-ai.vercel.app) · [GitHub](https://github.com/pranshu-rajan/pranshu-ai)\n` +
+      `4. **Agricultural Leaf Disease Detection** (Python, PyTorch, Streamlit): Deep learning computer vision pipeline for automated plant pathology diagnosis with real-time confidence scores. [Live App](https://leafdisease-detection.streamlit.app) · [GitHub](https://github.com/pranshu-rajan/leaf-disease-detection)\n\n` +
+      `*(Also authored the Smart Multizone Irrigation Fuzzy Control System for his B.Tech 3rd year coursework at Nirma University).*`;
   }
 
   if (q.includes("education") || q.includes("college") || q.includes("university") || q.includes("degree") || q.includes("nirma") || q.includes("study") || q.includes("year")) {
@@ -108,68 +165,20 @@ function getGroundedFallbackText(query: string): string {
       `- **Degree**: Bachelor of Technology (B.Tech) in **Electronics and Instrumentation Engineering**\n` +
       `- **Current Academic Status**: Currently in **3rd Year**\n` +
       `- **Cumulative GPA**: **7.88 / 10.0**\n` +
-      `- **Key Coursework**: Control Systems, Fuzzy Systems & Intelligent Control, Microcontrollers & Embedded Architectures, Digital Signal Processing, Distributed Systems, Computer Networks.\n` +
-      `- **Honors & Leadership**: Executive Committee Board Member at **International Society of Automation (ISA)** Nirma Chapter; Recipient of the **Certificate of Scholar** from Nirma University.\n\n` +
+      `- **Key Coursework**: Distributed Systems, Computer Networks, Control Systems, Fuzzy Systems & Intelligent Control, Microcontrollers, Digital Signal Processing.\n` +
+      `- **Leadership**: Executive Committee Board Member at **International Society of Automation (ISA)** Nirma Chapter; Recipient of the **Certificate of Scholar** from Nirma University.\n\n` +
       `### Swastik Academy, Gujarat\n` +
       `- **Class XII (GSEB)**: **80.3%** (Science & Mathematics, 2024)`;
   }
 
   if (q.includes("hire") || q.includes("why should") || q.includes("strength") || q.includes("fit")) {
-    return `### 🎯 Why Pranshu Rajan Stands Out\n\n` +
-      `**Pranshu Rajan** is a high-impact Full Stack Developer and AI Engineer who bridges low-level control systems and C++ engineering with modern production web architectures.\n\n` +
-      `### ⚡ Core Engineering Strengths\n` +
-      `- **Control Systems & AI**: Engineered the **Smart Multizone Irrigation Fuzzy System** at Nirma University (5 hierarchical Mamdani FIS engines, FAO-56 Penman-Monteith, validated vs PID).\n` +
-      `- **High-Performance C++ & Distributed Systems**: Built **Pranshu's AI** (custom C++17 vector engine with HNSW/KD-tree indexing) and **PacketLens AI** (multi-threaded C++17 DPI packet inspector).\n` +
-      `- **Fintech & Cryptography**: Designed **UPI Offline Mesh** using RSA-2048-OAEP + AES-256-GCM encryption and optimistic locking; implemented SEBI-compliant payment flows at **Xtin Capital**.\n` +
-      `- **Education & Leadership**: 3rd-year Electronics and Instrumentation student at **Nirma University** (CGPA 7.88) and Executive Committee Board Member at **ISA Nirma**.`;
-  }
-
-  if (q.includes("project") || q.includes("built") || q.includes("work") || q.includes("portfolio")) {
-    return `### 🚀 Verified Flagship Projects\n\n` +
-      `Here are the verified systems and platforms engineered by **Pranshu Rajan**:\n\n` +
-      `1. **Smart Multizone Irrigation Fuzzy System** (Python, Fuzzy Logic, MATLAB, Simulink): Closed-loop hierarchical adaptive Mamdani fuzzy control system across 5 modular FIS engines, incorporating FAO-56 Penman-Monteith evapotranspiration. [GitHub](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)\n` +
-      `2. **UPI Offline Mesh** (Java, Spring Boot, PostgreSQL, Next.js, Docker): Offline peer-to-peer payment prototype relaying encrypted transactions with RSA-2048 + AES-256-GCM and SHA-256 idempotency. [Live Demo](https://upi-offline-rho.vercel.app) · [GitHub](https://github.com/pranshu-rajan/upi-offline-mesh)\n` +
-      `3. **PacketLens AI** (C++17, FastAPI, Python, Next.js): Multi-threaded C++17 deep packet inspection engine parsing gigabyte-scale PCAP files with browser hex inspection. [Live Demo](https://dpi-packet-analyser.vercel.app) · [GitHub](https://github.com/pranshu-rajan/dpi-packet-analyser)\n` +
-      `4. **Pranshu’s AI** (C++17, Python, FastAPI, Next.js, Groq API): Production vector database with custom HNSW and KD-Tree indexing yielding sub-millisecond query latency. [Live Demo](https://pranshu-ai.vercel.app) · [GitHub](https://github.com/pranshu-rajan/pranshu-ai)\n` +
-      `5. **Nuzeal Cultural Fest** (Next.js, TypeScript, Tailwind): High-traffic cultural fest portal built for Nirma University. [Live Demo](https://nuzeal-2026-live.vercel.app) · [GitHub](https://github.com/pranshu-rajan/nuzeal-cultural-fest)\n` +
-      `6. **Vaudeville 2026** (React, TypeScript, Vite, Framer Motion): Cinematic pirate-themed college cultural fest web platform. [Live Demo](https://vaudeville-2026.vercel.app/) · [GitHub](https://github.com/pranshu-rajan/vaudeville-2026)`;
-  }
-
-  if (q.includes("upi") || q.includes("offline") || q.includes("mesh") || q.includes("payment")) {
-    return `### 💳 UPI Offline Mesh — Architecture Breakdown\n\n` +
-      `An offline peer-to-peer payment prototype engineered by **Pranshu Rajan** to solve zero-connectivity transaction failures in high-congestion zones or transit.\n\n` +
-      `### 🔐 Cryptographic & Distributed Design\n` +
-      `- **P2P Relay Mechanism**: Nearby devices relay encrypted transactions hop-by-hop until any device reaches internet connectivity to forward it to banking servers.\n` +
-      `- **Hybrid Encryption**: Combines **RSA-2048-OAEP** for asymmetric key exchange with **AES-256-GCM** for authenticated payload encryption.\n` +
-      `- **Double-Spend & Replay Defense**: Implements SHA-256 ciphertext idempotency hashing and database optimistic locking (@Version).\n\n` +
-      `### 🛠️ Tech Stack & Live Links\n` +
-      `- **Technologies**: Java, Spring Boot, PostgreSQL, Next.js, TypeScript, Docker.\n` +
-      `- **Live Demo**: [upi-offline-rho.vercel.app](https://upi-offline-rho.vercel.app)\n` +
-      `- **GitHub Source**: [github.com/pranshu-rajan/upi-offline-mesh](https://github.com/pranshu-rajan/upi-offline-mesh)`;
-  }
-
-  if (q.includes("packetlens") || q.includes("packet") || q.includes("dpi") || q.includes("network") || q.includes("c++")) {
-    return `### 🔍 PacketLens AI — Network Forensics & DPI\n\n` +
-      `A high-throughput packet inspection and network forensics platform powered by a custom multi-threaded C++17 engine.\n\n` +
-      `### ⚡ Key Capabilities\n` +
-      `- **Multi-Threaded C++17 Core**: Parses raw PCAP binary files, tracks TCP/UDP sessions, and extracts HTTP/TLS headers without CPU bottlenecking.\n` +
-      `- **Telemetry & Firewall Rules**: FastAPI backend persists network metrics and automatically generates sanitized PCAP files.\n` +
-      `- **Browser Triage Inspector**: Interactive Wireshark-style packet inspector with synchronized live hex viewer and streaming security copilot.\n\n` +
-      `### 🔗 Links & Code\n` +
-      `- **Live Demo**: [dpi-packet-analyser.vercel.app](https://dpi-packet-analyser.vercel.app)\n` +
-      `- **GitHub Source**: [github.com/pranshu-rajan/dpi-packet-analyser](https://github.com/pranshu-rajan/dpi-packet-analyser)`;
-  }
-
-  if (q.includes("vector") || q.includes("rag") || q.includes("pranshu's ai") || q.includes("pranshu-ai") || q.includes("hnsw")) {
-    return `### ⚡ Pranshu’s AI — Vector Database & Hybrid RAG\n\n` +
-      `A custom production vector database and hybrid RAG engine written from scratch in **C++17 & Python** by **Pranshu Rajan**.\n\n` +
-      `### 🛠️ Architecture Highlights\n` +
-      `- **Custom Spatial Indexing**: Implements custom **HNSW** (Hierarchical Navigable Small World) and **KD-Tree** indexing slashing query latency to sub-milliseconds.\n` +
-      `- **Hybrid Retrieval (RRF)**: Implements Reciprocal Rank Fusion combining dense semantic embeddings with BM25 keyword matching in FastAPI.\n` +
-      `- **Full-Stack Dashboard**: Next.js 15, TypeScript, and Docker web dashboard with drag-and-drop document chunking and real-time graph inspection.\n\n` +
-      `### 🔗 Links & Code\n` +
-      `- **Live Demo**: [pranshu-ai.vercel.app](https://pranshu-ai.vercel.app)\n` +
-      `- **GitHub Source**: [github.com/pranshu-rajan/pranshu-ai](https://github.com/pranshu-rajan/pranshu-ai)`;
+    return `### 🎯 Why Pranshu Rajan Stands Out for Software Roles\n\n` +
+      `**Pranshu Rajan** is a high-impact software developer and AI engineer with deep problem-solving skills across systems programming, cryptography, and modern web engineering.\n\n` +
+      `### ⚡ Key Reasons to Hire Pranshu:\n` +
+      `- **Systems & Algorithmic Excellence**: Engineered custom C++17 spatial indexing (HNSW, KD-Tree) for vector search and multi-threaded PCAP forensics without off-the-shelf crutches.\n` +
+      `- **Resilient Fintech Architecture**: Solved cryptographic double-spend and replay vulnerabilities in P2P mesh payments; handled SEBI-compliant SIP mandate flows at **Xtin Capital**.\n` +
+      `- **Active Problem Solver**: Strong DSA foundation on [LeetCode](https://leetcode.com/u/PranshuRajan/).\n` +
+      `- **Availability**: Actively seeking **Winter & Summer Internships**; open to Remote, Hybrid, or On-site across all locations in India and globally.`;
   }
 
   if (q.includes("experience") || q.includes("intern") || q.includes("xtin") || q.includes("ibm") || q.includes("edunet")) {
@@ -186,14 +195,20 @@ function getGroundedFallbackText(query: string): string {
       `- Executed complete ML pipeline (data preprocessing, training, evaluation, cloud deployment).`;
   }
 
+  if (q.includes("irrigation") || q.includes("fuzzy")) {
+    return `### 🌾 Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control\n\n` +
+      `Academic control systems project at **Nirma University** (3rd-Year Electronics & Instrumentation Engineering).\n\n` +
+      `- **5 Modular FIS Engines**: Soil Stress, Weather Stress, Water Demand (FAO-56 Penman-Monteith ET0), Main Irrigation Demand, and Water Allocation.\n` +
+      `- **GitHub Source**: [github.com/pranshu-rajan/smart-irrigation-fuzzy-system](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)`;
+  }
+
   if (q.includes("skill") || q.includes("stack") || q.includes("technolog") || q.includes("language")) {
     return `### 🛠️ Technical Skills & Expertise\n\n` +
       `- **Programming Languages**: Python, C++17, JavaScript, TypeScript, Java, SQL, HTML5, CSS3.\n` +
-      `- **AI & Intelligent Systems**: Fuzzy Logic (Mamdani FIS, Centroid defuzzification), Control Systems, RAG Pipelines, Vector Embeddings (HNSW, KD-Tree, pgvector), Groq LPU, OpenAI, Prompt Engineering.\n` +
-      `- **Frontend Technologies**: React.js, Next.js 15 (App Router), Vite, Tailwind CSS, Framer Motion, GSAP, Three.js, Chart.js.\n` +
-      `- **Backend Technologies**: Node.js, Express.js, FastAPI, Spring Boot, REST APIs, JWT Authentication, OAuth2, Prisma ORM, Razorpay, Docker.\n` +
-      `- **Databases**: PostgreSQL, MongoDB, Supabase, MySQL, SQLite, Redis.\n` +
-      `- **Tools & Simulation**: MATLAB, Simulink, Wireshark, Git, GitHub CI/CD, Vercel, Render.`;
+      `- **Core Specializations**: Software Engineering, Distributed Systems, Cryptography, Vector Search (HNSW, KD-Tree), Computer Vision (PyTorch), RAG Pipelines.\n` +
+      `- **Frontend**: React.js, Next.js 15 (App Router), Vite, Tailwind CSS, Framer Motion, GSAP, Three.js.\n` +
+      `- **Backend & Cloud**: Node.js, Express.js, FastAPI, Spring Boot, REST APIs, Docker, PostgreSQL, MongoDB, Redis, Vercel, Render.\n` +
+      `- **Problem Solving**: Active on [LeetCode](https://leetcode.com/u/PranshuRajan/).`;
   }
 
   // General default grounded overview

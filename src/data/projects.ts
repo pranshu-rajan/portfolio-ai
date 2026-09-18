@@ -2,53 +2,6 @@ import { Project } from "@/types";
 
 export const projectsData: Project[] = [
   {
-    id: "smart-irrigation",
-    title: "Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control",
-    tagline: "Academic Control Systems & Instrumentation Project at Nirma University",
-    category: "AI & ML",
-    description: "A closed-loop, intelligent multizone irrigation and water resource management system using Hierarchical Adaptive Mamdani Fuzzy Control. Ingests dynamic environmental parameters, computes reference evapotranspiration via FAO-56 Penman-Monteith, and coordinates 5 modular Fuzzy Inference Systems (Soil Stress, Weather Stress, Water Demand, Main Irrigation, Water Allocation) with Centroid defuzzification, outperforming traditional On-Off and PID controllers.",
-    highlights: [
-      "Designed 5 modular Mamdani Fuzzy Inference Systems (FIS) resolving multi-zone resource competition with centroid defuzzification",
-      "Integrated physics-based FAO-56 Penman-Monteith evapotranspiration formulation and dynamic soil-water balance modeling",
-      "Closed-loop feedback tracking moisture error e(t) and normalized relative soil moisture across competing agricultural zones",
-      "Benchmarked mathematically against traditional bang-bang and PID controllers with MATLAB/Simulink and Python validation"
-    ],
-    technologies: ["Python", "Fuzzy Logic", "scikit-fuzzy", "Control Systems", "FAO-56 Penman-Monteith", "MATLAB", "Simulink", "NumPy"],
-    githubUrl: "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
-    featured: true,
-    stars: 1,
-    role: "Lead Control Systems Researcher & Developer",
-    timeline: "2026",
-    metrics: "5 Hierarchical FIS engines, zero black-box ML, validated vs PID",
-    accentColor: "#10b981",
-    previewGradient: "from-emerald-600 via-teal-600 to-cyan-600",
-    icon: "Cpu"
-  },
-  {
-    id: "pranshu-ai",
-    title: "Pranshu’s AI · Production Vector DB & RAG",
-    tagline: "Custom C++17 Vector Database & Hybrid BM25/Dense Retrieval Engine",
-    category: "AI & ML",
-    description: "A custom vector database and hybrid RAG engine built from scratch using C++17 & Python. Implements HNSW and KD-Tree indexing, cutting query latency to sub-milliseconds without relying on external paid vector services.",
-    highlights: [
-      "Custom C++17 vector engine with HNSW & KD-Tree indexing achieving sub-millisecond query latency",
-      "Document ingestion pipeline using FastAPI with recursive text chunking and BM25/Dense hybrid search (RRF)",
-      "Full-stack web dashboard using Next.js 15, TypeScript, and Docker with drag-and-drop file uploads and real-time graph inspection",
-      "Integrated Groq API LPU inference for high-speed generative answer synthesis"
-    ],
-    technologies: ["C++17", "Python", "FastAPI", "Next.js", "TypeScript", "Groq API", "SQLite", "Docker"],
-    liveUrl: "https://pranshu-ai.vercel.app",
-    githubUrl: "https://github.com/pranshu-rajan/pranshu-ai",
-    featured: true,
-    stars: 1,
-    role: "Creator & Lead Systems Architect",
-    timeline: "2026",
-    metrics: "Sub-millisecond query latency, zero paid DB cost",
-    accentColor: "#8b5cf6",
-    previewGradient: "from-purple-600 via-indigo-600 to-blue-600",
-    icon: "Bot"
-  },
-  {
     id: "upi-offline-mesh",
     title: "UPI Offline Mesh · P2P Payment Prototype",
     tagline: "Cryptographic Peer-to-Peer Offline Payment Relay for Zero-Connectivity Zones",
@@ -96,6 +49,76 @@ export const projectsData: Project[] = [
     icon: "Server"
   },
   {
+    id: "pranshu-ai",
+    title: "Pranshu’s AI · Production Vector DB & RAG",
+    tagline: "Custom C++17 Vector Database & Hybrid BM25/Dense Retrieval Engine",
+    category: "AI & ML",
+    description: "A custom vector database and hybrid RAG engine built from scratch using C++17 & Python. Implements HNSW and KD-Tree indexing, cutting query latency to sub-milliseconds without relying on external paid vector services.",
+    highlights: [
+      "Custom C++17 vector engine with HNSW & KD-Tree indexing achieving sub-millisecond query latency",
+      "Document ingestion pipeline using FastAPI with recursive text chunking and BM25/Dense hybrid search (RRF)",
+      "Full-stack web dashboard using Next.js 15, TypeScript, and Docker with drag-and-drop file uploads and real-time graph inspection",
+      "Integrated Groq API LPU inference for high-speed generative answer synthesis"
+    ],
+    technologies: ["C++17", "Python", "FastAPI", "Next.js", "TypeScript", "Groq API", "SQLite", "Docker"],
+    liveUrl: "https://pranshu-ai.vercel.app",
+    githubUrl: "https://github.com/pranshu-rajan/pranshu-ai",
+    featured: true,
+    stars: 1,
+    role: "Creator & Lead Systems Architect",
+    timeline: "2026",
+    metrics: "Sub-millisecond query latency, zero paid DB cost",
+    accentColor: "#8b5cf6",
+    previewGradient: "from-purple-600 via-indigo-600 to-blue-600",
+    icon: "Bot"
+  },
+  {
+    id: "leaf-disease-detection",
+    title: "Agricultural Leaf Disease Detection",
+    tagline: "Computer Vision Model for Automated Plant Pathology Diagnosis",
+    category: "AI & ML",
+    description: "An automated agricultural health assessment system utilizing deep learning convolutional models to classify leaf diseases from photographs and provide treatment guidance.",
+    highlights: [
+      "End-to-end computer vision pipeline trained on plant pathology datasets",
+      "Interactive Streamlit web interface with real-time image upload, inference, and classification confidence",
+      "Lightweight model architecture optimized for rapid CPU/GPU inference"
+    ],
+    technologies: ["Python", "PyTorch", "Streamlit", "Computer Vision", "PIL"],
+    liveUrl: "https://leafdisease-detection.streamlit.app",
+    githubUrl: "https://github.com/pranshu-rajan/leaf-disease-detection",
+    featured: true,
+    stars: 1,
+    role: "ML Engineer",
+    timeline: "2026",
+    metrics: "Instant diagnostic inference with top-3 confidence scores",
+    accentColor: "#84cc16",
+    previewGradient: "from-lime-500 via-emerald-600 to-green-700",
+    icon: "Leaf"
+  },
+  {
+    id: "smart-irrigation",
+    title: "Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control",
+    tagline: "Academic Control Systems & Instrumentation Project at Nirma University",
+    category: "AI & ML",
+    description: "A closed-loop, intelligent multizone irrigation and water resource management system using Hierarchical Adaptive Mamdani Fuzzy Control. Ingests dynamic environmental parameters, computes reference evapotranspiration via FAO-56 Penman-Monteith, and coordinates 5 modular Fuzzy Inference Systems (Soil Stress, Weather Stress, Water Demand, Main Irrigation, Water Allocation) with Centroid defuzzification, outperforming traditional On-Off and PID controllers.",
+    highlights: [
+      "Designed 5 modular Mamdani Fuzzy Inference Systems (FIS) resolving multi-zone resource competition with centroid defuzzification",
+      "Integrated physics-based FAO-56 Penman-Monteith evapotranspiration formulation and dynamic soil-water balance modeling",
+      "Closed-loop feedback tracking moisture error e(t) and normalized relative soil moisture across competing agricultural zones",
+      "Benchmarked mathematically against traditional bang-bang and PID controllers with MATLAB/Simulink and Python validation"
+    ],
+    technologies: ["Python", "Fuzzy Logic", "scikit-fuzzy", "Control Systems", "FAO-56 Penman-Monteith", "MATLAB", "Simulink", "NumPy"],
+    githubUrl: "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
+    featured: false,
+    stars: 1,
+    role: "Lead Control Systems Researcher & Developer",
+    timeline: "2026",
+    metrics: "5 Hierarchical FIS engines, zero black-box ML, validated vs PID",
+    accentColor: "#10b981",
+    previewGradient: "from-emerald-600 via-teal-600 to-cyan-600",
+    icon: "Cpu"
+  },
+  {
     id: "nuzeal-website",
     title: "Nuzeal 2026 · Cultural Fest Platform",
     tagline: "High-Traffic Official Fest Web Portal for Nirma University",
@@ -140,29 +163,6 @@ export const projectsData: Project[] = [
     accentColor: "#d97706",
     previewGradient: "from-amber-600 via-yellow-600 to-stone-800",
     icon: "Compass"
-  },
-  {
-    id: "leaf-disease-detection",
-    title: "Agricultural Leaf Disease Detection",
-    tagline: "Computer Vision Model for Automated Plant Pathology Diagnosis",
-    category: "AI & ML",
-    description: "An automated agricultural health assessment system utilizing deep learning convolutional models to classify leaf diseases from photographs and provide treatment guidance.",
-    highlights: [
-      "End-to-end computer vision pipeline trained on plant pathology datasets",
-      "Interactive Streamlit web interface with real-time image upload, inference, and classification confidence",
-      "Lightweight model architecture optimized for rapid CPU/GPU inference"
-    ],
-    technologies: ["Python", "PyTorch", "Streamlit", "Computer Vision", "PIL"],
-    liveUrl: "https://leafdisease-detection.streamlit.app",
-    githubUrl: "https://github.com/pranshu-rajan/leaf-disease-detection",
-    featured: false,
-    stars: 1,
-    role: "ML Engineer",
-    timeline: "2026",
-    metrics: "Instant diagnostic inference with top-3 confidence scores",
-    accentColor: "#84cc16",
-    previewGradient: "from-lime-500 via-emerald-600 to-green-700",
-    icon: "Leaf"
   },
   {
     id: "finbert-lstm-stock",

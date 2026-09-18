@@ -160,56 +160,68 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
             </div>
 
             {/* Quick Action Buttons */}
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-5 gap-2">
               <a
                 href={`mailto:${candidateProfile.email}`}
-                className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
+                className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-full bg-[#0A84FF]/20 text-[#0A84FF] flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
-                  <Mail className="w-4 h-4" />
+                <div className="w-8 h-8 rounded-full bg-[#0A84FF]/20 text-[#0A84FF] flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                  <Mail className="w-3.5 h-3.5" />
                 </div>
-                <span className="text-[11px] font-medium text-white/90">Email</span>
+                <span className="text-[10px] font-medium text-white/90">Email</span>
               </a>
 
               <a
                 href={candidateProfile.github}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
+                className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
-                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <div className="w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
                   </svg>
                 </div>
-                <span className="text-[11px] font-medium text-white/90">GitHub</span>
+                <span className="text-[10px] font-medium text-white/90">GitHub</span>
               </a>
 
               <a
                 href={candidateProfile.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
+                className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-full bg-[#0A66C2]/20 text-[#0A84FF] flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
-                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <div className="w-8 h-8 rounded-full bg-[#0A66C2]/20 text-[#0A84FF] flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                     <rect x="2" y="9" width="4" height="12" />
                     <circle cx="4" cy="4" r="2" />
                   </svg>
                 </div>
-                <span className="text-[11px] font-medium text-white/90">LinkedIn</span>
+                <span className="text-[10px] font-medium text-white/90">LinkedIn</span>
+              </a>
+
+              <a
+                href="https://leetcode.com/u/PranshuRajan/"
+                target="_blank"
+                rel="noreferrer"
+                className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
+              >
+                <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform font-bold text-xs">
+                  LC
+                </div>
+                <span className="text-[10px] font-medium text-white/90">LeetCode</span>
               </a>
 
               <a
                 href="/Pranshu_Rajan_Resume.pdf"
                 download="Pranshu_Rajan_Resume.pdf"
-                className="flex flex-col items-center justify-center p-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
+                className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
-                  <FileText className="w-4 h-4" />
+                <div className="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                  <FileText className="w-3.5 h-3.5" />
                 </div>
-                <span className="text-[11px] font-medium text-white/90">Resume</span>
+                <span className="text-[10px] font-medium text-white/90">Resume</span>
               </a>
             </div>
 
@@ -224,13 +236,23 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
                 </div>
 
                 <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
+                  <div className="text-white/40 w-24">Target Roles</div>
+                  <span className="text-white/90 font-medium">Software Roles Only (SDE, Full-Stack, AI/ML, Backend)</span>
+                </div>
+
+                <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
+                  <div className="text-white/40 w-24">Seeking</div>
+                  <span className="text-white/90 font-medium">Winter &amp; Summer Internships · All Modes (Remote / Hybrid / On-site)</span>
+                </div>
+
+                <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
                   <div className="text-white/40 w-24">Location</div>
-                  <span className="text-white/90">{candidateProfile.location}</span>
+                  <span className="text-white/90">India · Open to Relocation across India &amp; Worldwide</span>
                 </div>
 
                 <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
                   <div className="text-white/40 w-24">Education</div>
-                  <span className="text-white/90">Nirma University, Ahmedabad · B.Tech Electronics &amp; Instrumentation (2024–2028, 3rd Year)</span>
+                  <span className="text-white/90">Nirma University, Ahmedabad · B.Tech Electronics &amp; Instrumentation (2024–2028, 3rd Year, CGPA: 7.88)</span>
                 </div>
 
                 <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
