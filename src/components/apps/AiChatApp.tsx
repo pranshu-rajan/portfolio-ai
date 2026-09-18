@@ -413,7 +413,8 @@ function generateFallbackAnswer(query: string): string {
       `- **5 Modular Fuzzy Inference Systems (FIS)**: Soil Stress FIS, Weather Stress FIS, Water Demand FIS, Main Irrigation Demand FIS, and Water Allocation FIS using Centroid defuzzification.\n` +
       `- **Physics-Based Modeling**: Formulates reference evapotranspiration ($ET_0$) via **FAO-56 Penman-Monteith** and models dynamic soil-water balance to arbitrate zone competition.\n` +
       `- **Validation**: Benchmarked against traditional On-Off (bang-bang) and PID controllers using MATLAB/Simulink and Python (**scikit-fuzzy**).\n\n` +
-      `### 🔗 Repository\n` +
+      `### 🔗 Repository & Live Deployment\n` +
+      `- **Live Web App**: [irrigation-fuzzy-system.vercel.app](https://irrigation-fuzzy-system.vercel.app/)\n` +
       `- **GitHub Source**: [github.com/pranshu-rajan/smart-irrigation-fuzzy-system](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)`;
   }
 
@@ -421,7 +422,7 @@ function generateFallbackAnswer(query: string): string {
     return `### 🚀 Flagship Engineering Projects\n\n` +
       `Here are the verified systems and platforms engineered by **${candidateProfile.name}**:\n\n` +
       `### ⚡ Featured Systems\n` +
-      `- **Smart Multizone Irrigation Fuzzy System** (Python, Fuzzy Logic, MATLAB, Simulink): Closed-loop hierarchical adaptive Mamdani fuzzy control system across 5 modular FIS engines, incorporating FAO-56 Penman-Monteith. [Code](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)\n` +
+      `- **Smart Multizone Irrigation Fuzzy System** (Python, Fuzzy Logic, MATLAB, Simulink): Closed-loop hierarchical adaptive Mamdani fuzzy control system across 5 modular FIS engines, incorporating FAO-56 Penman-Monteith. [Live Demo](https://irrigation-fuzzy-system.vercel.app/) · [Code](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)\n` +
       `- **UPI Offline Mesh** (Java, Spring Boot, PostgreSQL, Next.js, Docker): Offline P2P payment prototype relaying encrypted transactions across nearby devices to solve zero-connectivity UPI failures. Secured with RSA-2048 + AES-256-GCM and SHA-256 idempotency. [Live Demo](https://upi-offline-rho.vercel.app) · [Code](https://github.com/pranshu-rajan/upi-offline-mesh)\n` +
       `- **PacketLens AI** (C++17, FastAPI, Python, Next.js, TypeScript): Multi-threaded C++17 network forensics platform with a Wireshark-style packet inspector, synchronized hex viewer, and streaming security copilot. [Live Demo](https://dpi-packet-analyser.vercel.app) · [Code](https://github.com/pranshu-rajan/dpi-packet-analyser)\n` +
       `- **Pranshu’s AI** (C++17, Python, FastAPI, Next.js, Groq API, SQLite): Custom vector database with HNSW and KD-Tree indexing, cutting query latency to sub-milliseconds, paired with BM25 hybrid RAG. [Live Demo](https://pranshu-ai.vercel.app) · [Code](https://github.com/pranshu-rajan/pranshu-ai)\n` +

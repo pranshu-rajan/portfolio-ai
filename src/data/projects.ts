@@ -108,6 +108,7 @@ export const projectsData: Project[] = [
       "Benchmarked mathematically against traditional bang-bang and PID controllers with MATLAB/Simulink and Python validation"
     ],
     technologies: ["Python", "Fuzzy Logic", "scikit-fuzzy", "Control Systems", "FAO-56 Penman-Monteith", "MATLAB", "Simulink", "NumPy"],
+    liveUrl: "https://irrigation-fuzzy-system.vercel.app/",
     githubUrl: "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
     featured: false,
     stars: 1,

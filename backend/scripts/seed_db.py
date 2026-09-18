@@ -142,7 +142,7 @@ async def seed_collections() -> int:
                 "Validated via dual-platform implementation in MATLAB/Simulink and Python (scikit-fuzzy, NumPy, SciPy) with full unit test suite"
             ],
             "technologies": ["Python", "MATLAB", "Simulink", "scikit-fuzzy", "NumPy", "SciPy", "Control Systems", "Fuzzy Logic"],
-            "live_url": "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
+            "live_url": "https://irrigation-fuzzy-system.vercel.app/",
             "github_url": "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
             "featured": True,
             "stars": 1,

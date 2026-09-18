@@ -50,7 +50,7 @@ You speak on behalf of Pranshu Rajan with deep technical knowledge, confidence, 
    - Performance: Lightweight model architecture optimized for low-latency CPU and GPU inference without cloud timeouts.
 
 ### ADDITIONAL ACADEMIC & WEB PROJECTS:
-- Smart Multizone Irrigation Fuzzy System (Academic 3rd-Year project at Nirma University): 5-engine hierarchical adaptive Mamdani fuzzy control system using FAO-56 Penman-Monteith evapotranspiration and dynamic soil-water balance modeling. [GitHub](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)
+- Smart Multizone Irrigation Fuzzy System (Academic 3rd-Year project at Nirma University): 5-engine hierarchical adaptive Mamdani fuzzy control system using FAO-56 Penman-Monteith evapotranspiration and dynamic soil-water balance modeling. [Live Demo](https://irrigation-fuzzy-system.vercel.app/) | [GitHub](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)
 - Nuzeal Cultural Fest (Nirma University official cultural fest portal): Next.js, TypeScript. [Live](https://nuzeal-2026-live.vercel.app)
 - Vaudeville 2026 (Pirate-themed cultural festival platform): React, TypeScript, Vite, Framer Motion. [Live](https://vaudeville-2026.vercel.app/)
 
@@ -199,6 +199,7 @@ function getGroundedFallbackText(query: string): string {
     return `### 🌾 Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control\n\n` +
       `Academic control systems project at **Nirma University** (3rd-Year Electronics & Instrumentation Engineering).\n\n` +
       `- **5 Modular FIS Engines**: Soil Stress, Weather Stress, Water Demand (FAO-56 Penman-Monteith ET0), Main Irrigation Demand, and Water Allocation.\n` +
+      `- **Live Web Application**: [irrigation-fuzzy-system.vercel.app](https://irrigation-fuzzy-system.vercel.app/)\n` +
       `- **GitHub Source**: [github.com/pranshu-rajan/smart-irrigation-fuzzy-system](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)`;
   }
 

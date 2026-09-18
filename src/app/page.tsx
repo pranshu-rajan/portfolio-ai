@@ -40,6 +40,7 @@ export default function Desktop() {
     x: 0,
     y: 0,
   });
+  const [safariUrl, setSafariUrl] = useState<string>("https://irrigation-fuzzy-system.vercel.app/");
 
   const {
     windows,
@@ -292,7 +293,8 @@ export default function Desktop() {
         >
           <ProjectsApp
             onOpenApp={openWindow}
-            onPreviewInSafari={() => {
+            onPreviewInSafari={(url) => {
+              if (url) setSafariUrl(url);
               openWindow("safari");
             }}
             onAskAiAboutProject={() => {
@@ -314,7 +316,7 @@ export default function Desktop() {
           onUpdatePosition={(pos) => updatePosition("safari", pos)}
           onUpdateSize={(size) => updateSize("safari", size)}
         >
-          <SafariApp />
+          <SafariApp initialUrl={safariUrl} />
         </WindowFrame>
       )}
 

@@ -107,6 +107,7 @@
       "title": "Smart Multizone Irrigation & Water Resource Management Using Hierarchical Adaptive Fuzzy Control",
       "technologies": "Python, Fuzzy Logic, scikit-fuzzy, FAO-56 Penman-Monteith, Control Systems, MATLAB, Simulink",
       "github": "https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system",
+      "live": "https://irrigation-fuzzy-system.vercel.app/",
       "bullets": [
         "Architected a closed-loop hierarchical adaptive Mamdani fuzzy control system across 5 modular inference engines (Soil Stress, Weather Stress, Water Demand, Main Irrigation, Water Allocation) with Centroid defuzzification.",
         "Integrated physics-based FAO-56 Penman-Monteith reference evapotranspiration (ET0) and dynamic soil-water balance modeling to resolve inter-zone resource competition.",
