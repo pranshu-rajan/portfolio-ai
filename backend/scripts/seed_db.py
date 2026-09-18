@@ -21,8 +21,13 @@ logger = logging.getLogger("seed_db")
 async def seed():
     logger.info(f"Connecting to MongoDB at {settings.MONGODB_URI}...")
     client = AsyncIOMotorClient(settings.MONGODB_URI, serverSelectionTimeoutMS=5000)
+    try:
+        setattr(client, "append_metadata", lambda *args, **kwargs: None)
+    except Exception:
+        pass
     await init_beanie(database=client[settings.MONGODB_DB_NAME], document_models=ALL_MODELS)
     logger.info("Beanie initialized.")
+
 
     # 1. Seed Candidate Profile from verified resume.json or fallback
     candidate_paths = [
