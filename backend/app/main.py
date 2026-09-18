@@ -23,6 +23,19 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Initializing FastAPI application services...")
     await db.connect()
+
+    # Auto-seed MongoDB Atlas if empty
+    try:
+        from app.models.project import ProjectDocument
+        count = await ProjectDocument.count()
+        if count == 0:
+            logger.info("MongoDB database is empty. Auto-seeding projects & candidate profile...")
+            from scripts.seed_db import seed_collections
+            await seed_collections()
+            logger.info("Auto-seeding completed.")
+    except Exception as e:
+        logger.warning(f"Startup auto-seed check skipped: {e}")
+
     yield
     # Shutdown
     logger.info("Shutting down application services...")
@@ -48,19 +61,38 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# Root Welcome Endpoint
+# Root & Info Endpoints
 @app.get("/", include_in_schema=False)
+@app.get("/api", include_in_schema=False)
 async def root():
     return {
         "service": "Pranshu Rajan Portfolio & AI Twin API",
         "status": "online",
         "docs": "/docs",
         "health": "/health",
+        "endpoints": {
+            "projects": "/api/v1/projects",
+            "candidate": "/api/v1/candidate",
+            "chat": "/api/v1/chat",
+            "inquiries": "/api/v1/inquiries",
+            "seed": "/api/v1/seed"
+        },
         "version": "1.0.0"
     }
 
-# Health Checks
+# One-Click Database Seeding Endpoint
+@app.get("/api/v1/seed", tags=["Database Seeding"])
+async def trigger_seed():
+    """Manually triggers seeding of verified projects & candidate profile into MongoDB."""
+    from scripts.seed_db import seed_collections
+    count = await seed_collections()
+    return {
+        "status": "success",
+        "message": f"Successfully seeded {count} projects and candidate profile into MongoDB Atlas.",
+        "projects_endpoint": "/api/v1/projects",
+        "candidate_endpoint": "/api/v1/candidate"
+    }
+
 
 @app.get("/health", tags=["Health"])
 @app.get("/api/v1/health", tags=["Health"])

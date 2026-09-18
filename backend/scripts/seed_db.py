@@ -27,6 +27,11 @@ async def seed():
         pass
     await init_beanie(database=client[settings.MONGODB_DB_NAME], document_models=ALL_MODELS)
     logger.info("Beanie initialized.")
+    await seed_collections()
+    client.close()
+
+async def seed_collections() -> int:
+
 
 
     # 1. Seed Candidate Profile from verified resume.json or fallback
@@ -293,7 +298,8 @@ async def seed():
             await doc.insert()
 
     logger.info(f"Successfully seeded {len(projects_data)} projects into MongoDB.")
-    client.close()
+    return len(projects_data)
+
 
 if __name__ == "__main__":
     asyncio.run(seed())
