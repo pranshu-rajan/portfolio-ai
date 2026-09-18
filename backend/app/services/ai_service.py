@@ -1,6 +1,7 @@
 import logging
 import json
-from typing import AsyncGenerator, Dict, Any, List
+from typing import AsyncGenerator, Dict, Any, List, Optional
+
 import httpx
 from app.config import settings
 from app.models.candidate import CandidateProfile
