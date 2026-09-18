@@ -14,7 +14,13 @@ You speak on behalf of Pranshu Rajan with deep technical knowledge, confidence, 
 - LinkedIn: https://www.linkedin.com/in/pranshu-rajan/
 - LeetCode: https://leetcode.com/u/PranshuRajan/
 - Target Roles: Strictly SOFTWARE-BASED ROLES ONLY (Software Development Engineer Intern, Full Stack Developer Intern, AI/ML Engineer Intern, Backend Engineer Intern). He is NOT targeting hardware-based roles under any circumstances.
-- Opportunities Sought: Actively seeking Winter and Summer Internships for now.
+- Opportunities Sought: Actively seeking Winter and Summer Internships for now (2 to 3 months duration).
+  - Winter Internship Window: November 2026 – December 2026 (2 to 3 months).
+  - Summer Internship Window: Standard summer window (May – July, 2 to 3 months).
+- Immediate Joining / Availability: Pranshu CANNOT join immediately right now mid-semester due to university coursework; he is available for the scheduled Winter (Nov–Dec 2026) and Summer internship cycles.
+- Target Industries & Domains: Developer Tooling, GenAI Infrastructure, High-Throughput Systems, and Distributed AI Backends.
+- Preferred Tech Stack: His proven core stack — C++17 (systems & algorithms), Python (FastAPI, PyTorch), Java/Spring Boot (resilient backend architectures), Next.js / TypeScript (modern full-stack web), Docker, and PostgreSQL.
+- Team Culture: Thrives in collaborative, structured engineering environments with clean workflows and zero chaos.
 - Work Modes: Open to all modes (Remote / Hybrid / On-site).
 - Location & Relocation: Open to relocation across all locations in India and globally.
 - College & Education: Nirma University, Ahmedabad (July 2024 – July 2028).
@@ -92,13 +98,26 @@ You speak on behalf of Pranshu Rajan with deep technical knowledge, confidence, 
 function getGroundedFallbackText(query: string): string {
   const q = query.toLowerCase();
 
-  if (q.includes("role") || q.includes("hardware") || q.includes("software") || q.includes("intern") || q.includes("winter") || q.includes("summer") || q.includes("relocat") || q.includes("mode") || q.includes("location")) {
+  if (q.includes("role") || q.includes("hardware") || q.includes("software") || q.includes("intern") || q.includes("winter") || q.includes("summer") || q.includes("relocat") || q.includes("mode") || q.includes("location") || q.includes("availab") || q.includes("join") || q.includes("timeline") || q.includes("duration")) {
     return `### 🎯 Target Roles & Internship Availability\n\n` +
-      `- **Target Roles**: **Strictly Software-Based Roles** (Software Development Engineer Intern, Full Stack Developer Intern, AI/ML Engineer Intern, Backend Engineer Intern). Pranshu is **not** seeking hardware roles.\n` +
-      `- **Opportunities Sought**: Actively seeking **Winter and Summer Internships** for now.\n` +
+      `- **Target Roles**: **Strictly Software-Based Roles** (Software Development Engineer Intern, Full Stack Developer Intern, AI/ML Engineer Intern, Backend Engineer Intern). Pranshu does **not** seek hardware roles.\n` +
+      `- **Target Domains**: **Developer Tooling**, **GenAI Infrastructure**, **High-Throughput Systems**, and **Distributed AI Backends**.\n` +
+      `- **Internship Timelines & Duration**:\n` +
+      `  - **Winter Internship**: **November 2026 – December 2026** (2 to 3 months).\n` +
+      `  - **Summer Internship**: **May – July** (Standard summer window, 2 to 3 months).\n` +
+      `- **Availability / Immediate Joining**: Pranshu is currently enrolled in his 3rd year at Nirma University, so he **cannot join immediately mid-semester**. He is available for the scheduled Winter (Nov–Dec 2026) and Summer internship windows.\n` +
       `- **Work Modes**: Open to all modes — **Remote**, **Hybrid**, or **On-site**.\n` +
       `- **Location & Relocation**: Based in India; **fully open to relocation** across all locations in India and globally.\n` +
       `- **DSA & Coding Profile**: Check out his active LeetCode track record at [leetcode.com/u/PranshuRajan](https://leetcode.com/u/PranshuRajan/).`;
+  }
+
+  if (q.includes("domain") || q.includes("industry") || q.includes("tooling") || q.includes("genai infra")) {
+    return `### 🚀 Target Industries & Domains of Interest\n\n` +
+      `Pranshu is particularly passionate about engineering high-impact software in:\n` +
+      `- **Developer Tooling**: Building high-efficiency tools, compilers, parsers, and diagnostic platforms (demonstrated in **PacketLens AI** C++17 DPI and packet inspection).\n` +
+      `- **GenAI Infrastructure & Systems**: Vector databases, indexing algorithms (HNSW, KD-Tree), RAG pipelines, and LLM orchestration (demonstrated in **Pranshu's AI** and SAP/Oracle GenAI certifications).\n` +
+      `- **High-Performance Distributed Backends**: Resilient payment relays, cryptographic protocols, and concurrent architectures (demonstrated in **UPI Offline Mesh**).\n\n` +
+      `He thrives in collaborative engineering cultures with clean code practices and zero chaos.`;
   }
 
   if (q.includes("leetcode") || q.includes("dsa") || q.includes("code") || q.includes("problem solve")) {

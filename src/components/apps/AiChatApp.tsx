@@ -395,6 +395,28 @@ export function AiChatApp() {
 function generateFallbackAnswer(query: string): string {
   const q = query.toLowerCase();
 
+  if (q.includes("role") || q.includes("hardware") || q.includes("software") || q.includes("intern") || q.includes("winter") || q.includes("summer") || q.includes("relocat") || q.includes("mode") || q.includes("location") || q.includes("availab") || q.includes("join") || q.includes("timeline") || q.includes("duration")) {
+    return `### 🎯 Target Roles & Internship Availability\n\n` +
+      `- **Target Roles**: **Strictly Software-Based Roles** (Software Development Engineer Intern, Full Stack Developer Intern, AI/ML Engineer Intern, Backend Engineer Intern). Pranshu does **not** seek hardware roles.\n` +
+      `- **Target Domains**: **Developer Tooling**, **GenAI Infrastructure**, **High-Throughput Systems**, and **Distributed Backends**.\n` +
+      `- **Internship Timelines & Duration**:\n` +
+      `  - **Winter Internship**: **November 2026 – December 2026** (2 to 3 months).\n` +
+      `  - **Summer Internship**: **May – July** (Standard summer window, 2 to 3 months).\n` +
+      `- **Availability / Immediate Joining**: Pranshu is currently enrolled in his 3rd year at Nirma University, so he **cannot join immediately mid-semester**. He is available for the scheduled Winter (Nov–Dec 2026) and Summer internship cycles.\n` +
+      `- **Work Modes**: Open to all modes — **Remote**, **Hybrid**, or **On-site**.\n` +
+      `- **Location & Relocation**: Based in India; **fully open to relocation** across all locations in India and globally.\n` +
+      `- **DSA & Coding Profile**: Check out his active LeetCode track record at [leetcode.com/u/PranshuRajan](https://leetcode.com/u/PranshuRajan/).`;
+  }
+
+  if (q.includes("domain") || q.includes("industry") || q.includes("tooling") || q.includes("genai infra")) {
+    return `### 🚀 Target Industries & Domains of Interest\n\n` +
+      `Pranshu is particularly passionate about engineering high-impact software in:\n` +
+      `- **Developer Tooling**: Building high-efficiency developer tools, compilers, parsers, and diagnostic platforms (demonstrated in **PacketLens AI** C++17 DPI and packet inspection).\n` +
+      `- **GenAI Infrastructure & Systems**: Vector databases, indexing algorithms (HNSW, KD-Tree), RAG pipelines, and LLM orchestration (demonstrated in **Pranshu's AI** and SAP/Oracle GenAI certifications).\n` +
+      `- **High-Performance Distributed Backends**: Resilient payment relays, cryptographic protocols, and concurrent architectures (demonstrated in **UPI Offline Mesh**).\n\n` +
+      `He thrives in collaborative engineering cultures with clean code practices and zero chaos.`;
+  }
+
   if (q.includes("hire") || q.includes("why should") || q.includes("strength") || q.includes("recommend")) {
     return `### 🎯 Why Pranshu Rajan Stands Out\n\n` +
       `**${candidateProfile.name}** is a versatile Full Stack Developer and AI Engineer combining low-level systems programming with modern production web architectures.\n\n` +
@@ -402,7 +424,7 @@ function generateFallbackAnswer(query: string): string {
       `- **Systems & Full-Stack Polyglot**: Mastered high-throughput low-level programming (**C++17, Python, Java Spring Boot**) alongside production web stacks (**Next.js 15, React, Node.js, Express, Tailwind CSS**).\n` +
       `- **Custom AI & Vector Engines**: Engineered **Pranshu's AI** from scratch—a C++17 & Python vector database featuring HNSW/KD-tree indexing and BM25 hybrid search with sub-millisecond query latency.\n` +
       `- **Fintech Security & Resilience**: Architected **UPI Offline Mesh** using hybrid encryption (RSA-2048-OAEP + AES-256-GCM) and database optimistic locking; resolved critical payment race conditions at **Xtin Capital**.\n` +
-      `- **Leadership & Verified Credentials**: Executive Committee Board Member at **ISA Nirma University** (CGPA 7.88), holding 6 certifications including SAP Generative AI Developer and Oracle OCI GenAI Professional.`;
+      `- **Leadership & Verified Credentials**: Executive Committee Board Member at **ISA Nirma University** (CGPA 7.88), holding 8 verified certifications including SAP Generative AI Developer and Oracle OCI GenAI Professional.`;
   }
 
   if (q.includes("irrigation") || q.includes("fuzzy") || q.includes("water") || q.includes("agriculture")) {
