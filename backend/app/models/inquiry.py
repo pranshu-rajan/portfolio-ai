@@ -1,7 +1,8 @@
 from typing import Optional
 from datetime import datetime, timezone
 from beanie import Document
-from pydantic import Field, EmailStr
+from pydantic import Field
+
 
 class RecruiterInquiry(Document):
     from_email: str
