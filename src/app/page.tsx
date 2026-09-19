@@ -35,7 +35,7 @@ export default function Desktop() {
   const isMounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
   const isMobile = useSyncExternalStore(
     subscribeResize,
-    () => window.innerWidth < 768,
+    () => window.innerWidth < 768 || (window.innerWidth < 1024 && window.innerHeight < 550),
     () => false
   );
 
@@ -146,7 +146,7 @@ export default function Desktop() {
       {/* Center Welcome Hero (as in saurabh-kushwaha.vercel.app with Pranshu) */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-10 px-4 pb-12">
         <div className="flex flex-col items-center justify-center text-center">
-          <h1 className="font-aubrey text-lg sm:text-2xl md:text-3xl text-white tracking-wide whitespace-nowrap drop-shadow-md m-0">
+          <h1 className="font-aubrey text-base sm:text-2xl md:text-3xl text-white tracking-wide whitespace-nowrap drop-shadow-md m-0">
             {"Hey, I'm Pranshu! welcome to my".split("").map((char, i) => (
               <span
                 key={i}
@@ -170,7 +170,7 @@ export default function Desktop() {
       </div>
 
       {/* Desktop Area: 2-Column Grid (Folders in Col 1, Resume.pdf in Col 2) */}
-      <div className="absolute top-10 left-5 z-20 hidden md:flex flex-row gap-3 pointer-events-auto">
+      <div className="absolute top-10 left-5 z-20 hidden lg:flex flex-row gap-3 pointer-events-auto">
         {/* Column 1: Best 4 Project Folders */}
         <div className="flex flex-col gap-2 w-[100px] items-center">
           <DesktopIcon

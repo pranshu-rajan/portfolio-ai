@@ -69,8 +69,8 @@ export function MailApp() {
 
   return (
     <div className="flex h-full bg-[#18181c] text-white">
-      {/* Mailbox Sidebar */}
-      <div className="w-48 border-r border-white/10 bg-[#1e1e24] p-3 flex flex-col justify-between select-none shrink-0">
+      {/* Mailbox Sidebar - Hidden on mobile / narrow window */}
+      <div className="hidden md:flex w-44 lg:w-48 border-r border-white/10 bg-[#1e1e24] p-3 flex-col justify-between select-none shrink-0">
         <div>
           <div className="text-[10px] uppercase font-bold text-white/40 mb-2">Mailboxes</div>
           <div className="space-y-1 text-xs">
@@ -128,15 +128,15 @@ export function MailApp() {
       {/* Compose Pane */}
       <div className="flex-1 flex flex-col min-w-0 bg-[#16161a]">
         {/* Toolbar */}
-        <div className="h-11 border-b border-white/10 px-4 flex items-center justify-between bg-[#202026] shrink-0">
-          <div className="text-xs font-semibold text-white/90 flex items-center gap-2">
-            <Mail className="w-4 h-4 text-blue-400" />
-            <span>New Recruiter / Hiring Inquiry</span>
+        <div className="h-auto min-h-11 py-2 px-3 sm:px-4 border-b border-white/10 flex flex-wrap items-center justify-between gap-2 bg-[#202026] shrink-0">
+          <div className="text-xs font-semibold text-white/90 flex items-center gap-2 truncate">
+            <Mail className="w-4 h-4 text-blue-400 shrink-0" />
+            <span className="truncate">New Recruiter / Hiring Inquiry</span>
           </div>
 
           <button
             onClick={handleCopyEmail}
-            className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[11px] font-medium flex items-center gap-1.5 transition-colors"
+            className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[11px] font-medium flex items-center gap-1.5 transition-colors shrink-0"
           >
             {copiedEmail ? (
               <>
@@ -146,7 +146,7 @@ export function MailApp() {
             ) : (
               <>
                 <Copy className="w-3 h-3" />
-                <span>Copy Email Address</span>
+                <span>Copy Email</span>
               </>
             )}
           </button>

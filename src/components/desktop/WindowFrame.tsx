@@ -33,11 +33,10 @@ export function WindowFrame({
   const [isResizing, setIsResizing] = useState(false);
   const [resizeStart, setResizeStart] = useState({ x: 0, y: 0, w: 0, h: 0 });
 
-  // Handle Dragging
+  // Handle Dragging - Mouse
   const handleMouseDownHeader = (e: React.MouseEvent) => {
     if (win.isMaximized) return;
     if (e.target !== e.currentTarget && !(e.target as HTMLElement).classList.contains("window-drag-handle")) {
-      // Don't drag if clicking buttons
       return;
     }
     e.preventDefault();
@@ -49,7 +48,23 @@ export function WindowFrame({
     });
   };
 
-  // Handle Resizing
+  // Handle Dragging - Touch
+  const handleTouchStartHeader = (e: React.TouchEvent) => {
+    if (win.isMaximized) return;
+    if (e.target !== e.currentTarget && !(e.target as HTMLElement).classList.contains("window-drag-handle")) {
+      return;
+    }
+    if (e.touches.length === 1) {
+      onFocus();
+      setIsDragging(true);
+      setDragOffset({
+        x: e.touches[0].clientX - win.position.x,
+        y: e.touches[0].clientY - win.position.y,
+      });
+    }
+  };
+
+  // Handle Resizing - Mouse
   const handleMouseDownResize = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -63,35 +78,68 @@ export function WindowFrame({
     });
   };
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
+  // Handle Resizing - Touch
+  const handleTouchStartResize = (e: React.TouchEvent) => {
+    e.stopPropagation();
+    if (e.touches.length === 1) {
+      onFocus();
+      setIsResizing(true);
+      setResizeStart({
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+        w: win.size.width,
+        h: win.size.height,
+      });
+    }
+  };
+
+  const handleMove = useCallback((clientX: number, clientY: number) => {
     if (isDragging) {
-      const newX = Math.max(0, Math.min(window.innerWidth - 100, e.clientX - dragOffset.x));
-      const newY = Math.max(30, Math.min(window.innerHeight - 100, e.clientY - dragOffset.y));
+      const maxX = Math.max(0, window.innerWidth - 60);
+      const maxY = Math.max(30, window.innerHeight - 60);
+      const newX = Math.max(0, Math.min(maxX, clientX - dragOffset.x));
+      const newY = Math.max(30, Math.min(maxY, clientY - dragOffset.y));
       onUpdatePosition({ x: newX, y: newY });
     } else if (isResizing) {
-      const deltaX = e.clientX - resizeStart.x;
-      const deltaY = e.clientY - resizeStart.y;
-      const newW = Math.max(win.minSize.width, resizeStart.w + deltaX);
-      const newH = Math.max(win.minSize.height, resizeStart.h + deltaY);
+      const deltaX = clientX - resizeStart.x;
+      const deltaY = clientY - resizeStart.y;
+      const maxW = Math.max(win.minSize.width, window.innerWidth - win.position.x - 8);
+      const maxH = Math.max(win.minSize.height, window.innerHeight - win.position.y - 40);
+      const newW = Math.min(maxW, Math.max(win.minSize.width, resizeStart.w + deltaX));
+      const newH = Math.min(maxH, Math.max(win.minSize.height, resizeStart.h + deltaY));
       onUpdateSize({ width: newW, height: newH });
     }
-  }, [isDragging, isResizing, dragOffset, resizeStart, win.minSize, onUpdatePosition, onUpdateSize]);
+  }, [isDragging, isResizing, dragOffset, resizeStart, win.minSize, win.position, onUpdatePosition, onUpdateSize]);
 
-  const handleMouseUp = useCallback(() => {
+  const handleEnd = useCallback(() => {
     setIsDragging(false);
     setIsResizing(false);
   }, []);
 
   useEffect(() => {
     if (isDragging || isResizing) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
+      const onMouseMove = (e: MouseEvent) => handleMove(e.clientX, e.clientY);
+      const onTouchMove = (e: TouchEvent) => {
+        if (e.touches.length === 1) {
+          handleMove(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      };
+
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", handleEnd);
+      document.addEventListener("touchmove", onTouchMove, { passive: false });
+      document.addEventListener("touchend", handleEnd);
+      document.addEventListener("touchcancel", handleEnd);
+
       return () => {
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", handleEnd);
+        document.removeEventListener("touchmove", onTouchMove);
+        document.removeEventListener("touchend", handleEnd);
+        document.removeEventListener("touchcancel", handleEnd);
       };
     }
-  }, [isDragging, isResizing, handleMouseMove, handleMouseUp]);
+  }, [isDragging, isResizing, handleMove, handleEnd]);
 
   if (!win.isOpen || win.isMinimized) {
     return null;
@@ -100,10 +148,10 @@ export function WindowFrame({
   const style: React.CSSProperties = win.isMaximized
     ? {
         position: "fixed",
-        top: "32px",
-        left: "8px",
-        right: "8px",
-        bottom: "76px",
+        top: "30px",
+        left: "4px",
+        right: "4px",
+        bottom: "68px",
         width: "auto",
         height: "auto",
         zIndex: win.zIndex,
@@ -114,8 +162,8 @@ export function WindowFrame({
         top: `${win.position.y}px`,
         width: `${win.size.width}px`,
         height: `${win.size.height}px`,
-        maxWidth: `calc(100vw - ${Math.max(win.position.x + 16, 24)}px)`,
-        maxHeight: `calc(100vh - ${Math.max(win.position.y + 74, 80)}px)`,
+        maxWidth: `calc(100vw - 8px)`,
+        maxHeight: `calc(100vh - 40px)`,
         zIndex: win.zIndex,
       };
 
@@ -128,26 +176,27 @@ export function WindowFrame({
         isActive
           ? "border-white/20 shadow-2xl shadow-black/60 opacity-100 ring-1 ring-white/10"
           : "border-white/10 shadow-lg shadow-black/40 opacity-95"
-      } bg-[#1e1e24]/90 backdrop-blur-3xl text-white`}
+      } bg-[#1e1e24]/90 backdrop-blur-3xl text-white select-none`}
     >
       {/* macOS Window Header */}
       <div
         onMouseDown={handleMouseDownHeader}
-        className={`window-drag-handle h-10 px-4 flex items-center justify-between border-b select-none cursor-default ${
+        onTouchStart={handleTouchStartHeader}
+        className={`window-drag-handle h-9 sm:h-10 px-3 sm:px-4 flex items-center justify-between border-b select-none cursor-default touch-none ${
           isActive
             ? "bg-[#282830]/90 border-white/10 text-white/90"
             : "bg-[#202026]/80 border-white/5 text-white/50"
         }`}
       >
         {/* Traffic Light Buttons */}
-        <div className="flex items-center gap-2 group/lights">
+        <div className="flex items-center gap-2 group/lights shrink-0">
           {/* Close (Red) */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               onClose();
             }}
-            className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e] flex items-center justify-center text-black/70 hover:opacity-100 transition-opacity"
+            className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e] flex items-center justify-center text-black/70 hover:opacity-100 transition-opacity active:scale-90"
             title="Close"
           >
             <span className="opacity-0 group-hover/lights:opacity-100 text-[9px] font-bold leading-none mb-0.5">
@@ -161,7 +210,7 @@ export function WindowFrame({
               e.stopPropagation();
               onMinimize();
             }}
-            className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d89e24] flex items-center justify-center text-black/70 hover:opacity-100 transition-opacity"
+            className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d89e24] flex items-center justify-center text-black/70 hover:opacity-100 transition-opacity active:scale-90"
             title="Minimize"
           >
             <span className="opacity-0 group-hover/lights:opacity-100 text-[10px] font-bold leading-none mb-1">
@@ -175,7 +224,7 @@ export function WindowFrame({
               e.stopPropagation();
               onMaximize();
             }}
-            className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29] flex items-center justify-center text-black/70 hover:opacity-100 transition-opacity"
+            className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29] flex items-center justify-center text-black/70 hover:opacity-100 transition-opacity active:scale-90"
             title={win.isMaximized ? "Restore" : "Zoom"}
           >
             <span className="opacity-0 group-hover/lights:opacity-100 text-[7px] font-bold leading-none">
@@ -185,12 +234,12 @@ export function WindowFrame({
         </div>
 
         {/* Window Title */}
-        <div className="text-xs font-semibold tracking-wide text-center truncate max-w-[65%] pointer-events-none">
+        <div className="text-xs font-semibold tracking-wide text-center truncate px-2 max-w-[60%] sm:max-w-[70%] pointer-events-none">
           {win.title}
         </div>
 
         {/* Dummy spacer for symmetric balance */}
-        <div className="w-12" />
+        <div className="w-12 shrink-0" />
       </div>
 
       {/* Window Body */}
@@ -202,11 +251,12 @@ export function WindowFrame({
       {!win.isMaximized && (
         <div
           onMouseDown={handleMouseDownResize}
-          className="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize flex items-end justify-end p-0.5 z-50 group"
+          onTouchStart={handleTouchStartResize}
+          className="absolute bottom-0 right-0 w-6 h-6 cursor-se-resize flex items-end justify-end p-1 z-50 group touch-none"
           title="Resize window"
         >
           <svg
-            className="w-2.5 h-2.5 text-white/30 group-hover:text-white/70 transition-colors"
+            className="w-3 h-3 text-white/30 group-hover:text-white/70 transition-colors"
             viewBox="0 0 6 6"
           >
             <circle cx="5" cy="5" r="0.8" fill="currentColor" />

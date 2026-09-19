@@ -14,7 +14,7 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
     isMaximized: false,
     size: { width: 480, height: 480 },
     defaultSize: { width: 480, height: 480 },
-    minSize: { width: 340, height: 320 },
+    minSize: { width: 320, height: 300 },
   },
   finder: {
     id: "finder",
@@ -25,7 +25,7 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
     isMaximized: false,
     size: { width: 820, height: 520 },
     defaultSize: { width: 820, height: 520 },
-    minSize: { width: 520, height: 380 },
+    minSize: { width: 340, height: 320 },
   },
   safari: {
     id: "safari",
@@ -36,7 +36,7 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
     isMaximized: false,
     size: { width: 840, height: 530 },
     defaultSize: { width: 840, height: 530 },
-    minSize: { width: 560, height: 380 },
+    minSize: { width: 340, height: 320 },
   },
   terminal: {
     id: "terminal",
@@ -47,7 +47,7 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
     isMaximized: false,
     size: { width: 660, height: 420 },
     defaultSize: { width: 660, height: 420 },
-    minSize: { width: 440, height: 300 },
+    minSize: { width: 320, height: 260 },
   },
   resume: {
     id: "resume",
@@ -58,7 +58,7 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
     isMaximized: false,
     size: { width: 780, height: 580 },
     defaultSize: { width: 780, height: 580 },
-    minSize: { width: 480, height: 400 },
+    minSize: { width: 340, height: 320 },
   },
   mail: {
     id: "mail",
@@ -69,7 +69,7 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
     isMaximized: false,
     size: { width: 620, height: 470 },
     defaultSize: { width: 620, height: 470 },
-    minSize: { width: 420, height: 360 },
+    minSize: { width: 320, height: 300 },
   },
   settings: {
     id: "settings",
@@ -80,7 +80,7 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
     isMaximized: false,
     size: { width: 600, height: 460 },
     defaultSize: { width: 600, height: 460 },
-    minSize: { width: 440, height: 340 },
+    minSize: { width: 320, height: 300 },
   },
   contacts: {
     id: "contacts",
@@ -91,7 +91,7 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
     isMaximized: false,
     size: { width: 720, height: 500 },
     defaultSize: { width: 720, height: 500 },
-    minSize: { width: 480, height: 360 },
+    minSize: { width: 340, height: 320 },
   },
   photos: {
     id: "photos",
@@ -102,7 +102,7 @@ const DEFAULT_WINDOWS: Record<AppId, Omit<WindowState, "zIndex" | "position">> =
     isMaximized: false,
     size: { width: 800, height: 520 },
     defaultSize: { width: 800, height: 520 },
-    minSize: { width: 500, height: 380 },
+    minSize: { width: 340, height: 320 },
   },
 };
 
@@ -113,8 +113,8 @@ export function useWindowManager() {
 
     Object.entries(DEFAULT_WINDOWS).forEach(([key, config], idx) => {
       const id = key as AppId;
-      const x = 70 + idx * 32;
-      const y = 50 + idx * 24;
+      const x = 50 + idx * 24;
+      const y = 45 + idx * 20;
       initial[id] = {
         ...config,
         zIndex: id === "aichat" ? 25 : initialZ++,
@@ -127,46 +127,82 @@ export function useWindowManager() {
 
   const topZRef = useRef(30);
 
-  // Center window on screen safely within viewport
+  // Center window on screen safely within viewport bounds
   const centerPosition = useCallback((width: number, height: number) => {
-    if (typeof window === "undefined") return { x: 100, y: 50 };
+    if (typeof window === "undefined") return { x: 80, y: 50 };
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
-    const targetW = Math.min(width, Math.max(340, screenW - 32));
-    const targetH = Math.min(height, Math.max(350, screenH - 110));
-    const x = Math.max(16, Math.floor((screenW - targetW) / 2));
-    const y = Math.max(36, Math.floor((screenH - targetH - 75) / 2));
+    const targetW = Math.min(width, Math.max(300, screenW - 32));
+    const targetH = Math.min(height, Math.max(260, screenH - 110));
+    const x = Math.max(12, Math.floor((screenW - targetW) / 2));
+    const y = Math.max(34, Math.floor((screenH - targetH - 75) / 2));
     return { x, y };
   }, []);
 
-  // Adapt initially opened windows to real screen size on client mount
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  // Compute adaptive window size that fits screen comfortably
+  const getFittedSize = useCallback((defaultSize: { width: number; height: number }, minSize: { width: number; height: number }) => {
+    if (typeof window === "undefined") return defaultSize;
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
+    const maxAllowedW = Math.max(minSize.width, screenW - 32);
+    const maxAllowedH = Math.max(minSize.height, screenH - 115);
+    return {
+      width: Math.min(defaultSize.width, maxAllowedW),
+      height: Math.min(defaultSize.height, maxAllowedH),
+    };
+  }, []);
 
-    const frameId = requestAnimationFrame(() => {
+  // Adapt open windows to real screen size on client mount and window resize
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleResize = () => {
+      const screenW = window.innerWidth;
+      const screenH = window.innerHeight;
+
       setWindows((prev) => {
         const updated = { ...prev };
-        const chat = updated.aichat;
-        if (chat) {
-          const fitW = Math.min(chat.defaultSize.width, screenW - 32);
-          const fitH = Math.min(chat.defaultSize.height, screenH - 120);
-          const pos = {
-            x: Math.max(16, Math.floor((screenW - fitW) / 2)),
-            y: Math.max(36, Math.floor((screenH - fitH - 75) / 2)),
-          };
-          updated.aichat = {
-            ...chat,
-            size: { width: fitW, height: fitH },
-            position: pos,
-          };
-        }
-        return updated;
-      });
-    });
+        let hasChanges = false;
 
-    return () => cancelAnimationFrame(frameId);
+        Object.keys(updated).forEach((key) => {
+          const id = key as AppId;
+          const win = updated[id];
+          if (!win) return;
+
+          // Clamp size so it doesn't exceed screen
+          const maxAllowedW = Math.max(win.minSize.width, screenW - 24);
+          const maxAllowedH = Math.max(win.minSize.height, screenH - 90);
+          const newW = Math.min(win.size.width, maxAllowedW);
+          const newH = Math.min(win.size.height, maxAllowedH);
+
+          // Clamp position so titlebar and window stay visible
+          const maxX = Math.max(12, screenW - newW - 12);
+          const maxY = Math.max(32, screenH - newH - 75);
+          const newX = Math.max(12, Math.min(win.position.x, maxX));
+          const newY = Math.max(32, Math.min(win.position.y, maxY));
+
+          if (
+            newW !== win.size.width ||
+            newH !== win.size.height ||
+            newX !== win.position.x ||
+            newY !== win.position.y
+          ) {
+            hasChanges = true;
+            updated[id] = {
+              ...win,
+              size: { width: newW, height: newH },
+              position: { x: newX, y: newY },
+            };
+          }
+        });
+
+        return hasChanges ? updated : prev;
+      });
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const bringToFront = useCallback((id: AppId) => {
@@ -189,7 +225,24 @@ export function useWindowManager() {
       const nextZ = topZRef.current;
       setWindows((prevWindows) => {
         const current = prevWindows[id];
-        const newPos = current.position || centerPosition(current.size.width, current.size.height);
+        const fittedSize = getFittedSize(current.defaultSize, current.minSize);
+        const screenW = typeof window !== "undefined" ? window.innerWidth : 1024;
+        const screenH = typeof window !== "undefined" ? window.innerHeight : 768;
+
+        // Check if existing position is within reasonable bounds
+        const isOutOfBounds =
+          !current.position ||
+          current.position.x + 80 > screenW ||
+          current.position.y + 60 > screenH ||
+          current.position.x < 0;
+
+        const newPos = isOutOfBounds
+          ? centerPosition(fittedSize.width, fittedSize.height)
+          : {
+              x: Math.max(12, Math.min(current.position.x, screenW - fittedSize.width - 12)),
+              y: Math.max(34, Math.min(current.position.y, screenH - fittedSize.height - 75)),
+            };
+
         return {
           ...prevWindows,
           [id]: {
@@ -197,12 +250,13 @@ export function useWindowManager() {
             isOpen: true,
             isMinimized: false,
             zIndex: nextZ,
+            size: current.isOpen ? current.size : fittedSize,
             position: newPos,
           },
         };
       });
     },
-    [centerPosition]
+    [centerPosition, getFittedSize]
   );
 
   const closeWindow = useCallback((id: AppId) => {

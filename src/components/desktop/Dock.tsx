@@ -162,11 +162,15 @@ export function Dock({ windows, onOpenApp }: DockProps) {
   const mouseX = useMotionValue(Infinity);
 
   return (
-    <footer className="fixed bottom-3 left-1/2 -translate-x-1/2 z-[9990] flex flex-col items-center">
+    <footer className="fixed bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-[9990] flex flex-col items-center max-w-[calc(100vw-16px)]">
       <div
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
-        className="flex items-end gap-3 px-3 py-2 rounded-[24px] bg-white/20 backdrop-blur-2xl border border-white/30 shadow-[0_12px_40px_rgba(0,0,0,0.35)] transition-all"
+        onTouchStart={(e) => {
+          if (e.touches[0]) mouseX.set(e.touches[0].pageX);
+        }}
+        onTouchEnd={() => mouseX.set(Infinity)}
+        className="flex items-end gap-2 sm:gap-3 px-2 sm:px-3 py-1.5 sm:py-2 rounded-[20px] sm:rounded-[24px] bg-white/20 backdrop-blur-2xl border border-white/30 shadow-[0_12px_40px_rgba(0,0,0,0.35)] transition-all"
         style={{
           boxShadow: "0 10px 30px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.4)",
         }}

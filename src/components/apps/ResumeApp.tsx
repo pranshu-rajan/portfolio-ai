@@ -38,8 +38,8 @@ export function ResumeApp() {
 
   return (
     <div className="flex h-full bg-[#24242c] text-white select-text">
-      {/* Left Sidebar: 2-Page Thumbnails */}
-      <div className="w-48 border-r border-white/10 bg-[#1a1a20] p-3 flex flex-col items-center select-none shrink-0 overflow-y-auto">
+      {/* Left Sidebar: 2-Page Thumbnails (Hidden on mobile / narrow viewports) */}
+      <div className="hidden md:flex w-44 lg:w-48 border-r border-white/10 bg-[#1a1a20] p-3 flex-col items-center select-none shrink-0 overflow-y-auto">
         <div className="text-[10px] uppercase font-bold tracking-wider text-white/40 mb-3 w-full text-left">
           Pages (2 Pages)
         </div>
@@ -100,16 +100,36 @@ export function ResumeApp() {
       {/* Main Document Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Document Toolbar */}
-        <div className="h-11 border-b border-white/10 px-4 flex items-center justify-between bg-[#1e1e24] shrink-0 select-none">
+        <div className="h-auto min-h-11 py-1.5 px-3 sm:px-4 border-b border-white/10 flex flex-wrap items-center justify-between gap-2 bg-[#1e1e24] shrink-0 select-none">
           <div className="flex items-center gap-2 text-xs font-semibold text-white/80">
-            <FileText className="w-4 h-4 text-rose-400" />
-            <span className="truncate max-w-[200px] md:max-w-none">Pranshu_Rajan_Resume.pdf</span>
-            <span className="text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-white/50">
+            <FileText className="w-4 h-4 text-rose-400 shrink-0" />
+            <span className="truncate max-w-[130px] sm:max-w-none">Pranshu_Rajan_Resume.pdf</span>
+            <span className="text-[10px] bg-white/10 px-1.5 py-0.5 rounded text-white/50 shrink-0">
               Page {activePage} of 2
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            {/* Mobile Page Switcher */}
+            <div className="md:hidden flex items-center bg-black/40 p-0.5 rounded-lg border border-white/10">
+              <button
+                onClick={() => scrollToPage(1)}
+                className={`px-2 py-0.5 rounded text-[11px] font-medium transition-all ${
+                  activePage === 1 ? "bg-blue-600 text-white" : "text-white/60 hover:text-white"
+                }`}
+              >
+                P1
+              </button>
+              <button
+                onClick={() => scrollToPage(2)}
+                className={`px-2 py-0.5 rounded text-[11px] font-medium transition-all ${
+                  activePage === 2 ? "bg-blue-600 text-white" : "text-white/60 hover:text-white"
+                }`}
+              >
+                P2
+              </button>
+            </div>
+
             {/* View Mode Toggle */}
             <div className="flex items-center bg-black/30 p-0.5 rounded-lg border border-white/10 text-xs">
               <button
@@ -124,7 +144,7 @@ export function ResumeApp() {
                 }`}
               >
                 <Eye className="w-3 h-3 text-emerald-400" />
-                <span>Original PDF</span>
+                <span className="hidden xs:inline">Original</span> PDF
               </button>
               <button
                 onClick={() => {
@@ -138,13 +158,13 @@ export function ResumeApp() {
                 }`}
               >
                 <FileCheck className="w-3 h-3 text-blue-400" />
-                <span>Document View</span>
+                <span className="hidden xs:inline">Document</span> View
               </button>
             </div>
 
             {/* Zoom Controls */}
             {viewMode === "document" && (
-              <div className="flex items-center p-0.5 rounded-lg bg-white/10 text-xs">
+              <div className="hidden sm:flex items-center p-0.5 rounded-lg bg-white/10 text-xs">
                 <button
                   onClick={() => setZoom((z) => Math.max(70, z - 10))}
                   className="p-1 hover:bg-white/10 rounded text-white/70 hover:text-white"
@@ -166,17 +186,17 @@ export function ResumeApp() {
             {/* Download Original PDF Button */}
             <button
               onClick={handleDownload}
-              className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center gap-1.5 shadow-md transition-colors"
+              className="px-2.5 sm:px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center gap-1.5 shadow-md transition-colors"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Download PDF</span>
+              <span className="hidden sm:inline">Download</span> PDF
             </button>
           </div>
         </div>
 
         {/* View Content Stage */}
         {viewMode === "native" ? (
-          <div className="flex-1 w-full h-full bg-[#18181c] relative">
+          <div className="flex-1 w-full h-full bg-[#18181c] relative min-h-0">
             <iframe
               src="/Pranshu_Rajan_Resume.pdf#toolbar=1"
               className="w-full h-full border-0"
@@ -184,12 +204,12 @@ export function ResumeApp() {
             />
           </div>
         ) : (
-          <div className="flex-1 overflow-y-auto p-6 flex flex-col items-center bg-[#15151a] gap-8">
+          <div className="flex-1 overflow-y-auto overflow-x-auto p-3 sm:p-6 flex flex-col items-center bg-[#15151a] gap-8">
             {/* PAGE 1 CANVAS */}
             <div
               ref={page1Ref}
               style={{ transform: `scale(${zoom / 100})`, transformOrigin: "top center" }}
-              className="w-[740px] min-h-[1020px] bg-white text-neutral-900 shadow-2xl p-10 font-sans text-xs transition-transform duration-150 shrink-0 leading-normal rounded-sm"
+              className="w-full max-w-[740px] min-h-[1020px] bg-white text-neutral-900 shadow-2xl p-4 sm:p-10 font-sans text-xs transition-transform duration-150 shrink-0 leading-normal rounded-sm"
             >
               {/* Header */}
               <div className="border-b border-neutral-300 pb-3 mb-4">
@@ -404,7 +424,7 @@ export function ResumeApp() {
             <div
               ref={page2Ref}
               style={{ transform: `scale(${zoom / 100})`, transformOrigin: "top center" }}
-              className="w-[740px] min-h-[1020px] bg-white text-neutral-900 shadow-2xl p-10 font-sans text-xs transition-transform duration-150 shrink-0 leading-normal rounded-sm"
+              className="w-full max-w-[740px] min-h-[1020px] bg-white text-neutral-900 shadow-2xl p-4 sm:p-10 font-sans text-xs transition-transform duration-150 shrink-0 leading-normal rounded-sm"
             >
               {/* Continued UPI Offline Mesh */}
               <div className="mb-4">

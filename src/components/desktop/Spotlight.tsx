@@ -121,7 +121,7 @@ export function Spotlight({
 
   return (
     <div
-      className="fixed inset-0 z-[10000] bg-black/40 backdrop-blur-sm flex items-start justify-center pt-28 px-4"
+      className="fixed inset-0 z-[10000] bg-black/40 backdrop-blur-sm flex items-start justify-center pt-16 sm:pt-24 px-3 sm:px-4"
       onClick={onClose}
     >
       <div
@@ -129,8 +129,8 @@ export function Spotlight({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3 border-b border-white/10 gap-3">
-          <Search className="w-5 h-5 text-white/50" />
+        <div className="flex items-center px-3.5 sm:px-4 py-3 border-b border-white/10 gap-2.5 sm:gap-3">
+          <Search className="w-5 h-5 text-white/50 shrink-0" />
           <input
             type="text"
             value={query}
@@ -139,10 +139,10 @@ export function Spotlight({
               setSelectedIndex(0);
             }}
             placeholder="Spotlight Search or Ask AI anything..."
-            className="flex-1 bg-transparent text-white text-base outline-none placeholder:text-white/40"
+            className="flex-1 bg-transparent text-white text-sm sm:text-base outline-none placeholder:text-white/40"
             autoFocus
           />
-          <kbd className="text-[10px] text-white/40 border border-white/20 rounded px-1.5 py-0.5">
+          <kbd className="text-[10px] text-white/40 border border-white/20 rounded px-1.5 py-0.5 shrink-0">
             ESC
           </kbd>
         </div>

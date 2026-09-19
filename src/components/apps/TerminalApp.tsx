@@ -57,7 +57,7 @@ export function TerminalApp({ onOpenApp }: TerminalAppProps) {
         response = (
           <div className="space-y-1 font-mono text-xs text-white/90">
             <div>Available Commands:</div>
-            <div className="grid grid-cols-2 gap-1 text-white/70">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-white/70">
               <div><span className="text-emerald-400">help</span> - List all commands</div>
               <div><span className="text-emerald-400">about</span> - Developer summary</div>
               <div><span className="text-emerald-400">skills</span> - Technical skills</div>
@@ -143,8 +143,8 @@ export function TerminalApp({ onOpenApp }: TerminalAppProps) {
 
       case "neofetch":
         response = (
-          <div className="font-mono text-xs flex gap-4 items-center">
-            <pre className="text-cyan-400 font-bold select-none text-[10px] leading-tight">
+          <div className="font-mono text-xs flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center overflow-x-auto">
+            <pre className="text-cyan-400 font-bold select-none text-[9px] sm:text-[10px] leading-tight hidden xs:block shrink-0">
 {`                    'c.
                  ,xNMM.
                .OMMMMo
@@ -156,20 +156,20 @@ export function TerminalApp({ onOpenApp }: TerminalAppProps) {
 ;MMMMMMMMMMMMMMMMMMMMMMMM:
 :MMMMMMMMMMMMMMMMMMMMMMMM:
 .MMMMMMMMMMMMMMMMMMMMMMMMX.
- kMMMMMMMMMMMMMMMMMMMMMMMMWd.
+ kMMMMMMMMMMMMMMMMMMMMMMMWd.
  .XMMMMMMMMMMMMMMMMMMMMMMMMMMk
   .XMMMMMMMMMMMMMMMMMMMMMMMMK.
     kMMMMMMMMMMMMMMMMMMMMMMd
      ;KMMMMMMMWXXWMMMMMMMk.
        .cooc,.    .,coo:.`}
             </pre>
-            <div className="space-y-1 text-white/90">
+            <div className="space-y-1 text-white/90 min-w-0">
               <div><span className="text-emerald-400 font-bold">{candidateProfile.handle}</span>@macbook-pro</div>
               <div className="text-white/40">-------------------</div>
               <div><span className="text-purple-300">OS:</span> macOS Sequoia (Portfolio Edition)</div>
               <div><span className="text-purple-300">Host:</span> Apple M3 Max (36GB)</div>
               <div><span className="text-purple-300">Role:</span> {candidateProfile.title}</div>
-              <div><span className="text-purple-300">Stack:</span> Next.js, C++17, Python, TypeScript, Spring Boot, PostgreSQL, MongoDB</div>
+              <div className="break-words"><span className="text-purple-300">Stack:</span> Next.js, C++17, Python, TypeScript, Spring Boot, PostgreSQL, MongoDB</div>
               <div><span className="text-purple-300">Shell:</span> zsh 5.9 (x86_64-apple-darwin23.0)</div>
               <div><span className="text-purple-300">Uptime:</span> 99.9% Production Reliability</div>
             </div>
@@ -264,28 +264,28 @@ export function TerminalApp({ onOpenApp }: TerminalAppProps) {
         {history.map((item) => (
           <div key={item.id} className="space-y-1">
             {item.command !== "welcome" && (
-              <div className="flex items-center gap-2 text-white/90">
-                <span className="text-emerald-400 font-bold">{candidateProfile.handle}@macbook-pro</span>
-                <span className="text-white/40">~ %</span>
-                <span>{item.command}</span>
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-white/90">
+                <span className="text-emerald-400 font-bold shrink-0">{candidateProfile.handle}@macbook-pro</span>
+                <span className="text-white/40 shrink-0">~ %</span>
+                <span className="break-all">{item.command}</span>
               </div>
             )}
-            <div>{item.response}</div>
+            <div className="overflow-x-auto">{item.response}</div>
           </div>
         ))}
       </div>
 
       {/* Active input line */}
-      <div className="flex items-center gap-2 text-white/90 mt-2">
-        <span className="text-emerald-400 font-bold">{candidateProfile.handle}@macbook-pro</span>
-        <span className="text-white/40">~ %</span>
+      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-white/90 mt-2">
+        <span className="text-emerald-400 font-bold shrink-0">{candidateProfile.handle}@macbook-pro</span>
+        <span className="text-white/40 shrink-0">~ %</span>
         <input
           ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="flex-1 bg-transparent border-0 outline-none text-white font-mono text-xs p-0 m-0"
+          className="flex-1 min-w-[120px] bg-transparent border-0 outline-none text-white font-mono text-xs p-0 m-0"
           autoFocus
         />
       </div>

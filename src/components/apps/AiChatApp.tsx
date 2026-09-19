@@ -362,32 +362,32 @@ export function AiChatApp() {
   return (
     <div className="relative flex flex-col h-full min-h-0 bg-[#18181c] text-white select-text">
       {/* App Top Toolbar */}
-      <div className="shrink-0 flex items-center justify-between px-3.5 py-2.5 border-b border-white/10 bg-[#212127]/95 backdrop-blur-md">
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white shadow-sm">
+      <div className="shrink-0 flex items-center justify-between px-2.5 sm:px-3.5 py-2 sm:py-2.5 border-b border-white/10 bg-[#212127]/95 backdrop-blur-md gap-2">
+        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white shadow-sm shrink-0">
             <Sparkles className="w-4 h-4" />
           </div>
-          <div>
-            <div className="text-xs font-bold flex items-center gap-1.5">
-              <span>HireMe AI Digital Twin</span>
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 rounded-full font-medium">
+          <div className="min-w-0">
+            <div className="text-xs font-bold flex items-center gap-1.5 truncate">
+              <span className="truncate">HireMe AI</span>
+              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 rounded-full font-medium shrink-0">
                 Online
               </span>
               {isSyncingHistory && (
-                <span className="text-[9px] text-purple-300 animate-pulse">Syncing Atlas...</span>
+                <span className="text-[9px] text-purple-300 animate-pulse hidden xs:inline shrink-0">Syncing...</span>
               )}
             </div>
-            <div className="text-[10px] text-white/50">
+            <div className="text-[10px] text-white/50 truncate hidden sm:block">
               Grounded in {candidateProfile.name}&apos;s verified resume & projects
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
           {/* New Chat Button (ChatGPT Style) */}
           <button
             onClick={handleNewChat}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-purple-600/20 hover:bg-purple-600/35 border border-purple-500/40 text-purple-200 hover:text-white text-xs font-medium transition-all shadow-sm active:scale-95"
+            className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg bg-purple-600/20 hover:bg-purple-600/35 border border-purple-500/40 text-purple-200 hover:text-white text-xs font-medium transition-all shadow-sm active:scale-95"
             title="Start a brand new conversation"
           >
             <Plus className="w-3.5 h-3.5 text-purple-300" />

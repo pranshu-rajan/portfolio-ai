@@ -64,9 +64,9 @@ export function ProjectsApp({ onOpenApp, onPreviewInSafari, onAskAiAboutProject 
   };
 
   return (
-    <div className="flex h-full bg-[#18181c] text-white">
-      {/* Finder Left Sidebar */}
-      <div className="w-52 border-r border-white/10 bg-[#1e1e24]/70 p-3 flex flex-col justify-between shrink-0 select-none">
+    <div className="flex flex-col md:flex-row h-full bg-[#18181c] text-white">
+      {/* Finder Left Sidebar - Hidden on small screen / mobile */}
+      <div className="hidden md:flex w-48 lg:w-52 border-r border-white/10 bg-[#1e1e24]/70 p-3 flex-col justify-between shrink-0 select-none">
         <div>
           <div className="text-[10px] font-bold uppercase tracking-wider text-white/40 px-2 mb-2">
             Categories
@@ -122,8 +122,31 @@ export function ProjectsApp({ onOpenApp, onPreviewInSafari, onAskAiAboutProject 
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
+        {/* Horizontal Category Chips Bar on Mobile / Narrow screens */}
+        <div className="md:hidden flex items-center gap-1.5 px-3 py-2 border-b border-white/10 bg-[#1b1b22] overflow-x-auto scrollbar-none shrink-0">
+          {CATEGORIES.map((cat) => {
+            const isSelected = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => {
+                  sounds.playClick();
+                  setSelectedCategory(cat);
+                }}
+                className={`whitespace-nowrap px-2.5 py-1 rounded-full text-xs font-medium transition-all shrink-0 ${
+                  isSelected
+                    ? "bg-blue-600 text-white shadow-sm"
+                    : "bg-white/5 border border-white/10 text-white/70 hover:bg-white/10"
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Finder Toolbar */}
-        <div className="h-11 border-b border-white/10 px-4 flex items-center justify-between bg-[#202026]/70 shrink-0">
+        <div className="h-auto min-h-11 py-2 border-b border-white/10 px-3 sm:px-4 flex flex-wrap items-center justify-between gap-2 bg-[#202026]/70 shrink-0">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-white/90">
               {selectedCategory} Projects
@@ -131,21 +154,21 @@ export function ProjectsApp({ onOpenApp, onPreviewInSafari, onAskAiAboutProject 
             <span className="text-[11px] text-white/40">({filteredProjects.length})</span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-1 sm:flex-initial justify-end">
             {/* Search */}
-            <div className="relative flex items-center">
+            <div className="relative flex items-center flex-1 sm:flex-initial">
               <Search className="w-3.5 h-3.5 text-white/40 absolute left-2.5" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Filter projects & stack..."
-                className="w-48 bg-[#151518] border border-white/10 rounded-lg pl-8 pr-2.5 py-1 text-xs text-white placeholder:text-white/40 outline-none focus:border-blue-500 transition-colors"
+                className="w-full sm:w-44 lg:w-48 bg-[#151518] border border-white/10 rounded-lg pl-8 pr-2.5 py-1 text-xs text-white placeholder:text-white/40 outline-none focus:border-blue-500 transition-colors"
               />
             </div>
 
             {/* View Mode Switcher */}
-            <div className="flex items-center p-0.5 rounded-lg bg-white/10 border border-white/10">
+            <div className="flex items-center p-0.5 rounded-lg bg-white/10 border border-white/10 shrink-0">
               <button
                 onClick={() => setViewMode("grid")}
                 className={`p-1 rounded ${viewMode === "grid" ? "bg-white/20 text-white" : "text-white/50 hover:text-white"}`}
@@ -403,28 +426,28 @@ export function ProjectsApp({ onOpenApp, onPreviewInSafari, onAskAiAboutProject 
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 border-t border-white/10 bg-[#16161a] flex items-center justify-between">
-              <div className="flex items-center gap-2">
+            <div className="p-3 sm:p-4 border-t border-white/10 bg-[#16161a] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+              <div className="flex flex-wrap items-center gap-2">
                 {activeProject.liveUrl && (
                   <button
                     onClick={() => {
                       handleLaunchLive(activeProject.liveUrl);
                       setActiveProject(null);
                     }}
-                    className="px-4 py-1.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-semibold flex items-center gap-1.5 shadow-md transition-colors"
+                    className="flex-1 sm:flex-initial px-3.5 py-1.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold flex items-center justify-center gap-1.5 shadow-md transition-colors"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
-                    <span>Open Live Demo</span>
+                    <span>Live Demo</span>
                   </button>
                 )}
                 <a
                   href={activeProject.githubUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium flex items-center gap-1.5 transition-colors"
+                  className="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <GithubIcon className="w-3.5 h-3.5" />
-                  <span>GitHub Repository</span>
+                  <span>GitHub</span>
                 </a>
               </div>
 
@@ -433,7 +456,7 @@ export function ProjectsApp({ onOpenApp, onPreviewInSafari, onAskAiAboutProject 
                   handleAskAi(activeProject.title);
                   setActiveProject(null);
                 }}
-                className="px-3 py-1.5 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-purple-200 font-medium flex items-center gap-1.5 transition-colors"
+                className="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-purple-200 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
               >
                 <Bot className="w-3.5 h-3.5 text-purple-400" />
                 <span>Ask AI About This</span>

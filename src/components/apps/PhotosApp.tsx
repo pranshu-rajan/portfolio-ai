@@ -70,9 +70,9 @@ export function PhotosApp() {
   };
 
   return (
-    <div className="flex h-full bg-[#1c1c20] text-white select-none">
-      {/* Photos Sidebar */}
-      <div className="w-56 border-r border-white/10 bg-[#222228]/80 backdrop-blur-md p-3 flex flex-col justify-between shrink-0">
+    <div className="flex flex-col md:flex-row h-full bg-[#1c1c20] text-white select-none">
+      {/* Photos Sidebar - Hidden on mobile / small screen */}
+      <div className="hidden md:flex w-52 lg:w-56 border-r border-white/10 bg-[#222228]/80 backdrop-blur-md p-3 flex-col justify-between shrink-0">
         <div>
           {/* Library Section */}
           <div className="text-[10px] font-bold uppercase tracking-wider text-white/40 px-2 mb-2">
@@ -195,8 +195,31 @@ export function PhotosApp() {
 
       {/* Main Photos Area */}
       <div className="flex-1 flex flex-col min-w-0 bg-[#17171a]">
+        {/* Horizontal Category Bar for mobile/small screen */}
+        <div className="md:hidden flex items-center gap-1.5 px-3 py-2 border-b border-white/10 bg-[#1b1b22] overflow-x-auto scrollbar-none shrink-0">
+          {(["all", "AI & Cloud", "Industry Vendor", "Academic & Honors", "Specialized"] as AlbumCategory[]).map((cat) => {
+            const isSelected = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => {
+                  sounds.playClick();
+                  setSelectedCategory(cat);
+                }}
+                className={`whitespace-nowrap px-2.5 py-1 rounded-full text-xs font-medium transition-all shrink-0 ${
+                  isSelected
+                    ? "bg-blue-600 text-white shadow-sm"
+                    : "bg-white/5 border border-white/10 text-white/70 hover:bg-white/10"
+                }`}
+              >
+                {cat === "all" ? "All" : cat}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Top Photos Toolbar */}
-        <div className="h-11 border-b border-white/10 px-4 flex items-center justify-between bg-[#1f1f25]/80 shrink-0">
+        <div className="h-auto min-h-11 py-2 px-3 sm:px-4 border-b border-white/10 flex flex-wrap items-center justify-between gap-2 bg-[#1f1f25]/80 shrink-0">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-white/90">
               {selectedCategory === "all" ? "All Certifications" : selectedCategory}
@@ -204,24 +227,24 @@ export function PhotosApp() {
             <span className="text-[11px] text-white/40">({filteredCerts.length} items)</span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-1 sm:flex-initial justify-end">
             {/* Search */}
-            <div className="relative flex items-center">
+            <div className="relative flex items-center flex-1 sm:flex-initial">
               <Search className="w-3.5 h-3.5 text-white/40 absolute left-2.5" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search credentials & skills..."
-                className="w-52 bg-[#121215] border border-white/10 rounded-lg pl-8 pr-2.5 py-1 text-xs text-white placeholder:text-white/40 outline-none focus:border-blue-500 transition-colors"
+                className="w-full sm:w-48 lg:w-52 bg-[#121215] border border-white/10 rounded-lg pl-8 pr-2.5 py-1 text-xs text-white placeholder:text-white/40 outline-none focus:border-blue-500 transition-colors"
               />
             </div>
           </div>
         </div>
 
         {/* Grid of Photo / Certificate Cards */}
-        <div className="flex-1 overflow-y-auto p-5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-5">
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {filteredCerts.map((cert) => (
               <div
                 key={cert.id}
@@ -296,29 +319,29 @@ export function PhotosApp() {
       {/* Interactive macOS Photo Inspection Modal */}
       {activeCert && (
         <div
-          className="fixed inset-0 z-[10000] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-150"
+          className="fixed inset-0 z-[10000] bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-150"
           onClick={handleCloseModal}
         >
           <div
-            className="w-full max-w-4xl h-[85vh] bg-[#1a1a20] border border-white/20 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row text-white animate-in zoom-in-95 duration-150"
+            className="w-full max-w-4xl h-[90vh] md:h-[85vh] bg-[#1a1a20] border border-white/20 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row text-white animate-in zoom-in-95 duration-150"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Left: Certificate Image Viewer */}
-            <div className="flex-1 bg-black/60 relative flex items-center justify-center p-4 overflow-hidden select-none">
+            <div className="flex-1 min-h-[220px] sm:min-h-[300px] bg-black/60 relative flex items-center justify-center p-2 sm:p-4 overflow-hidden select-none">
               {/* Previous / Next Arrows */}
               <button
                 onClick={handlePrevCert}
-                className="absolute left-3 p-2 rounded-full bg-black/50 hover:bg-black/80 text-white/70 hover:text-white border border-white/10 transition-colors z-20"
+                className="absolute left-2 sm:left-3 p-1.5 sm:p-2 rounded-full bg-black/50 hover:bg-black/80 text-white/70 hover:text-white border border-white/10 transition-colors z-20"
                 title="Previous certificate"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-4 sm:w-5 h-4 sm:h-5" />
               </button>
               <button
                 onClick={handleNextCert}
-                className="absolute right-3 p-2 rounded-full bg-black/50 hover:bg-black/80 text-white/70 hover:text-white border border-white/10 transition-colors z-20"
+                className="absolute right-2 sm:right-3 p-1.5 sm:p-2 rounded-full bg-black/50 hover:bg-black/80 text-white/70 hover:text-white border border-white/10 transition-colors z-20"
                 title="Next certificate"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-4 sm:w-5 h-4 sm:h-5" />
               </button>
 
               {/* Certificate Image */}
@@ -337,7 +360,7 @@ export function PhotosApp() {
               </div>
 
               {/* Zoom Controls */}
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 z-20">
+              <div className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 z-20">
                 <button
                   onClick={() => setZoomLevel((z) => Math.max(0.75, z - 0.25))}
                   className="p-1 text-white/70 hover:text-white"
@@ -359,7 +382,7 @@ export function PhotosApp() {
             </div>
 
             {/* Right: Inspector Details Sidebar */}
-            <div className="w-full md:w-80 bg-[#222228] border-l border-white/10 flex flex-col justify-between p-5 overflow-y-auto">
+            <div className="w-full md:w-80 max-h-[45vh] md:max-h-none bg-[#222228] border-t md:border-t-0 md:border-l border-white/10 flex flex-col justify-between p-4 sm:p-5 overflow-y-auto shrink-0">
               <div className="space-y-4">
                 {/* Header & Close */}
                 <div className="flex items-start justify-between">

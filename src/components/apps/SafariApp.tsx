@@ -103,9 +103,9 @@ export function SafariApp({ initialUrl = "https://irrigation-fuzzy-system.vercel
   return (
     <div className="flex flex-col h-full bg-[#1e1e24] text-white select-none">
       {/* Safari Navigation Bar */}
-      <div className="h-12 border-b border-white/10 px-3 flex items-center justify-between gap-3 bg-[#24242c]/95 shrink-0">
+      <div className="h-auto min-h-12 py-1.5 border-b border-white/10 px-2 sm:px-3 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 bg-[#24242c]/95 shrink-0">
         {/* Navigation Buttons */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 shrink-0 order-1">
           <button
             className="p-1 rounded-md text-white/40 hover:text-white/80 hover:bg-white/10 transition-colors"
             title="Back"
@@ -128,7 +128,7 @@ export function SafariApp({ initialUrl = "https://irrigation-fuzzy-system.vercel
         </div>
 
         {/* Address Bar */}
-        <div className="flex-1 max-w-xl">
+        <div className="flex-1 min-w-[140px] max-w-xl order-3 sm:order-2 w-full sm:w-auto">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -138,7 +138,7 @@ export function SafariApp({ initialUrl = "https://irrigation-fuzzy-system.vercel
               }
               handleNavigate(target);
             }}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/40 border border-white/15 focus-within:border-blue-500/80 transition-colors"
+            className="flex items-center gap-2 px-3 py-1 sm:py-1.5 rounded-xl bg-black/40 border border-white/15 focus-within:border-blue-500/80 transition-colors"
           >
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
             <input
@@ -152,7 +152,7 @@ export function SafariApp({ initialUrl = "https://irrigation-fuzzy-system.vercel
         </div>
 
         {/* Right Tools: Viewport Toggle, Intel & External Link */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 shrink-0 order-2 sm:order-3">
           {matchedProject && (
             <button
               onClick={() => {
@@ -171,7 +171,7 @@ export function SafariApp({ initialUrl = "https://irrigation-fuzzy-system.vercel
             </button>
           )}
 
-          <div className="flex items-center p-0.5 rounded-lg bg-white/10">
+          <div className="hidden xs:flex items-center p-0.5 rounded-lg bg-white/10">
             <button
               onClick={() => {
                 sounds.playClick();
@@ -207,7 +207,7 @@ export function SafariApp({ initialUrl = "https://irrigation-fuzzy-system.vercel
       </div>
 
       {/* Bookmarks Bar */}
-      <div className="h-8 border-b border-white/10 px-3 flex items-center gap-1.5 bg-[#1a1a20] text-[11px] text-white/70 overflow-x-auto shrink-0 scrollbar-none">
+      <div className="h-8 border-b border-white/10 px-2 sm:px-3 flex items-center gap-1.5 bg-[#1a1a20] text-[11px] text-white/70 overflow-x-auto shrink-0 scrollbar-none touch-pan-x">
         <div className="flex items-center gap-1 text-white/40 text-[10px] font-semibold uppercase pr-2 shrink-0">
           <Globe className="w-3 h-3 text-blue-400" />
           <span>Bookmarks:</span>

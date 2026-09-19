@@ -75,9 +75,31 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
   };
 
   return (
-    <div className="flex h-full w-full bg-[#1c1c1e] text-white select-none overflow-hidden text-sm">
-      {/* Sidebar: Contact List */}
-      <div className="w-64 border-r border-white/10 bg-[#252528] flex flex-col shrink-0">
+    <div className="flex flex-col sm:flex-row h-full w-full bg-[#1c1c1e] text-white select-none overflow-hidden text-sm">
+      {/* Top Segmented Tabs on Mobile */}
+      <div className="sm:hidden flex items-center p-2 border-b border-white/10 bg-[#252528] shrink-0">
+        <div className="flex w-full bg-white/10 p-0.5 rounded-xl">
+          <button
+            onClick={() => setSelectedTab("card")}
+            className={`flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              selectedTab === "card" ? "bg-[#0A84FF] text-white shadow-sm" : "text-white/70"
+            }`}
+          >
+            Candidate Card
+          </button>
+          <button
+            onClick={() => setSelectedTab("message")}
+            className={`flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              selectedTab === "message" ? "bg-[#0A84FF] text-white shadow-sm" : "text-white/70"
+            }`}
+          >
+            Send Message
+          </button>
+        </div>
+      </div>
+
+      {/* Sidebar: Contact List - Hidden on Mobile */}
+      <div className="hidden sm:flex w-56 md:w-64 border-r border-white/10 bg-[#252528] flex-col shrink-0">
         {/* Search header */}
         <div className="p-3 border-b border-white/10">
           <div className="text-[12px] font-semibold text-white/50 mb-2 px-1">CONTACTS</div>
@@ -139,25 +161,25 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto bg-[#1c1c1e] p-6">
+      <div className="flex-1 overflow-y-auto bg-[#1c1c1e] p-4 sm:p-6 min-w-0">
         {selectedTab === "card" ? (
           <div className="max-w-xl mx-auto space-y-6">
             {/* Header Hero */}
-            <div className="flex items-center gap-5 pb-6 border-b border-white/10">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-500 flex items-center justify-center text-2xl font-bold text-white shadow-xl ring-2 ring-white/20 shrink-0">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 sm:gap-5 pb-5 sm:pb-6 border-b border-white/10">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-500 flex items-center justify-center text-xl sm:text-2xl font-bold text-white shadow-xl ring-2 ring-white/20 shrink-0">
                 PR
               </div>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-bold text-white tracking-tight">Pranshu Rajan</h1>
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                  <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Pranshu Rajan</h1>
                   <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#0A84FF]/20 text-[#0A84FF] border border-[#0A84FF]/30">
                     Candidate
                   </span>
                 </div>
-                <p className="text-sm text-white/70 mt-0.5">
+                <p className="text-xs sm:text-sm text-white/70 mt-0.5">
                   Full Stack Developer · AI Engineer
                 </p>
-                <p className="text-xs text-emerald-400 font-medium flex items-center gap-1.5 mt-1.5">
+                <p className="text-xs text-emerald-400 font-medium flex items-center justify-center sm:justify-start gap-1.5 mt-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
                   Available for Full-Time Roles & Internships
                 </p>
@@ -165,7 +187,7 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
             </div>
 
             {/* Quick Action Buttons */}
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
               <a
                 href={`mailto:${candidateProfile.email}`}
                 className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
@@ -239,35 +261,35 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
             {/* Information Cards */}
             <div className="space-y-3">
               <div className="bg-white/[0.04] border border-white/10 rounded-xl p-4 space-y-3">
-                <div className="flex items-center gap-3 text-xs">
-                  <div className="text-white/40 w-24">Email</div>
-                  <a href={`mailto:${candidateProfile.email}`} className="text-[#0A84FF] hover:underline font-mono">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs">
+                  <div className="text-white/40 w-24 shrink-0">Email</div>
+                  <a href={`mailto:${candidateProfile.email}`} className="text-[#0A84FF] hover:underline font-mono truncate">
                     {candidateProfile.email}
                   </a>
                 </div>
 
-                <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
-                  <div className="text-white/40 w-24">Target Roles</div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs border-t border-white/[0.07] pt-2.5">
+                  <div className="text-white/40 w-24 shrink-0">Target Roles</div>
                   <span className="text-white/90 font-medium">Software Roles Only (SDE, Full-Stack, AI/ML, Backend)</span>
                 </div>
 
-                <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
-                  <div className="text-white/40 w-24">Seeking</div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs border-t border-white/[0.07] pt-2.5">
+                  <div className="text-white/40 w-24 shrink-0">Seeking</div>
                   <span className="text-white/90 font-medium">Winter &amp; Summer Internships · All Modes (Remote / Hybrid / On-site)</span>
                 </div>
 
-                <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
-                  <div className="text-white/40 w-24">Location</div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs border-t border-white/[0.07] pt-2.5">
+                  <div className="text-white/40 w-24 shrink-0">Location</div>
                   <span className="text-white/90">India · Open to Relocation across India &amp; Worldwide</span>
                 </div>
 
-                <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
-                  <div className="text-white/40 w-24">Education</div>
+                <div className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-3 text-xs border-t border-white/[0.07] pt-2.5">
+                  <div className="text-white/40 w-24 shrink-0">Education</div>
                   <span className="text-white/90">Nirma University, Ahmedabad · B.Tech Electronics &amp; Instrumentation (2024–2028, 3rd Year, CGPA: 7.88)</span>
                 </div>
 
-                <div className="flex items-center gap-3 text-xs border-t border-white/[0.07] pt-2.5">
-                  <div className="text-white/40 w-24">Focus Areas</div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs border-t border-white/[0.07] pt-2.5">
+                  <div className="text-white/40 w-24 shrink-0">Focus Areas</div>
                   <span className="text-white/90">Full Stack, AI Agents, MongoDB, FastAPI, Next.js</span>
                 </div>
               </div>
@@ -322,7 +344,7 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
                   </div>
                 )}
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-[11px] text-white/60 mb-1">Your Name *</label>
                     <input
@@ -347,7 +369,7 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-[11px] text-white/60 mb-1">Company / Organization</label>
                     <input

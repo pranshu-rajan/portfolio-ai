@@ -83,9 +83,57 @@ export function SettingsApp({ currentWallpaper, onSelectWallpaper }: SettingsApp
   };
 
   return (
-    <div className="flex h-full bg-[#18181c] text-white select-none">
-      {/* Settings Sidebar */}
-      <div className="w-48 border-r border-white/10 bg-[#1e1e24] p-3 space-y-1 text-xs shrink-0">
+    <div className="flex flex-col sm:flex-row h-full bg-[#18181c] text-white select-none">
+      {/* Mobile Top Tabs */}
+      <div className="sm:hidden flex items-center gap-1.5 p-2 border-b border-white/10 bg-[#1e1e24] overflow-x-auto scrollbar-none shrink-0">
+        <button
+          onClick={() => {
+            sounds.playClick();
+            setActiveTab("wallpaper");
+          }}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+            activeTab === "wallpaper" ? "bg-blue-600 text-white" : "text-white/60 hover:text-white"
+          }`}
+        >
+          Wallpaper
+        </button>
+        <button
+          onClick={() => {
+            sounds.playClick();
+            setActiveTab("sound");
+          }}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+            activeTab === "sound" ? "bg-blue-600 text-white" : "text-white/60 hover:text-white"
+          }`}
+        >
+          Sound
+        </button>
+        <button
+          onClick={() => {
+            sounds.playClick();
+            setActiveTab("about");
+          }}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+            activeTab === "about" ? "bg-blue-600 text-white" : "text-white/60 hover:text-white"
+          }`}
+        >
+          About
+        </button>
+        <button
+          onClick={() => {
+            sounds.playClick();
+            setActiveTab("diagnostics");
+          }}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+            activeTab === "diagnostics" ? "bg-blue-600 text-white" : "text-white/60 hover:text-white"
+          }`}
+        >
+          Diagnostics
+        </button>
+      </div>
+
+      {/* Settings Sidebar - Hidden on mobile */}
+      <div className="hidden sm:block w-44 md:w-48 border-r border-white/10 bg-[#1e1e24] p-3 space-y-1 text-xs shrink-0">
         <div className="text-[10px] font-bold uppercase text-white/40 mb-2 px-2">Settings</div>
 
         <button
@@ -141,9 +189,8 @@ export function SettingsApp({ currentWallpaper, onSelectWallpaper }: SettingsApp
         </button>
       </div>
 
-
       {/* Settings Main Content */}
-      <div className="flex-1 p-6 overflow-y-auto">
+      <div className="flex-1 p-4 sm:p-6 overflow-y-auto min-w-0">
         {activeTab === "wallpaper" && (
           <div>
             <h2 className="text-sm font-bold text-white mb-1">Desktop Wallpapers</h2>
@@ -151,7 +198,7 @@ export function SettingsApp({ currentWallpaper, onSelectWallpaper }: SettingsApp
               Select your preferred macOS background wallpaper.
             </p>
 
-            <div className="grid grid-cols-2 gap-3.5">
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-3.5">
               {WALLPAPERS.map((wp) => {
                 const isSelected = currentWallpaper === wp.id;
                 return (

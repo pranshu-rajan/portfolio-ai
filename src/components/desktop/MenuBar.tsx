@@ -139,14 +139,15 @@ export function MenuBar({
           </div>
 
           {/* Brand & Active Application Name */}
-          <span className="font-bold tracking-wide text-white drop-shadow-sm flex items-center gap-1.5">
-            <span>Pranshu&apos;s Portfolio</span>
+          <span className="font-bold tracking-wide text-white drop-shadow-sm flex items-center gap-1.5 truncate">
+            <span className="hidden md:inline">Pranshu&apos;s Portfolio</span>
+            <span className="md:hidden">Portfolio</span>
             <span className="text-white/40 font-normal">|</span>
-            <span className="text-white/80 font-medium text-xs">{APP_NAMES[activeApp] || "Desktop"}</span>
+            <span className="text-white/80 font-medium text-xs truncate max-w-[90px] sm:max-w-none">{APP_NAMES[activeApp] || "Desktop"}</span>
           </span>
 
           {/* Menu Items */}
-          <div className="hidden sm:flex items-center gap-3 text-white/70 text-xs">
+          <div className="hidden md:flex items-center gap-3 text-white/70 text-xs">
             <button
               onClick={() => onOpenApp("finder")}
               className="hover:text-white transition-colors cursor-pointer px-1 py-0.5 rounded"
@@ -169,7 +170,7 @@ export function MenuBar({
         </div>
 
         {/* Right: System Tray & Clock */}
-        <div className="flex items-center gap-3.5">
+        <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
           {/* Sound Toggle */}
           <button
             onClick={toggleSound}
@@ -185,7 +186,7 @@ export function MenuBar({
           </span>
 
           {/* Battery */}
-          <div className="flex items-center gap-1 text-[11px] text-white/85" title="Battery: 100% (Plugged In)">
+          <div className="hidden sm:flex items-center gap-1 text-[11px] text-white/85" title="Battery: 100% (Plugged In)">
             <span className="font-mono">100%</span>
             <Battery className="w-4 h-4 text-emerald-400" />
           </div>
