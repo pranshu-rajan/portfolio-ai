@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getMongoClientPromise } from "@/lib/mongodb";
 
 export async function POST(req: NextRequest) {
   try {
@@ -39,6 +40,46 @@ export async function POST(req: NextRequest) {
       finalMessage = `${message}\n\n---\nSender Info: ${metaParts.join(" | ")}`;
     }
 
+    // 1. First priority: Direct MongoDB Atlas write if MONGODB_URI is provided
+    const mongoPromise = getMongoClientPromise();
+    if (mongoPromise) {
+      try {
+        const client = await mongoPromise;
+        const dbName = process.env.MONGODB_DB_NAME || "pranshu_portfolio_db";
+        const db = client.db(dbName);
+        const col = db.collection("inquiries");
+
+        const ip =
+          req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+          req.headers.get("x-real-ip") ||
+          "unknown";
+
+        const doc = {
+          from_email,
+          subject,
+          message: finalMessage,
+          status: "received",
+          sender_ip: ip,
+          created_at: new Date(),
+        };
+
+        const result = await col.insertOne(doc);
+
+        return NextResponse.json(
+          {
+            success: true,
+            storedInDatabase: true,
+            inquiry: { id: result.insertedId.toString(), ...doc },
+            message: "Inquiry successfully recorded in MongoDB.",
+          },
+          { status: 201 }
+        );
+      } catch (err) {
+        console.error("Direct MongoDB insert failed, falling back to backend:", err);
+      }
+    }
+
+    // 2. Second priority: FastAPI backend (e.g. Render)
     const backendUrl =
       process.env.FASTAPI_BACKEND_URL ||
       process.env.NEXT_PUBLIC_API_URL ||
@@ -56,8 +97,8 @@ export async function POST(req: NextRequest) {
           subject,
           message: finalMessage,
         }),
-        // Short timeout for fast feedback
-        signal: AbortSignal.timeout(4000),
+        // 8s timeout to handle Render cold-start latency
+        signal: AbortSignal.timeout(8000),
       });
 
       if (response.ok) {
