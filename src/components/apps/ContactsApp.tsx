@@ -46,17 +46,22 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          recruiter_name: formData.name,
+          from_email: formData.email,
           recruiter_email: formData.email,
+          recruiter_name: formData.name,
           company: formData.company || "Not specified",
           role_title: formData.role || "Full Stack / AI Role",
+          subject: formData.role
+            ? `${formData.role} - ${formData.company || formData.name}`
+            : `Contact from ${formData.name}`,
           message: formData.message,
           job_link: "",
         }),
       });
 
       if (!res.ok) {
-        throw new Error("Failed to send message.");
+        const errData = await res.json().catch(() => null);
+        throw new Error(errData?.error || "Failed to send message.");
       }
 
       setIsSubmitted(true);
