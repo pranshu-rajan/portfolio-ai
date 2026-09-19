@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { AppId, WallpaperId } from "@/types";
-import { Sparkles, FolderGit2, Terminal, Image, Info } from "lucide-react";
+import { Sparkles, FolderGit2, Terminal, Image as ImageIcon, Info } from "lucide-react";
 import { sounds } from "@/utils/sound";
 
 interface ContextMenuProps {
@@ -81,7 +81,7 @@ export function ContextMenu({
         className="w-full text-left px-3.5 py-1.5 hover:bg-blue-600 hover:text-white rounded-md mx-1 transition-colors flex items-center justify-between"
       >
         <span className="flex items-center gap-2">
-          <Image className="w-3.5 h-3.5 text-amber-400" />
+          <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
           <span>Next Wallpaper</span>
         </span>
         <span className="text-[10px] text-white/40 capitalize">{currentWallpaper}</span>

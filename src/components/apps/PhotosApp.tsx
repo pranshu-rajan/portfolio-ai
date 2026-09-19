@@ -12,7 +12,6 @@ import {
   ZoomOut, 
   ChevronLeft, 
   ChevronRight, 
-  Sparkles, 
   ShieldCheck,
   GraduationCap,
   Cloud,

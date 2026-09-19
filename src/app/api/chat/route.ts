@@ -1,5 +1,4 @@
 import { NextRequest } from "next/server";
-import resumeData from "@/data/resume.json";
 
 // System prompt strictly grounded in Pranshu Rajan's verified background
 const SYSTEM_PROMPT = `You are the authentic AI Digital Twin and autonomous recruiter representative for Pranshu Rajan.
@@ -387,9 +386,10 @@ export async function POST(req: NextRequest) {
         "Cache-Control": "no-cache, no-transform",
       },
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "An unexpected error occurred.";
     return new Response(
-      JSON.stringify({ error: err.message || "An unexpected error occurred." }),
+      JSON.stringify({ error: errorMsg }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }

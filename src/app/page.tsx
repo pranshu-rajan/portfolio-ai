@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { useWindowManager } from "@/hooks/useWindowManager";
 import { MenuBar } from "@/components/desktop/MenuBar";
@@ -22,12 +22,23 @@ import { SettingsApp } from "@/components/apps/SettingsApp";
 import { ContactsApp } from "@/components/apps/ContactsApp";
 import { PhotosApp } from "@/components/apps/PhotosApp";
 
-import { AppId, WallpaperId, Project } from "@/types";
+import { WallpaperId } from "@/types";
 import { sounds } from "@/utils/sound";
 
+const emptySubscribe = () => () => {};
+const subscribeResize = (callback: () => void) => {
+  window.addEventListener("resize", callback);
+  return () => window.removeEventListener("resize", callback);
+};
+
 export default function Desktop() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
+  const isMobile = useSyncExternalStore(
+    subscribeResize,
+    () => window.innerWidth < 768,
+    () => false
+  );
+
   const [wallpaper, setWallpaper] = useState<WallpaperId>("sequoia");
   const [spotlightOpen, setSpotlightOpen] = useState(false);
 
@@ -54,17 +65,6 @@ export default function Desktop() {
     updatePosition,
     updateSize,
   } = useWindowManager();
-
-  // Responsive Screen Check
-  useEffect(() => {
-    setIsMounted(true);
-    const checkViewport = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkViewport();
-    window.addEventListener("resize", checkViewport);
-    return () => window.removeEventListener("resize", checkViewport);
-  }, []);
 
   // Global Keyboard Shortcuts (Cmd+K / Ctrl+K for Spotlight)
   useEffect(() => {

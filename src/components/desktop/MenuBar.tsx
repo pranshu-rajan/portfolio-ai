@@ -8,11 +8,7 @@ import {
   Volume2, 
   VolumeX, 
   Sliders, 
-  Moon, 
-  Sun,
-  Info,
-  ExternalLink,
-  Code
+  Info
 } from "lucide-react";
 import { AppId, WallpaperId } from "@/types";
 import { sounds } from "@/utils/sound";

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -73,14 +73,15 @@ export function SafariApp({ initialUrl = "https://irrigation-fuzzy-system.vercel
   const [iframeKey, setIframeKey] = useState(0);
   const [showIntel, setShowIntel] = useState(false);
 
+  const [prevInitialUrl, setPrevInitialUrl] = useState(initialUrl);
+
   // Sync if initialUrl changes from external selection (e.g. clicking Live Demo in Projects app)
-  useEffect(() => {
-    if (initialUrl) {
-      setCurrentUrl(initialUrl);
-      setInputUrl(initialUrl);
-      setIframeKey((k) => k + 1);
-    }
-  }, [initialUrl]);
+  if (initialUrl !== prevInitialUrl) {
+    setPrevInitialUrl(initialUrl);
+    setCurrentUrl(initialUrl);
+    setInputUrl(initialUrl);
+    setIframeKey((k) => k + 1);
+  }
 
   const matchedProject = projectsData.find(
     (p) => p.liveUrl && (p.liveUrl === currentUrl || p.liveUrl.replace(/\/$/, "") === currentUrl.replace(/\/$/, ""))

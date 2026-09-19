@@ -6,7 +6,6 @@ import {
   ZoomIn, 
   ZoomOut, 
   FileText,
-  ExternalLink,
   Eye,
   FileCheck
 } from "lucide-react";

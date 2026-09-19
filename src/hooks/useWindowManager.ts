@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import { AppId, WindowState } from "@/types";
 import { sounds } from "@/utils/sound";
 
@@ -125,8 +125,7 @@ export function useWindowManager() {
     return initial as Record<AppId, WindowState>;
   });
 
-  const [topZ, setTopZ] = useState(30);
-  const [activeApp, setActiveApp] = useState<AppId>("aichat");
+  const topZRef = useRef(30);
 
   // Center window on screen safely within viewport
   const centerPosition = useCallback((width: number, height: number) => {
@@ -146,63 +145,61 @@ export function useWindowManager() {
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
 
-    setWindows((prev) => {
-      const updated = { ...prev };
-      const chat = updated.aichat;
-      if (chat) {
-        const fitW = Math.min(chat.defaultSize.width, screenW - 32);
-        const fitH = Math.min(chat.defaultSize.height, screenH - 120);
-        const pos = {
-          x: Math.max(16, Math.floor((screenW - fitW) / 2)),
-          y: Math.max(36, Math.floor((screenH - fitH - 75) / 2)),
-        };
-        updated.aichat = {
-          ...chat,
-          size: { width: fitW, height: fitH },
-          position: pos,
-        };
-      }
-      return updated;
+    const frameId = requestAnimationFrame(() => {
+      setWindows((prev) => {
+        const updated = { ...prev };
+        const chat = updated.aichat;
+        if (chat) {
+          const fitW = Math.min(chat.defaultSize.width, screenW - 32);
+          const fitH = Math.min(chat.defaultSize.height, screenH - 120);
+          const pos = {
+            x: Math.max(16, Math.floor((screenW - fitW) / 2)),
+            y: Math.max(36, Math.floor((screenH - fitH - 75) / 2)),
+          };
+          updated.aichat = {
+            ...chat,
+            size: { width: fitW, height: fitH },
+            position: pos,
+          };
+        }
+        return updated;
+      });
     });
+
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   const bringToFront = useCallback((id: AppId) => {
-    setTopZ((prev) => {
-      const nextZ = prev + 1;
-      setWindows((prevWindows) => ({
-        ...prevWindows,
-        [id]: {
-          ...prevWindows[id],
-          zIndex: nextZ,
-          isMinimized: false,
-        },
-      }));
-      setActiveApp(id);
-      return nextZ;
-    });
+    topZRef.current += 1;
+    const nextZ = topZRef.current;
+    setWindows((prevWindows) => ({
+      ...prevWindows,
+      [id]: {
+        ...prevWindows[id],
+        zIndex: nextZ,
+        isMinimized: false,
+      },
+    }));
   }, []);
 
   const openWindow = useCallback(
     (id: AppId) => {
       sounds.playWindowOpen();
-      setTopZ((prev) => {
-        const nextZ = prev + 1;
-        setWindows((prevWindows) => {
-          const current = prevWindows[id];
-          const newPos = current.position || centerPosition(current.size.width, current.size.height);
-          return {
-            ...prevWindows,
-            [id]: {
-              ...current,
-              isOpen: true,
-              isMinimized: false,
-              zIndex: nextZ,
-              position: newPos,
-            },
-          };
-        });
-        setActiveApp(id);
-        return nextZ;
+      topZRef.current += 1;
+      const nextZ = topZRef.current;
+      setWindows((prevWindows) => {
+        const current = prevWindows[id];
+        const newPos = current.position || centerPosition(current.size.width, current.size.height);
+        return {
+          ...prevWindows,
+          [id]: {
+            ...current,
+            isOpen: true,
+            isMinimized: false,
+            zIndex: nextZ,
+            position: newPos,
+          },
+        };
       });
     },
     [centerPosition]
@@ -243,15 +240,12 @@ export function useWindowManager() {
     }));
   }, []);
 
-  const updatePosition = useCallback((id: AppId, pos: { x: number; y: number }) => {
+  const updatePosition = useCallback((id: AppId, position: { x: number; y: number }) => {
     setWindows((prev) => ({
       ...prev,
       [id]: {
         ...prev[id],
-        position: {
-          x: Math.max(0, pos.x),
-          y: Math.max(30, pos.y), // keep below menu bar
-        },
+        position,
       },
     }));
   }, []);
@@ -261,16 +255,13 @@ export function useWindowManager() {
       ...prev,
       [id]: {
         ...prev[id],
-        size: {
-          width: Math.max(prev[id].minSize.width, size.width),
-          height: Math.max(prev[id].minSize.height, size.height),
-        },
+        size,
       },
     }));
   }, []);
 
-  // Update active app on focus
-  useEffect(() => {
+  // Compute active app directly from highest zIndex among open, non-minimized windows
+  const activeApp = useMemo<AppId>(() => {
     let highestZ = -1;
     let highestApp: AppId = "aichat";
 
@@ -281,9 +272,7 @@ export function useWindowManager() {
       }
     });
 
-    if (highestZ > -1) {
-      setActiveApp(highestApp);
-    }
+    return highestApp;
   }, [windows]);
 
   return {

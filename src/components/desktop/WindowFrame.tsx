@@ -2,7 +2,6 @@
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { WindowState } from "@/types";
-import { sounds } from "@/utils/sound";
 
 interface WindowFrameProps {
   window: WindowState;

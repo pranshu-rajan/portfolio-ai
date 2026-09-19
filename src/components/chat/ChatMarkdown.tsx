@@ -12,8 +12,6 @@ export function ChatMarkdown({ content }: ChatMarkdownProps) {
   const lines = content.trim().split("\n");
   const elements: React.ReactNode[] = [];
 
-  let inList = false;
-  let listType: "bullet" | "number" = "bullet";
   let currentListItems: React.ReactNode[] = [];
 
   const flushList = () => {
@@ -24,7 +22,6 @@ export function ChatMarkdown({ content }: ChatMarkdownProps) {
         </div>
       );
       currentListItems = [];
-      inList = false;
     }
   };
 
@@ -94,8 +91,6 @@ export function ChatMarkdown({ content }: ChatMarkdownProps) {
     // Bullet List Item (- or * or •)
     const bulletMatch = trimmed.match(/^[-*•]\s+(.*)$/);
     if (bulletMatch) {
-      inList = true;
-      listType = "bullet";
       const itemText = bulletMatch[1];
       currentListItems.push(
         <div key={`bullet-${idx}`} className="flex items-start gap-2 text-xs text-white/90 leading-relaxed">
@@ -109,8 +104,6 @@ export function ChatMarkdown({ content }: ChatMarkdownProps) {
     // Numbered List Item (1. , 2. )
     const numberMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
     if (numberMatch) {
-      inList = true;
-      listType = "number";
       const num = numberMatch[1];
       const itemText = numberMatch[2];
       currentListItems.push(

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { candidateProfile } from "@/data/candidate";
 import { 
   Mail, 
-  MapPin, 
   FileText, 
   Send, 
   CheckCircle2, 
@@ -13,9 +12,10 @@ import {
   Loader2
 } from "lucide-react";
 import { sounds } from "@/utils/sound";
+import { AppId } from "@/types";
 
 interface ContactsAppProps {
-  onOpenApp?: (appId: any) => void;
+  onOpenApp?: (appId: AppId) => void;
 }
 
 export function ContactsApp({ onOpenApp }: ContactsAppProps) {
@@ -67,8 +67,8 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
       setIsSubmitted(true);
       sounds.playChime();
       setFormData({ name: "", email: "", company: "", role: "", message: "" });
-    } catch (err: any) {
-      setErrorMsg(err.message || "Failed to submit. Please try again.");
+    } catch (err: unknown) {
+      setErrorMsg(err instanceof Error ? err.message : "Failed to submit. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -220,6 +220,12 @@ export function ContactsApp({ onOpenApp }: ContactsAppProps) {
 
               <a
                 href="/Pranshu_Rajan_Resume.pdf"
+                onClick={(e) => {
+                  if (onOpenApp) {
+                    e.preventDefault();
+                    onOpenApp("resume");
+                  }
+                }}
                 download="Pranshu_Rajan_Resume.pdf"
                 className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 transition-all group cursor-pointer"
               >

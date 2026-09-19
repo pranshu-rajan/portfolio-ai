@@ -60,24 +60,30 @@ export function AiChatApp() {
     scrollToBottom();
   }, [messages, isLoading]);
 
+  const messageCounterRef = useRef(0);
+
   const handleSendMessage = async (textToSend?: string) => {
     const query = (textToSend || input).trim();
     if (!query || isLoading) return;
 
     sounds.playClick();
+    messageCounterRef.current += 1;
+    const msgId = messageCounterRef.current;
+    const timeStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
     const userMsg: ChatMessage = {
-      id: `user-${Date.now()}`,
+      id: `user-${msgId}`,
       role: "user",
       content: query,
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      timestamp: timeStr,
     };
 
-    const aiMsgId = `ai-${Date.now()}`;
+    const aiMsgId = `ai-${msgId}`;
     const assistantMsgPlaceholder: ChatMessage = {
       id: aiMsgId,
       role: "assistant",
       content: "",
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      timestamp: timeStr,
       suggestedFollowUps: [
         "Tell me about the Smart Irrigation Fuzzy System",
         "Explain your education at Nirma University",
@@ -106,23 +112,18 @@ export function AiChatApp() {
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let streamedContent = "";
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
         const textChunk = decoder.decode(value, { stream: true });
-        streamedContent += textChunk;
 
-        setMessages((prev) => {
-          return prev.map((msg) => {
-            if (msg.id === aiMsgId) {
-              return { ...msg, content: streamedContent };
-            }
-            return msg;
-          });
-        });
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === aiMsgId ? { ...msg, content: msg.content + textChunk } : msg
+          )
+        );
       }
     } catch {
       // Fallback if network or stream interrupted

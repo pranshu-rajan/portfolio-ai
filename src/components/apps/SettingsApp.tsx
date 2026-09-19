@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { WallpaperId } from "@/types";
-import { Image, Volume2, Sliders, Info, Check } from "lucide-react";
+import { Image as ImageIcon, Volume2, Sliders, Info, Check } from "lucide-react";
 import { sounds } from "@/utils/sound";
 import { candidateProfile } from "@/data/candidate";
 
@@ -97,7 +97,7 @@ export function SettingsApp({ currentWallpaper, onSelectWallpaper }: SettingsApp
             activeTab === "wallpaper" ? "bg-blue-600 text-white" : "text-white/70 hover:bg-white/10"
           }`}
         >
-          <Image className="w-4 h-4" />
+          <ImageIcon className="w-4 h-4" />
           <span>Wallpaper</span>
         </button>
 
