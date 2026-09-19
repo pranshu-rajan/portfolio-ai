@@ -1,4 +1,12 @@
 import { MongoClient } from "mongodb";
+import dns from "dns";
+
+// Ensure DNS SRV resolution succeeds on all local/Windows network adapters
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+} catch {
+  // Ignore in environments where custom DNS servers cannot be set
+}
 
 const options = {};
 
