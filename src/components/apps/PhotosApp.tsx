@@ -22,11 +22,107 @@ import { sounds } from "@/utils/sound";
 
 type AlbumCategory = "all" | "AI & Cloud" | "Academic & Honors" | "Specialized" | "Industry Vendor";
 
+interface CertificateCardItemProps {
+  cert: CertificationItem;
+  onOpen: (cert: CertificationItem) => void;
+}
+
+function CertificateCardItem({ cert, onOpen }: CertificateCardItemProps) {
+  const [loaded, setLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <div
+      onClick={() => onOpen(cert)}
+      className="group relative rounded-2xl bg-[#222228] border border-white/10 hover:border-blue-500/50 hover:shadow-2xl transition-all duration-200 overflow-hidden cursor-pointer flex flex-col"
+    >
+      {/* Image Canvas */}
+      <div className="relative aspect-[4/3] bg-zinc-900 overflow-hidden flex items-center justify-center p-2">
+        {!loaded && !hasError && (
+          <div className="absolute inset-0 bg-white/5 animate-pulse flex items-center justify-center">
+            <FileBadge className="w-8 h-8 text-white/20" />
+          </div>
+        )}
+
+        {hasError ? (
+          <div className="w-full h-full flex flex-col items-center justify-center text-white/40 p-4 text-center">
+            <FileBadge className="w-8 h-8 text-white/30 mb-2" />
+            <span className="text-[10px] line-clamp-2">{cert.title}</span>
+          </div>
+        ) : (
+          <Image
+            src={cert.imageSrc}
+            alt={cert.title}
+            width={400}
+            height={300}
+            loading="lazy"
+            onLoad={() => setLoaded(true)}
+            onError={() => setHasError(true)}
+            className={`object-contain w-full h-full rounded-lg group-hover:scale-105 transition-all duration-300 ${
+              loaded ? "opacity-100" : "opacity-0"
+            }`}
+            unoptimized
+          />
+        )}
+
+        {/* Top Overlay Badge */}
+        <div className="absolute top-3 left-3 z-10">
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20">
+            {cert.issuer}
+          </span>
+        </div>
+
+        {cert.badgeSrc && (
+          <div className="absolute top-3 right-3 w-7 h-7 rounded-lg bg-black/50 p-0.5 border border-white/20 backdrop-blur-md z-10">
+            <Image
+              src={cert.badgeSrc}
+              alt="Badge"
+              width={28}
+              height={28}
+              className="object-contain rounded"
+              unoptimized
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Card Information */}
+      <div className="p-3.5 flex-1 flex flex-col justify-between bg-[#1e1e24] border-t border-white/5 space-y-2">
+        <div>
+          <h3 className="text-xs font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-1">
+            {cert.title}
+          </h3>
+          <p className="text-[11px] text-white/50 mt-0.5">
+            Issued: {cert.issueDate}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-1">
+          {cert.skills.slice(0, 3).map((skill, i) => (
+            <span
+              key={i}
+              className="text-[9px] px-1.5 py-0.5 rounded bg-white/5 text-white/60 font-mono"
+            >
+              {skill}
+            </span>
+          ))}
+          {cert.skills.length > 3 && (
+            <span className="text-[9px] px-1 py-0.5 text-white/40">
+              +{cert.skills.length - 3}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function PhotosApp() {
   const [selectedCategory, setSelectedCategory] = useState<AlbumCategory>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCert, setActiveCert] = useState<CertificationItem | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
+  const [modalLoaded, setModalLoaded] = useState<boolean>(false);
 
   const filteredCerts = certificationsData.filter((c) => {
     const matchCat = selectedCategory === "all" || c.issuerCategory === selectedCategory;
@@ -41,12 +137,14 @@ export function PhotosApp() {
     sounds.playClick();
     setActiveCert(cert);
     setZoomLevel(1);
+    setModalLoaded(false);
   };
 
   const handleCloseModal = () => {
     sounds.playClick();
     setActiveCert(null);
     setZoomLevel(1);
+    setModalLoaded(false);
   };
 
   const handlePrevCert = (e: React.MouseEvent) => {
@@ -57,6 +155,7 @@ export function PhotosApp() {
     sounds.playClick();
     setActiveCert(filteredCerts[prevIndex]);
     setZoomLevel(1);
+    setModalLoaded(false);
   };
 
   const handleNextCert = (e: React.MouseEvent) => {
@@ -67,6 +166,7 @@ export function PhotosApp() {
     sounds.playClick();
     setActiveCert(filteredCerts[nextIndex]);
     setZoomLevel(1);
+    setModalLoaded(false);
   };
 
   return (
@@ -246,71 +346,11 @@ export function PhotosApp() {
         <div className="flex-1 overflow-y-auto p-3 sm:p-5">
           <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {filteredCerts.map((cert) => (
-              <div
+              <CertificateCardItem
                 key={cert.id}
-                onClick={() => handleOpenCert(cert)}
-                className="group relative rounded-2xl bg-[#222228] border border-white/10 hover:border-blue-500/50 hover:shadow-2xl transition-all duration-200 overflow-hidden cursor-pointer flex flex-col"
-              >
-                {/* Image Canvas */}
-                <div className="relative aspect-[4/3] bg-zinc-900 overflow-hidden flex items-center justify-center p-2">
-                  <Image
-                    src={cert.imageSrc}
-                    alt={cert.title}
-                    width={400}
-                    height={300}
-                    className="object-contain w-full h-full rounded-lg group-hover:scale-105 transition-transform duration-300"
-                    unoptimized
-                  />
-
-                  {/* Top Overlay Badge */}
-                  <div className="absolute top-3 left-3">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20">
-                      {cert.issuer}
-                    </span>
-                  </div>
-
-                  {cert.badgeSrc && (
-                    <div className="absolute top-3 right-3 w-7 h-7 rounded-lg bg-black/50 p-0.5 border border-white/20 backdrop-blur-md">
-                      <Image
-                        src={cert.badgeSrc}
-                        alt="Badge"
-                        width={28}
-                        height={28}
-                        className="object-contain rounded"
-                        unoptimized
-                      />
-                    </div>
-                  )}
-                </div>
-
-                {/* Card Information */}
-                <div className="p-3.5 flex-1 flex flex-col justify-between bg-[#1e1e24] border-t border-white/5 space-y-2">
-                  <div>
-                    <h3 className="text-xs font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-1">
-                      {cert.title}
-                    </h3>
-                    <p className="text-[11px] text-white/50 mt-0.5">
-                      Issued: {cert.issueDate}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1">
-                    {cert.skills.slice(0, 3).map((skill, i) => (
-                      <span
-                        key={i}
-                        className="text-[9px] px-1.5 py-0.5 rounded bg-white/5 text-white/60 font-mono"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                    {cert.skills.length > 3 && (
-                      <span className="text-[9px] px-1 py-0.5 text-white/40">
-                        +{cert.skills.length - 3}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
+                cert={cert}
+                onOpen={handleOpenCert}
+              />
             ))}
           </div>
         </div>
@@ -346,15 +386,24 @@ export function PhotosApp() {
 
               {/* Certificate Image */}
               <div 
-                className="w-full h-full flex items-center justify-center overflow-auto p-2"
+                className="w-full h-full flex items-center justify-center overflow-auto p-2 relative"
                 style={{ transform: `scale(${zoomLevel})`, transition: "transform 0.2s ease" }}
               >
+                {!modalLoaded && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-9 h-9 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+                  </div>
+                )}
                 <Image
                   src={activeCert.imageSrc}
                   alt={activeCert.title}
                   width={1200}
                   height={900}
-                  className="max-h-full max-w-full object-contain rounded-lg shadow-2xl"
+                  priority
+                  onLoad={() => setModalLoaded(true)}
+                  className={`max-h-full max-w-full object-contain rounded-lg shadow-2xl transition-opacity duration-200 ${
+                    modalLoaded ? "opacity-100" : "opacity-0"
+                  }`}
                   unoptimized
                 />
               </div>
