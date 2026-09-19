@@ -8,7 +8,8 @@ import {
   Volume2, 
   VolumeX, 
   Sliders, 
-  Info
+  Info,
+  Laptop
 } from "lucide-react";
 import { AppId, WallpaperId } from "@/types";
 import { sounds } from "@/utils/sound";
@@ -299,8 +300,8 @@ export function MenuBar({
             className="w-full max-w-md bg-[#1e1e24] border border-white/20 rounded-2xl shadow-2xl p-6 text-white text-center animate-in zoom-in-95 duration-150"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 mx-auto flex items-center justify-center shadow-lg mb-4 text-3xl">
-              💻
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 mx-auto flex items-center justify-center shadow-lg mb-4">
+              <Laptop className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-xl font-bold">{candidateProfile.name}&apos;s Portfolio OS</h2>
             <p className="text-xs text-white/60 mt-1">macOS Sequoia Edition · HireMe AI Integrated</p>

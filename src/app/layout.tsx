@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pranshu's Portfolio | AI Engineer & Full Stack Developer",
+  title: "Pranshu's Portfolio",
   description: "Personal portfolio and HireMe AI candidate assistant resembling a modern macOS MacBook interface.",
 };
 
