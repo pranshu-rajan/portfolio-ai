@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { 
   Send, 
   Sparkles, 
@@ -15,18 +15,30 @@ import {
   Briefcase,
   Layers,
   Award,
-  GraduationCap
+  GraduationCap,
+  Plus,
+  History,
+  MessageSquare,
+  ChevronRight,
+  X
 } from "lucide-react";
 import { ChatMessage } from "@/types";
 import { candidateProfile } from "@/data/candidate";
 import { sounds } from "@/utils/sound";
 import { ChatMarkdown } from "@/components/chat/ChatMarkdown";
 
+interface ChatSessionItem {
+  sessionId: string;
+  title: string;
+  updatedAt: string;
+  messageCount: number;
+}
+
 const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: "welcome-1",
     role: "assistant",
-    content: `### 👋 Welcome! I am ${candidateProfile.name}'s AI Digital Twin\n\nI am strictly grounded in **${candidateProfile.name}'s** verified background, projects, LeetCode track record, and software engineering internships.\n\n### ⚡ Quick Facts\n- **Target Roles**: **Software-Based Roles Only** (SDE, Full-Stack, AI/ML, Backend Internships). Seeking **Winter & Summer Internships** across all modes (Remote / Hybrid / On-site).\n- **Location & Relocation**: Based in India; **open to relocation** across India & globally.\n- **Top 4 Software Projects**: [UPI Offline Mesh](https://github.com/pranshu-rajan/upi-offline-mesh), [PacketLens AI C++17 DPI](https://github.com/pranshu-rajan/dpi-packet-analyser), [Pranshu's AI Vector DB](https://github.com/pranshu-rajan/pranshu-ai), and [Leaf Disease Detection](https://github.com/pranshu-rajan/leaf-disease-detection).\n- **Problem Solving**: Active on [LeetCode](https://leetcode.com/u/PranshuRajan/).\n- **Education**: Nirma University, Ahmedabad (2024–2028, currently in 3rd Year, CGPA 7.88).\n\nWhat would you like to explore about my engineering background?`,
+    content: `### Welcome | ${candidateProfile.name}'s AI Digital Twin\n\nI am strictly grounded in **${candidateProfile.name}'s** verified background, projects, LeetCode track record, and software engineering internships.\n\n### Quick Facts\n- **Target Roles**: **Software-Based Roles Only** (SDE, Full-Stack, AI/ML, Backend Internships). Seeking **Winter & Summer Internships** across all modes (Remote / Hybrid / On-site).\n- **Location & Relocation**: Based in India; **open to relocation** across India & globally.\n- **Top 4 Software Projects**: [UPI Offline Mesh](https://github.com/pranshu-rajan/upi-offline-mesh), [PacketLens AI C++17 DPI](https://github.com/pranshu-rajan/dpi-packet-analyser), [Pranshu's AI Vector DB](https://github.com/pranshu-rajan/pranshu-ai), and [Leaf Disease Detection](https://github.com/pranshu-rajan/leaf-disease-detection).\n- **Problem Solving**: Active on [LeetCode](https://leetcode.com/u/PranshuRajan/).\n- **Education**: Nirma University, Ahmedabad (2024–2028, currently in 3rd Year, CGPA 7.88).\n\nWhat would you like to explore about my engineering background?`,
     timestamp: "Just now",
     suggestedFollowUps: [
       "What roles and internships are you targeting?",
@@ -44,23 +56,164 @@ const PROMPT_SUGGESTIONS = [
   { label: "Nirma University education & CGPA", icon: GraduationCap },
 ];
 
+function generateId(prefix: string) {
+  return `${prefix}_${Math.random().toString(36).substring(2, 9)}_${Date.now().toString(36)}`;
+}
+
 export function AiChatApp() {
   const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [activeStreamingId, setActiveStreamingId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Session & User Identity state
+  const [userId] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      let uid = localStorage.getItem("pranshu_chat_user_id");
+      if (!uid) {
+        uid = generateId("user");
+        localStorage.setItem("pranshu_chat_user_id", uid);
+      }
+      return uid;
+    }
+    return "";
+  });
 
-  const scrollToBottom = () => {
+  const [sessionId, setSessionId] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      let sid = localStorage.getItem("pranshu_chat_session_id");
+      if (!sid) {
+        sid = generateId("session");
+        localStorage.setItem("pranshu_chat_session_id", sid);
+      }
+      return sid;
+    }
+    return "";
+  });
+
+  const [recentSessions, setRecentSessions] = useState<ChatSessionItem[]>([]);
+  const [showHistoryModal, setShowHistoryModal] = useState(false);
+  const [isSyncingHistory, setIsSyncingHistory] = useState(false);
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messageCounterRef = useRef(0);
+
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isLoading]);
+  }, [messages, isLoading, scrollToBottom]);
 
-  const messageCounterRef = useRef(0);
+  // Load existing messages for this session from MongoDB Atlas on mount
+  useEffect(() => {
+    const activeSid = sessionId || (typeof window !== "undefined" ? localStorage.getItem("pranshu_chat_session_id") || "" : "");
+    const activeUid = userId || (typeof window !== "undefined" ? localStorage.getItem("pranshu_chat_user_id") || "" : "");
+
+    if (!activeSid) return;
+
+    const loadSessionMessages = async () => {
+      setIsSyncingHistory(true);
+      try {
+        const res = await fetch(`/api/chat/history?sessionId=${encodeURIComponent(activeSid)}&userId=${encodeURIComponent(activeUid)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.session && Array.isArray(data.session.messages) && data.session.messages.length > 0) {
+            setMessages(data.session.messages);
+          }
+          if (Array.isArray(data.sessions)) {
+            setRecentSessions(data.sessions);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load chat history from Atlas:", err);
+      } finally {
+        setIsSyncingHistory(false);
+      }
+    };
+
+    loadSessionMessages();
+  }, [sessionId, userId]);
+
+  // Save conversation state to MongoDB Atlas
+  const persistSessionToAtlas = useCallback(async (currentMsgs: ChatMessage[], targetSessionId?: string) => {
+    const activeSid = targetSessionId || sessionId;
+    if (!activeSid || !userId || currentMsgs.length === 0) return;
+
+    // Generate a clean conversation title from the first user message
+    const firstUserMsg = currentMsgs.find((m) => m.role === "user");
+    const title = firstUserMsg ? firstUserMsg.content.slice(0, 45) : "New Conversation";
+
+    try {
+      const res = await fetch("/api/chat/history", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionId: activeSid,
+          userId,
+          title,
+          messages: currentMsgs,
+        }),
+      });
+
+      if (res.ok) {
+        // Refresh session list quietly
+        const historyRes = await fetch(`/api/chat/history?userId=${encodeURIComponent(userId)}`);
+        if (historyRes.ok) {
+          const histData = await historyRes.json();
+          if (Array.isArray(histData.sessions)) {
+            setRecentSessions(histData.sessions);
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Failed to persist session to MongoDB Atlas:", err);
+    }
+  }, [sessionId, userId]);
+
+  // Create a brand new session (+ New Chat)
+  const handleNewChat = () => {
+    sounds.playClick();
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+
+    const newSid = generateId("session");
+    setSessionId(newSid);
+    localStorage.setItem("pranshu_chat_session_id", newSid);
+    setMessages(INITIAL_MESSAGES);
+    setShowHistoryModal(false);
+  };
+
+  // Switch to a previous session
+  const handleSwitchSession = async (targetSession: ChatSessionItem) => {
+    sounds.playClick();
+    setIsSyncingHistory(true);
+    setSessionId(targetSession.sessionId);
+    localStorage.setItem("pranshu_chat_session_id", targetSession.sessionId);
+    setShowHistoryModal(false);
+
+    try {
+      const res = await fetch(`/api/chat/history?sessionId=${encodeURIComponent(targetSession.sessionId)}&userId=${encodeURIComponent(userId)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.session && Array.isArray(data.session.messages) && data.session.messages.length > 0) {
+          setMessages(data.session.messages);
+        } else {
+          setMessages(INITIAL_MESSAGES);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to load session:", err);
+      setMessages(INITIAL_MESSAGES);
+    } finally {
+      setIsSyncingHistory(false);
+    }
+  };
 
   const handleSendMessage = async (textToSend?: string) => {
     const query = (textToSend || input).trim();
@@ -91,9 +244,13 @@ export function AiChatApp() {
       ],
     };
 
-    setMessages((prev) => [...prev, userMsg, assistantMsgPlaceholder]);
+    const updatedWithPlaceholder = [...messages, userMsg, assistantMsgPlaceholder];
+    setMessages(updatedWithPlaceholder);
     setInput("");
     setIsLoading(true);
+    setActiveStreamingId(aiMsgId);
+
+    let completedAiContent = "";
 
     try {
       const res = await fetch("/api/chat", {
@@ -118,6 +275,7 @@ export function AiChatApp() {
         if (done) break;
 
         const textChunk = decoder.decode(value, { stream: true });
+        completedAiContent += textChunk;
 
         setMessages((prev) =>
           prev.map((msg) =>
@@ -128,6 +286,7 @@ export function AiChatApp() {
     } catch {
       // Fallback if network or stream interrupted
       const fallbackAnswer = generateFallbackAnswer(query);
+      completedAiContent = fallbackAnswer;
       setMessages((prev) => {
         return prev.map((msg) => {
           if (msg.id === aiMsgId) {
@@ -141,7 +300,14 @@ export function AiChatApp() {
       });
     } finally {
       setIsLoading(false);
+      setActiveStreamingId(null);
       sounds.playChime();
+
+      // Automatically persist to MongoDB Atlas
+      const finalMessages = updatedWithPlaceholder.map((msg) =>
+        msg.id === aiMsgId ? { ...msg, content: completedAiContent || msg.content } : msg
+      );
+      persistSessionToAtlas(finalMessages);
     }
   };
 
@@ -175,6 +341,7 @@ export function AiChatApp() {
       setIsSpeaking(false);
     }
     setMessages(INITIAL_MESSAGES);
+    persistSessionToAtlas(INITIAL_MESSAGES);
     sounds.playClick();
   };
 
@@ -193,9 +360,9 @@ export function AiChatApp() {
   };
 
   return (
-    <div className="flex flex-col h-full min-h-0 bg-[#18181c] text-white select-text">
+    <div className="relative flex flex-col h-full min-h-0 bg-[#18181c] text-white select-text">
       {/* App Top Toolbar */}
-      <div className="shrink-0 flex items-center justify-between px-4 py-2.5 border-b border-white/10 bg-[#212127]/90">
+      <div className="shrink-0 flex items-center justify-between px-3.5 py-2.5 border-b border-white/10 bg-[#212127]/95 backdrop-blur-md">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white shadow-sm">
             <Sparkles className="w-4 h-4" />
@@ -206,6 +373,9 @@ export function AiChatApp() {
               <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 rounded-full font-medium">
                 Online
               </span>
+              {isSyncingHistory && (
+                <span className="text-[9px] text-purple-300 animate-pulse">Syncing Atlas...</span>
+              )}
             </div>
             <div className="text-[10px] text-white/50">
               Grounded in {candidateProfile.name}&apos;s verified resume & projects
@@ -214,6 +384,29 @@ export function AiChatApp() {
         </div>
 
         <div className="flex items-center gap-1.5">
+          {/* New Chat Button (ChatGPT Style) */}
+          <button
+            onClick={handleNewChat}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-purple-600/20 hover:bg-purple-600/35 border border-purple-500/40 text-purple-200 hover:text-white text-xs font-medium transition-all shadow-sm active:scale-95"
+            title="Start a brand new conversation"
+          >
+            <Plus className="w-3.5 h-3.5 text-purple-300" />
+            <span className="hidden sm:inline">New Chat</span>
+          </button>
+
+          {/* History Drawer Toggle */}
+          <button
+            onClick={() => setShowHistoryModal((prev) => !prev)}
+            className={`p-1.5 rounded-lg border transition-colors ${
+              showHistoryModal 
+                ? "bg-purple-600/30 border-purple-500/50 text-white" 
+                : "border-transparent hover:bg-white/10 text-white/70 hover:text-white"
+            }`}
+            title="Past Chat Sessions (Saved in Atlas)"
+          >
+            <History className="w-4 h-4" />
+          </button>
+
           <button
             onClick={handleDownloadTranscript}
             className="p-1.5 hover:bg-white/10 rounded-lg text-white/70 hover:text-white transition-colors"
@@ -224,17 +417,81 @@ export function AiChatApp() {
           <button
             onClick={handleClear}
             className="p-1.5 hover:bg-white/10 rounded-lg text-white/70 hover:text-white transition-colors"
-            title="Clear Chat History"
+            title="Reset Conversation"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
+      {/* History Slide-over / Modal (Saved in MongoDB Atlas) */}
+      {showHistoryModal && (
+        <div className="absolute inset-x-0 top-12 bottom-0 z-30 bg-[#16161a]/95 backdrop-blur-md p-4 flex flex-col border-b border-white/10 animate-in fade-in slide-in-from-top-2 duration-150">
+          <div className="flex items-center justify-between pb-3 border-b border-white/10">
+            <div className="flex items-center gap-2">
+              <MessageSquare className="w-4 h-4 text-purple-400" />
+              <span className="text-xs font-semibold text-white">Saved Chat Sessions (Atlas)</span>
+              <span className="text-[10px] text-white/40">({recentSessions.length} total)</span>
+            </div>
+            <button
+              onClick={() => setShowHistoryModal(false)}
+              className="p-1 rounded-lg hover:bg-white/10 text-white/60 hover:text-white"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto py-3 space-y-1.5">
+            {recentSessions.length === 0 ? (
+              <div className="text-center py-10 text-white/40 text-xs">
+                No previous chat sessions found in MongoDB Atlas. Start chatting to save your conversation!
+              </div>
+            ) : (
+              recentSessions.map((s) => (
+                <div
+                  key={s.sessionId}
+                  onClick={() => handleSwitchSession(s)}
+                  className={`w-full text-left p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between group ${
+                    s.sessionId === sessionId
+                      ? "bg-purple-600/20 border-purple-500/50 text-white"
+                      : "bg-[#202028] hover:bg-[#282834] border-white/5 hover:border-white/15 text-white/80 hover:text-white"
+                  }`}
+                >
+                  <div className="min-w-0 flex-1 pr-3">
+                    <div className="text-xs font-medium truncate flex items-center gap-1.5">
+                      {s.sessionId === sessionId && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0" />
+                      )}
+                      <span>{s.title || "Conversation"}</span>
+                    </div>
+                    <div className="text-[10px] text-white/40 mt-0.5">
+                      {new Date(s.updatedAt).toLocaleDateString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })} · {s.messageCount} messages
+                    </div>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white group-hover:translate-x-0.5 transition-all shrink-0" />
+                </div>
+              ))
+            )}
+          </div>
+
+          <div className="pt-2 border-t border-white/10 flex justify-between items-center text-[10px] text-white/40">
+            <span>Encrypted & persisted to MongoDB Atlas</span>
+            <button
+              onClick={handleNewChat}
+              className="text-purple-400 hover:text-purple-300 font-medium"
+            >
+              + Start Fresh Chat
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Messages Feed */}
       <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4 text-xs leading-relaxed">
         {messages.map((msg) => {
           const isAi = msg.role === "assistant";
+          const isCurrentlyStreaming = isLoading && msg.id === activeStreamingId;
+
           return (
             <div
               key={msg.id}
@@ -261,7 +518,10 @@ export function AiChatApp() {
                   }`}
                 >
                   {isAi ? (
-                    <ChatMarkdown content={msg.content} />
+                    <ChatMarkdown 
+                      content={msg.content} 
+                      isStreaming={isCurrentlyStreaming} 
+                    />
                   ) : (
                     <div className="whitespace-pre-wrap text-xs">{msg.content}</div>
                   )}
@@ -306,9 +566,9 @@ export function AiChatApp() {
                       <button
                         key={i}
                         onClick={() => handleSendMessage(prompt)}
-                        className="text-[10px] px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-purple-300 hover:text-white transition-all flex items-center gap-1 text-left"
+                        className="text-[10px] px-2.5 py-1 rounded-full bg-white/5 hover:bg-purple-600/20 border border-white/10 hover:border-purple-500/40 text-purple-200 hover:text-white transition-all flex items-center gap-1 text-left"
                       >
-                        <span>✨</span>
+                        <ChevronRight className="w-3 h-3 text-purple-400 shrink-0" />
                         <span>{prompt}</span>
                       </button>
                     ))}
@@ -319,8 +579,8 @@ export function AiChatApp() {
           );
         })}
 
-        {/* Loading Indicator */}
-        {isLoading && (
+        {/* Loading Indicator when starting inference */}
+        {isLoading && !activeStreamingId && (
           <div className="flex gap-3 items-start">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center text-white shadow-md">
               <Bot className="w-4 h-4" />
@@ -392,12 +652,12 @@ export function AiChatApp() {
   );
 }
 
-// Client-side intelligent fallback response generator strictly grounded in Pranshu Rajan's real verified resume
+// Client-side intelligent fallback response generator strictly grounded in Pranshu Rajan's real verified resume (zero emojis)
 function generateFallbackAnswer(query: string): string {
   const q = query.toLowerCase();
 
   if (q.includes("role") || q.includes("hardware") || q.includes("software") || q.includes("intern") || q.includes("winter") || q.includes("summer") || q.includes("relocat") || q.includes("mode") || q.includes("location") || q.includes("availab") || q.includes("join") || q.includes("timeline") || q.includes("duration")) {
-    return `### 🎯 Target Roles & Internship Availability\n\n` +
+    return `### Target Roles & Internship Availability\n\n` +
       `- **Target Roles**: **Strictly Software-Based Roles** (Software Development Engineer Intern, Full Stack Developer Intern, AI/ML Engineer Intern, Backend Engineer Intern). Pranshu does **not** seek hardware roles.\n` +
       `- **Target Domains**: **Developer Tooling**, **GenAI Infrastructure**, **High-Throughput Systems**, and **Distributed Backends**.\n` +
       `- **Internship Timelines & Duration**:\n` +
@@ -410,7 +670,7 @@ function generateFallbackAnswer(query: string): string {
   }
 
   if (q.includes("domain") || q.includes("industry") || q.includes("tooling") || q.includes("genai infra")) {
-    return `### 🚀 Target Industries & Domains of Interest\n\n` +
+    return `### Target Industries & Domains of Interest\n\n` +
       `Pranshu is particularly passionate about engineering high-impact software in:\n` +
       `- **Developer Tooling**: Building high-efficiency developer tools, compilers, parsers, and diagnostic platforms (demonstrated in **PacketLens AI** C++17 DPI and packet inspection).\n` +
       `- **GenAI Infrastructure & Systems**: Vector databases, indexing algorithms (HNSW, KD-Tree), RAG pipelines, and LLM orchestration (demonstrated in **Pranshu's AI** and SAP/Oracle GenAI certifications).\n` +
@@ -419,9 +679,9 @@ function generateFallbackAnswer(query: string): string {
   }
 
   if (q.includes("hire") || q.includes("why should") || q.includes("strength") || q.includes("recommend")) {
-    return `### 🎯 Why Pranshu Rajan Stands Out\n\n` +
+    return `### Why Pranshu Rajan Stands Out\n\n` +
       `**${candidateProfile.name}** is a versatile Full Stack Developer and AI Engineer combining low-level systems programming with modern production web architectures.\n\n` +
-      `### ⚡ Core Engineering Strengths\n` +
+      `### Core Engineering Strengths\n` +
       `- **Systems & Full-Stack Polyglot**: Mastered high-throughput low-level programming (**C++17, Python, Java Spring Boot**) alongside production web stacks (**Next.js 15, React, Node.js, Express, Tailwind CSS**).\n` +
       `- **Custom AI & Vector Engines**: Engineered **Pranshu's AI** from scratch—a C++17 & Python vector database featuring HNSW/KD-tree indexing and BM25 hybrid search with sub-millisecond query latency.\n` +
       `- **Fintech Security & Resilience**: Architected **UPI Offline Mesh** using hybrid encryption (RSA-2048-OAEP + AES-256-GCM) and database optimistic locking; resolved critical payment race conditions at **Xtin Capital**.\n` +
@@ -429,22 +689,22 @@ function generateFallbackAnswer(query: string): string {
   }
 
   if (q.includes("irrigation") || q.includes("fuzzy") || q.includes("water") || q.includes("agriculture")) {
-    return `### 🌾 Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control\n\n` +
+    return `### Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control\n\n` +
       `This is **Pranshu Rajan's** flagship academic control systems project at **Nirma University** (3rd-Year Electronics & Instrumentation Engineering).\n\n` +
-      `### 🛠️ Core Control Theory & Architecture\n` +
+      `### Core Control Theory & Architecture\n` +
       `- **Theoretical Foundation**: Implements a closed-loop hierarchical adaptive Mamdani fuzzy control system, avoiding black-box ML or crude hysteresis switching.\n` +
       `- **5 Modular Fuzzy Inference Systems (FIS)**: Soil Stress FIS, Weather Stress FIS, Water Demand FIS, Main Irrigation Demand FIS, and Water Allocation FIS using Centroid defuzzification.\n` +
       `- **Physics-Based Modeling**: Formulates reference evapotranspiration ($ET_0$) via **FAO-56 Penman-Monteith** and models dynamic soil-water balance to arbitrate zone competition.\n` +
       `- **Validation**: Benchmarked against traditional On-Off (bang-bang) and PID controllers using MATLAB/Simulink and Python (**scikit-fuzzy**).\n\n` +
-      `### 🔗 Repository & Live Deployment\n` +
+      `### Repository & Live Deployment\n` +
       `- **Live Web App**: [irrigation-fuzzy-system.vercel.app](https://irrigation-fuzzy-system.vercel.app/)\n` +
       `- **GitHub Source**: [github.com/pranshu-rajan/smart-irrigation-fuzzy-system](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)`;
   }
 
   if (q.includes("project") || q.includes("built") || q.includes("work") || q.includes("portfolio")) {
-    return `### 🚀 Flagship Engineering Projects\n\n` +
+    return `### Flagship Engineering Projects\n\n` +
       `Here are the verified systems and platforms engineered by **${candidateProfile.name}**:\n\n` +
-      `### ⚡ Featured Systems\n` +
+      `### Featured Systems\n` +
       `- **Smart Multizone Irrigation Fuzzy System** (Python, Fuzzy Logic, MATLAB, Simulink): Closed-loop hierarchical adaptive Mamdani fuzzy control system across 5 modular FIS engines, incorporating FAO-56 Penman-Monteith. [Live Demo](https://irrigation-fuzzy-system.vercel.app/) · [Code](https://github.com/pranshu-rajan/smart-irrigation-fuzzy-system)\n` +
       `- **UPI Offline Mesh** (Java, Spring Boot, PostgreSQL, Next.js, Docker): Offline P2P payment prototype relaying encrypted transactions across nearby devices to solve zero-connectivity UPI failures. Secured with RSA-2048 + AES-256-GCM and SHA-256 idempotency. [Live Demo](https://upi-offline-rho.vercel.app) · [Code](https://github.com/pranshu-rajan/upi-offline-mesh)\n` +
       `- **PacketLens AI** (C++17, FastAPI, Python, Next.js, TypeScript): Multi-threaded C++17 network forensics platform with a Wireshark-style packet inspector, synchronized hex viewer, and streaming security copilot. [Live Demo](https://dpi-packet-analyser.vercel.app) · [Code](https://github.com/pranshu-rajan/dpi-packet-analyser)\n` +
@@ -455,56 +715,56 @@ function generateFallbackAnswer(query: string): string {
   }
 
   if (q.includes("vaudeville")) {
-    return `### 🏴‍☠️ Vaudeville 2026 — The Voyage Begins\n\n` +
+    return `### Vaudeville 2026 — The Voyage Begins\n\n` +
       `A highly cinematic, immersive pirate-themed college cultural festival web platform engineered by **${candidateProfile.name}**.\n\n` +
-      `### 🛠️ Architecture & Tech Stack\n` +
+      `### Architecture & Tech Stack\n` +
       `- **Frontend Core**: React, TypeScript, Vite, Tailwind CSS, Framer Motion.\n` +
       `- **Aesthetic Craft**: Custom Cinzel Decorative and Pirata One typography, atmospheric pirate theme, dynamic audio effects, and particle animations.\n` +
       `- **Features**: Interactive schedule exploration, live team registration pipelines, and immersive lore.\n\n` +
-      `### 🔗 Verified Links\n` +
+      `### Verified Links\n` +
       `- **Live Web Portal**: [vaudeville-2026.vercel.app](https://vaudeville-2026.vercel.app/)\n` +
       `- **GitHub Source**: [github.com/pranshu-rajan/vaudeville-2026](https://github.com/pranshu-rajan/vaudeville-2026)`;
   }
 
   if (q.includes("upi") || q.includes("offline") || q.includes("mesh") || q.includes("payment")) {
-    return `### 💳 UPI Offline Mesh — Architecture Breakdown\n\n` +
+    return `### UPI Offline Mesh — Architecture Breakdown\n\n` +
       `An offline peer-to-peer payment prototype engineered by **${candidateProfile.name}** to solve zero-connectivity transaction failures in crowded stadiums, remote rural areas, or underground transit.\n\n` +
-      `### 🔐 Cryptographic & Distributed Design\n` +
+      `### Cryptographic & Distributed Design\n` +
       `- **P2P Relay Mechanism**: Nearby devices relay encrypted transactions hop-by-hop until any device reaches cellular connectivity, which forwards it to banking backends.\n` +
       `- **Hybrid Encryption**: Combines **RSA-2048-OAEP** for asymmetric key exchange with **AES-256-GCM** for authenticated payload encryption. Intermediary nodes cannot inspect PINs or tamper with amounts without failing validation.\n` +
       `- **Double-Spend & Replay Defense**: Implements SHA-256 ciphertext idempotency hashing and database optimistic locking (\`@Version\`), verified through multi-threaded concurrency tests.\n\n` +
-      `### 🛠️ Tech Stack & Links\n` +
+      `### Tech Stack & Links\n` +
       `- **Technologies**: Java, Spring Boot, PostgreSQL, Next.js, TypeScript, Docker.\n` +
       `- **Live Demo**: [upi-offline-rho.vercel.app](https://upi-offline-rho.vercel.app)\n` +
       `- **GitHub Repository**: [github.com/pranshu-rajan/upi-offline-mesh](https://github.com/pranshu-rajan/upi-offline-mesh)`;
   }
 
   if (q.includes("packetlens") || q.includes("packet") || q.includes("dpi") || q.includes("network") || q.includes("c++")) {
-    return `### 🔍 PacketLens AI — Network Forensics & DPI\n\n` +
+    return `### PacketLens AI — Network Forensics & DPI\n\n` +
       `A high-throughput packet inspection and network security platform powered by a custom multi-threaded C++17 engine.\n\n` +
-      `### ⚡ Key Capabilities\n` +
+      `### Key Capabilities\n` +
       `- **Multi-Threaded C++17 Core**: Parses raw PCAP binary files, tracks TCP/UDP sessions, and extracts HTTP/TLS headers with zero CPU bottlenecking during gigabyte-scale network traffic dumps.\n` +
       `- **Telemetry & Firewall Rules**: FastAPI backend persists network metrics and applies dynamic firewall rules to automatically generate sanitized PCAP files.\n` +
       `- **Browser Triage Inspector**: Interactive Wireshark-style packet inspector, synchronized live hex viewer, and streaming security copilot.\n\n` +
-      `### 🔗 Links & Code\n` +
+      `### Links & Code\n` +
       `- **Live Demo**: [dpi-packet-analyser.vercel.app](https://dpi-packet-analyser.vercel.app)\n` +
       `- **GitHub Repository**: [github.com/pranshu-rajan/dpi-packet-analyser](https://github.com/pranshu-rajan/dpi-packet-analyser)`;
   }
 
   if (q.includes("vector") || q.includes("rag") || q.includes("pranshu's ai") || q.includes("pranshu-ai") || q.includes("hnsw")) {
-    return `### ⚡ Pranshu’s AI — Vector Database & Hybrid RAG\n\n` +
+    return `### Pranshu’s AI — Vector Database & Hybrid RAG\n\n` +
       `A custom production vector database and hybrid RAG engine written from scratch in **C++17 & Python** by **${candidateProfile.name}**.\n\n` +
-      `### 🛠️ Architecture Highlights\n` +
+      `### Architecture Highlights\n` +
       `- **Custom Indexing Engine**: Custom **HNSW** (Hierarchical Navigable Small World) and **KD-Tree** indexing slashing query latency to sub-milliseconds, eliminating dependence on external paid vector SaaS.\n` +
       `- **Hybrid Retrieval (RRF)**: Implements Reciprocal Rank Fusion combining dense semantic embeddings with BM25 keyword matching in FastAPI, preventing context fragmentation.\n` +
       `- **Full-Stack Dashboard**: Next.js 15, TypeScript, and Docker web dashboard with drag-and-drop document chunking, graph inspection, and Groq LPU inference.\n\n` +
-      `### 🔗 Links & Code\n` +
+      `### Links & Code\n` +
       `- **Live Demo**: [pranshu-ai.vercel.app](https://pranshu-ai.vercel.app)\n` +
       `- **GitHub Repository**: [github.com/pranshu-rajan/pranshu-ai](https://github.com/pranshu-rajan/pranshu-ai)`;
   }
 
   if (q.includes("experience") || q.includes("intern") || q.includes("xtin") || q.includes("ibm") || q.includes("edunet")) {
-    return `### 💼 Professional Work Experience\n\n` +
+    return `### Professional Work Experience\n\n` +
       `### 1. Xtin Capital — Full Stack Developer Intern\n` +
       `*May 2026 – July 2026 | Ahmedabad, India*\n` +
       `- Architected and redesigned React frontends to match company visual identity and improve UX across fintech applications.\n` +
@@ -520,7 +780,7 @@ function generateFallbackAnswer(query: string): string {
   }
 
   if (q.includes("skill") || q.includes("stack") || q.includes("technolog") || q.includes("language")) {
-    return `### 🛠️ Technical Skills & Expertise\n\n` +
+    return `### Technical Skills & Expertise\n\n` +
       `- **Programming Languages**: JavaScript, TypeScript, Python, SQL, HTML5, CSS3, C++17, Java.\n` +
       `- **Frontend Technologies**: React.js, Next.js (App Router), Vite, Tailwind CSS, Framer Motion, GSAP, Three.js, React Three Fiber, Chart.js.\n` +
       `- **Backend Technologies**: Node.js, Express.js, Spring Boot, REST APIs, JWT Authentication, OAuth2, NextAuth, Prisma ORM, Stripe, Razorpay, n8n Automation.\n` +
@@ -531,7 +791,7 @@ function generateFallbackAnswer(query: string): string {
   }
 
   if (q.includes("certif") || q.includes("credential") || q.includes("award") || q.includes("scholar") || q.includes("sap") || q.includes("oracle")) {
-    return `### 📜 Verified Certifications & Credentials (8 Total)\n\n` +
+    return `### Verified Certifications & Credentials (8 Total)\n\n` +
       `1. **SAP Certified - SAP Generative AI Developer** — SAP (Issued Jan 15, 2026, [Credly Badge](https://www.credly.com/badges/b004db60-7712-45cf-88d2-93997a79f6e4))\n` +
       `2. **Oracle Certified Professional**: OCI 2025 Generative AI Professional — Oracle (ID: \`321763733OCI25GAIOCP\`)\n` +
       `3. **Oracle Certified Foundations Associate**: OCI 2025 AI Foundations Associate — Oracle (ID: \`321763733OCI25AICFA\`)\n` +
@@ -544,7 +804,7 @@ function generateFallbackAnswer(query: string): string {
   }
 
   if (q.includes("education") || q.includes("nirma") || q.includes("college") || q.includes("degree") || q.includes("study") || q.includes("year")) {
-    return `### 🎓 Academic Background\n\n` +
+    return `### Academic Background\n\n` +
       `- **B.Tech in Electronics and Instrumentation Engineering** — Nirma University, Ahmedabad\n` +
       `  - **Academic Standing**: Currently in **3rd Year** (Duration: **July 2024 – July 2028**)\n` +
       `  - **Cumulative GPA**: **7.88 / 10.0**\n` +
@@ -556,7 +816,7 @@ function generateFallbackAnswer(query: string): string {
   }
 
   if (q.includes("isa") || q.includes("leadership") || q.includes("responsibility") || q.includes("position")) {
-    return `### 🌟 Positions of Responsibility\n\n` +
+    return `### Positions of Responsibility\n\n` +
       `### Executive Committee Board Member | International Society of Automation (ISA)\n` +
       `*December 2025 – December 2026*\n` +
       `- Promoted to Executive Committee Board based on demonstrated leadership and technical contribution record.\n` +
@@ -567,7 +827,7 @@ function generateFallbackAnswer(query: string): string {
   }
 
   if (q.includes("contact") || q.includes("email") || q.includes("reach") || q.includes("github") || q.includes("linkedin")) {
-    return `### 📬 Contact & Profiles\n\n` +
+    return `### Contact & Profiles\n\n` +
       `Reach out to **${candidateProfile.name}** directly:\n\n` +
       `- **Email**: [${candidateProfile.email}](mailto:${candidateProfile.email})\n` +
       `- **Phone**: +91 9316347270\n` +
@@ -579,9 +839,9 @@ function generateFallbackAnswer(query: string): string {
   const isGreeting = q.includes("hi") || q.includes("hello") || q.includes("hey") || q.includes("who are you") || q.includes("what can you do") || q.includes("pranshu") || q.trim() === "" || q.includes("about you") || q.includes("intro");
 
   if (isGreeting) {
-    return `### 👋 Hello! I am ${candidateProfile.name}'s AI Digital Twin\n\n` +
+    return `### Hello | ${candidateProfile.name}'s AI Digital Twin\n\n` +
       `${candidateProfile.bio}\n\n` +
-      `### ⚡ Verified Background\n` +
+      `### Verified Background\n` +
       `- **Education**: B.Tech in Electronics & Instrumentation Engineering at **Nirma University, Ahmedabad** (2024–2028, currently in 3rd Year, CGPA 7.88)\n` +
       `- **Flagship Control Systems**: [Smart Multizone Irrigation Fuzzy System](https://irrigation-fuzzy-system.vercel.app/) (5 Mamdani FIS engines, FAO-56 Penman-Monteith, validated vs PID)\n` +
       `- **Systems & Fintech**: [UPI Offline Mesh](https://upi-offline-rho.vercel.app), [PacketLens AI C++17 DPI](https://dpi-packet-analyser.vercel.app), and [Pranshu's AI Vector DB](https://pranshu-ai.vercel.app)\n` +
@@ -593,3 +853,4 @@ function generateFallbackAnswer(query: string): string {
   // Strict Out-of-Scope boundary for any external / unrelated query
   return `This is out of my scope. I am Pranshu Rajan's AI portfolio representative and can only answer questions related to Pranshu's verified background, software projects, technical skills, certifications, and internship opportunities.`;
 }
+

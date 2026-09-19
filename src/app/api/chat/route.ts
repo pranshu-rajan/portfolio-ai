@@ -98,20 +98,20 @@ function getGroundedFallbackText(query: string): string {
   const q = query.toLowerCase();
 
   if (q.includes("role") || q.includes("hardware") || q.includes("software") || q.includes("intern") || q.includes("winter") || q.includes("summer") || q.includes("relocat") || q.includes("mode") || q.includes("location") || q.includes("availab") || q.includes("join") || q.includes("timeline") || q.includes("duration")) {
-    return `### 🎯 Target Roles & Internship Availability\n\n` +
-      `- **Target Roles**: **Strictly Software-Based Roles** (Software Development Engineer Intern, Full Stack Developer Intern, AI/ML Engineer Intern, Backend Engineer Intern). Pranshu does **not** seek hardware roles.\n` +
+    return `### Target Roles & Internship Availability\n\n` +
+      `- **Target Roles**: **Strictly Software-Based Roles** (Software Development Engineer Intern, Full Stack Developer Intern, AI/ML Engineer Intern, Backend Engineer Intern). Pranshu does not seek hardware roles.\n` +
       `- **Target Domains**: **Developer Tooling**, **GenAI Infrastructure**, **High-Throughput Systems**, and **Distributed AI Backends**.\n` +
       `- **Internship Timelines & Duration**:\n` +
       `  - **Winter Internship**: **November 2026 – December 2026** (2 to 3 months).\n` +
       `  - **Summer Internship**: **May – July** (Standard summer window, 2 to 3 months).\n` +
-      `- **Availability / Immediate Joining**: Pranshu is currently enrolled in his 3rd year at Nirma University, so he **cannot join immediately mid-semester**. He is available for the scheduled Winter (Nov–Dec 2026) and Summer internship windows.\n` +
+      `- **Availability / Immediate Joining**: Pranshu is currently enrolled in his 3rd year at Nirma University, so he cannot join immediately mid-semester. He is available for the scheduled Winter (Nov–Dec 2026) and Summer internship windows.\n` +
       `- **Work Modes**: Open to all modes — **Remote**, **Hybrid**, or **On-site**.\n` +
       `- **Location & Relocation**: Based in India; **fully open to relocation** across all locations in India and globally.\n` +
       `- **DSA & Coding Profile**: Check out his active LeetCode track record at [leetcode.com/u/PranshuRajan](https://leetcode.com/u/PranshuRajan/).`;
   }
 
   if (q.includes("domain") || q.includes("industry") || q.includes("tooling") || q.includes("genai infra")) {
-    return `### 🚀 Target Industries & Domains of Interest\n\n` +
+    return `### Target Industries & Domains of Interest\n\n` +
       `Pranshu is particularly passionate about engineering high-impact software in:\n` +
       `- **Developer Tooling**: Building high-efficiency tools, compilers, parsers, and diagnostic platforms (demonstrated in **PacketLens AI** C++17 DPI and packet inspection).\n` +
       `- **GenAI Infrastructure & Systems**: Vector databases, indexing algorithms (HNSW, KD-Tree), RAG pipelines, and LLM orchestration (demonstrated in **Pranshu's AI** and SAP/Oracle GenAI certifications).\n` +
@@ -120,63 +120,63 @@ function getGroundedFallbackText(query: string): string {
   }
 
   if (q.includes("leetcode") || q.includes("dsa") || q.includes("code") || q.includes("problem solve")) {
-    return `### 💻 LeetCode & Problem Solving\n\n` +
+    return `### LeetCode & Problem Solving\n\n` +
       `- **Profile URL**: [leetcode.com/u/PranshuRajan](https://leetcode.com/u/PranshuRajan/)\n` +
       `- **Core Strengths**: Data structures, algorithms, graph theory, dynamic programming, and low-latency system design in C++, Java, and Python.\n` +
       `- **Application in Projects**: Implemented custom HNSW and KD-Tree indexing from scratch in C++17 (**Pranshu's AI**) and multi-threaded PCAP dump parsing in **PacketLens AI**.`;
   }
 
   if (q.includes("leaf") || q.includes("disease") || q.includes("plant") || q.includes("crop") || q.includes("pathology")) {
-    return `### 🍃 Agricultural Leaf Disease Detection\n\n` +
+    return `### Agricultural Leaf Disease Detection\n\n` +
       `An automated agricultural health assessment system utilizing deep learning convolutional models to classify plant leaf diseases from photographs and provide treatment guidance.\n\n` +
-      `### 🛠️ Architecture & Capabilities\n` +
+      `### Architecture & Capabilities\n` +
       `- **Deep Learning Pipeline**: End-to-end computer vision model trained on plant pathology datasets using **PyTorch**.\n` +
       `- **Interactive Web App**: Interactive **Streamlit** dashboard enabling instant photo uploads, live inference, top-3 classification confidence scores, and crop treatment guidance.\n` +
       `- **Latency Optimization**: Lightweight model architecture optimized for rapid CPU and GPU execution, preventing deployment timeouts.\n\n` +
-      `### 🔗 Links\n` +
+      `### Project Links\n` +
       `- **Live Web App**: [leafdisease-detection.streamlit.app](https://leafdisease-detection.streamlit.app)\n` +
       `- **GitHub Source**: [github.com/pranshu-rajan/leaf-disease-detection](https://github.com/pranshu-rajan/leaf-disease-detection)`;
   }
 
   if (q.includes("upi") || q.includes("offline") || q.includes("mesh") || q.includes("payment") || q.includes("double-spend") || q.includes("challenge") || q.includes("bug")) {
-    return `### 💳 UPI Offline Mesh — Architecture & Engineering Breakdown\n\n` +
+    return `### UPI Offline Mesh — Architecture & Engineering Breakdown\n\n` +
       `An innovative offline peer-to-peer payment prototype engineered by **Pranshu Rajan** to solve zero-connectivity transaction failures in high-congestion zones or transit.\n\n` +
-      `### 🔐 Cryptographic & Distributed Defense (STAR Story)\n` +
+      `### Cryptographic & Distributed Defense (STAR Story)\n` +
       `- **The Challenge**: Relaying payment payloads through untrusted intermediate peer devices without internet connectivity poses severe security risks: snooping on PINs/amounts, double-spending funds, and injecting replay attacks.\n` +
       `- **Hybrid Cryptography**: Transactions are wrapped in **RSA-2048-OAEP** for asymmetric banking key agreement combined with **AES-256-GCM** authenticated payload encryption. Intermediate mesh relays only forward encrypted envelopes and cannot inspect amounts or credentials.\n` +
       `- **Double-Spending & Replay Defense**: Implemented **SHA-256 ciphertext idempotency hashing** combined with database optimistic locking (**@Version**) on the Spring Boot backend with queue retries, guaranteeing zero duplicate transactions even under concurrent mesh deliveries.\n\n` +
-      `### 🛠️ Tech Stack & Links\n` +
+      `### Tech Stack & Links\n` +
       `- **Technologies**: Java, Spring Boot, PostgreSQL, Next.js, TypeScript, REST APIs, Docker.\n` +
       `- **Live Simulation**: [upi-offline-rho.vercel.app](https://upi-offline-rho.vercel.app)\n` +
       `- **GitHub Source**: [github.com/pranshu-rajan/upi-offline-mesh](https://github.com/pranshu-rajan/upi-offline-mesh)`;
   }
 
   if (q.includes("packetlens") || q.includes("packet") || q.includes("dpi") || q.includes("network") || q.includes("c++")) {
-    return `### 🔍 PacketLens AI — Network Forensics & DPI Platform\n\n` +
+    return `### PacketLens AI — Network Forensics & DPI Platform\n\n` +
       `A high-throughput packet inspection and network security platform powered by a custom multi-threaded C++17 engine.\n\n` +
-      `### ⚡ Key Capabilities\n` +
+      `### Key Capabilities\n` +
       `- **Multi-Threaded C++17 Core**: Parses raw PCAP binary files, tracks TCP/UDP sessions, and extracts HTTP/TLS headers without CPU bottlenecking.\n` +
       `- **Dynamic Firewall Rules**: FastAPI backend persists network metrics and automatically generates sanitized PCAP files with blocked traffic removed.\n` +
       `- **Browser Triage Inspector**: Interactive Wireshark-style packet inspector with synchronized live hex viewer and streaming security copilot.\n\n` +
-      `### 🔗 Links\n` +
+      `### Project Links\n` +
       `- **Live Demo**: [dpi-packet-analyser.vercel.app](https://dpi-packet-analyser.vercel.app)\n` +
       `- **GitHub Source**: [github.com/pranshu-rajan/dpi-packet-analyser](https://github.com/pranshu-rajan/dpi-packet-analyser)`;
   }
 
   if (q.includes("vector") || q.includes("rag") || q.includes("pranshu's ai") || q.includes("pranshu-ai") || q.includes("hnsw")) {
-    return `### ⚡ Pranshu’s AI — Custom Vector Database & Hybrid RAG\n\n` +
+    return `### Pranshu’s AI — Custom Vector Database & Hybrid RAG\n\n` +
       `A custom production vector database and hybrid RAG engine written from scratch in **C++17 & Python** by **Pranshu Rajan**.\n\n` +
-      `### 🛠️ Architecture Highlights\n` +
+      `### Architecture Highlights\n` +
       `- **Custom Spatial Indexing**: Implements custom **HNSW** (Hierarchical Navigable Small World) and **KD-Tree** indexing slashing query latency to sub-milliseconds.\n` +
       `- **Hybrid Retrieval (RRF)**: Implements Reciprocal Rank Fusion combining dense semantic embeddings with BM25 keyword matching in FastAPI.\n` +
       `- **Full-Stack Dashboard**: Next.js 15, TypeScript, and Docker web dashboard with drag-and-drop document chunking and real-time graph inspection.\n\n` +
-      `### 🔗 Links\n` +
+      `### Project Links\n` +
       `- **Live Demo**: [pranshu-ai.vercel.app](https://pranshu-ai.vercel.app)\n` +
       `- **GitHub Source**: [github.com/pranshu-rajan/pranshu-ai](https://github.com/pranshu-rajan/pranshu-ai)`;
   }
 
   if (q.includes("project") || q.includes("built") || q.includes("work") || q.includes("portfolio")) {
-    return `### 🚀 Top 4 Verified Software Projects\n\n` +
+    return `### Top 4 Verified Software Projects\n\n` +
       `Here are the top 4 software systems engineered by **Pranshu Rajan**:\n\n` +
       `1. **UPI Offline Mesh** (Java, Spring Boot, PostgreSQL, Next.js, Docker): Cryptographic peer-to-peer offline payment relay solving zero-connectivity payment failures with RSA-2048/AES-256 and optimistic locking defense. [Live Demo](https://upi-offline-rho.vercel.app) · [GitHub](https://github.com/pranshu-rajan/upi-offline-mesh)\n` +
       `2. **PacketLens AI** (C++17, FastAPI, Python, Next.js): Multi-threaded C++17 deep packet inspection engine parsing gigabyte-scale PCAP dumps with browser hex inspection. [Live Demo](https://dpi-packet-analyser.vercel.app) · [GitHub](https://github.com/pranshu-rajan/dpi-packet-analyser)\n` +
@@ -186,7 +186,7 @@ function getGroundedFallbackText(query: string): string {
   }
 
   if (q.includes("education") || q.includes("college") || q.includes("university") || q.includes("degree") || q.includes("nirma") || q.includes("study") || q.includes("year")) {
-    return `### 🎓 Education & Academic Profile\n\n` +
+    return `### Education & Academic Profile\n\n` +
       `### Nirma University, Ahmedabad (2024 – 2028)\n` +
       `- **Degree**: Bachelor of Technology (B.Tech) in **Electronics and Instrumentation Engineering**\n` +
       `- **Current Academic Status**: Currently in **3rd Year**\n` +
@@ -198,9 +198,9 @@ function getGroundedFallbackText(query: string): string {
   }
 
   if (q.includes("hire") || q.includes("why should") || q.includes("strength") || q.includes("fit")) {
-    return `### 🎯 Why Pranshu Rajan Stands Out for Software Roles\n\n` +
+    return `### Why Pranshu Rajan Stands Out for Software Roles\n\n` +
       `**Pranshu Rajan** is a high-impact software developer and AI engineer with deep problem-solving skills across systems programming, cryptography, and modern web engineering.\n\n` +
-      `### ⚡ Key Reasons to Hire Pranshu:\n` +
+      `### Key Reasons to Hire Pranshu:\n` +
       `- **Systems & Algorithmic Excellence**: Engineered custom C++17 spatial indexing (HNSW, KD-Tree) for vector search and multi-threaded PCAP forensics without off-the-shelf crutches.\n` +
       `- **Resilient Fintech Architecture**: Solved cryptographic double-spend and replay vulnerabilities in P2P mesh payments; handled SEBI-compliant SIP mandate flows at **Xtin Capital**.\n` +
       `- **Active Problem Solver**: Strong DSA foundation on [LeetCode](https://leetcode.com/u/PranshuRajan/).\n` +
@@ -208,7 +208,7 @@ function getGroundedFallbackText(query: string): string {
   }
 
   if (q.includes("experience") || q.includes("intern") || q.includes("xtin") || q.includes("ibm") || q.includes("edunet")) {
-    return `### 💼 Professional Work Experience\n\n` +
+    return `### Professional Work Experience\n\n` +
       `### 1. Xtin Capital — Full Stack Developer Intern\n` +
       `*May 2026 – July 2026 | Ahmedabad, India*\n` +
       `- Architected and redesigned React frontends to match company visual identity and improve UX across fintech applications.\n` +
@@ -222,7 +222,7 @@ function getGroundedFallbackText(query: string): string {
   }
 
   if (q.includes("irrigation") || q.includes("fuzzy")) {
-    return `### 🌾 Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control\n\n` +
+    return `### Smart Multizone Irrigation · Hierarchical Adaptive Fuzzy Control\n\n` +
       `Academic control systems project at **Nirma University** (3rd-Year Electronics & Instrumentation Engineering).\n\n` +
       `- **5 Modular FIS Engines**: Soil Stress, Weather Stress, Water Demand (FAO-56 Penman-Monteith ET0), Main Irrigation Demand, and Water Allocation.\n` +
       `- **Live Web Application**: [irrigation-fuzzy-system.vercel.app](https://irrigation-fuzzy-system.vercel.app/)\n` +
@@ -230,7 +230,7 @@ function getGroundedFallbackText(query: string): string {
   }
 
   if (q.includes("skill") || q.includes("stack") || q.includes("technolog") || q.includes("language")) {
-    return `### 🛠️ Technical Skills & Expertise\n\n` +
+    return `### Technical Skills & Expertise\n\n` +
       `- **Programming Languages**: Python, C++17, JavaScript, TypeScript, Java, SQL, HTML5, CSS3.\n` +
       `- **Core Specializations**: Software Engineering, Distributed Systems, Cryptography, Vector Search (HNSW, KD-Tree), Computer Vision (PyTorch), RAG Pipelines.\n` +
       `- **Frontend**: React.js, Next.js 15 (App Router), Vite, Tailwind CSS, Framer Motion, GSAP, Three.js.\n` +
@@ -239,7 +239,7 @@ function getGroundedFallbackText(query: string): string {
   }
 
   if (q.includes("certif") || q.includes("credential") || q.includes("award") || q.includes("scholar") || q.includes("sap") || q.includes("oracle")) {
-    return `### 📜 Verified Certifications & Credentials (8 Total)\n\n` +
+    return `### Verified Certifications & Credentials (8 Total)\n\n` +
       `1. **SAP Certified - SAP Generative AI Developer** — SAP (Issued Jan 15, 2026, [Credly Badge](https://www.credly.com/badges/b004db60-7712-45cf-88d2-93997a79f6e4))\n` +
       `2. **Oracle Certified Professional: OCI 2025 Generative AI Professional** — Oracle University (Credential ID: \`321763733OCI25GAIOCP\`)\n` +
       `3. **Oracle Certified Foundations Associate: OCI 2025 AI Foundations Associate** — Oracle University (Credential ID: \`321763733OCI25AICFA\`)\n` +
@@ -255,9 +255,9 @@ function getGroundedFallbackText(query: string): string {
   const isGreeting = q.includes("hi") || q.includes("hello") || q.includes("hey") || q.includes("who are you") || q.includes("what can you do") || q.includes("pranshu") || q.trim() === "" || q.includes("about you") || q.includes("intro");
 
   if (isGreeting) {
-    return `### 👋 Hello! I am Pranshu Rajan's AI Digital Twin\n\n` +
+    return `### Hello — Pranshu Rajan's AI Digital Twin\n\n` +
       `I am strictly grounded in **Pranshu Rajan's** verified resume, engineering systems, and academic credentials at **Nirma University**.\n\n` +
-      `### ⚡ Key Information at a Glance\n` +
+      `### Key Information at a Glance\n` +
       `- **Education**: 3rd Year B.Tech in Electronics & Instrumentation Engineering at **Nirma University, Ahmedabad** (2024–2028, CGPA 7.88).\n` +
       `- **Control & AI Flagship**: [Smart Multizone Irrigation Fuzzy System](https://irrigation-fuzzy-system.vercel.app/) (5 Mamdani FIS subsystems, FAO-56 Penman-Monteith, validated vs PID).\n` +
       `- **Systems Projects**: [UPI Offline Mesh](https://upi-offline-rho.vercel.app), [PacketLens AI C++17 DPI](https://dpi-packet-analyser.vercel.app), and [Pranshu's AI C++17 Vector DB](https://pranshu-ai.vercel.app).\n` +

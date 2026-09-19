@@ -5,11 +5,18 @@ import { ExternalLink } from "lucide-react";
 
 interface ChatMarkdownProps {
   content: string;
+  isStreaming?: boolean;
 }
 
-export function ChatMarkdown({ content }: ChatMarkdownProps) {
+// Helper to remove any stray emojis for a clean engineering aesthetic
+function stripEmojis(text: string): string {
+  return text.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F1E0}-\u{1F1FF}]/gu, "").trim();
+}
+
+export function ChatMarkdown({ content, isStreaming }: ChatMarkdownProps) {
+  const cleanContent = stripEmojis(content);
   // Split into lines
-  const lines = content.trim().split("\n");
+  const lines = cleanContent.split("\n");
   const elements: React.ReactNode[] = [];
 
   let currentListItems: React.ReactNode[] = [];
@@ -43,16 +50,16 @@ export function ChatMarkdown({ content }: ChatMarkdownProps) {
       return;
     }
 
-    // Heading 3: ### Title
+    // Heading 3: ### Title -> Sleek CSS pill badge
     if (trimmed.startsWith("### ")) {
       flushList();
       const title = trimmed.replace(/^###\s+/, "");
       elements.push(
-        <div
-          key={`h3-${idx}`}
-          className="text-xs font-bold text-purple-300 mt-3 mb-1.5 flex items-center gap-1.5 uppercase tracking-wide"
-        >
-          {parseInlineText(title)}
+        <div key={`h3-${idx}`} className="my-2.5">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-purple-500/15 border border-purple-500/30 text-[10.5px] font-semibold text-purple-300 tracking-wider uppercase shadow-sm shadow-purple-900/30">
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+            {parseInlineText(title)}
+          </span>
         </div>
       );
       return;
@@ -65,8 +72,9 @@ export function ChatMarkdown({ content }: ChatMarkdownProps) {
       elements.push(
         <div
           key={`h2-${idx}`}
-          className="text-[13px] font-bold text-white mt-3.5 mb-1.5 border-b border-white/10 pb-1"
+          className="text-[13px] font-bold text-white mt-3.5 mb-1.5 border-b border-white/10 pb-1 flex items-center gap-2"
         >
+          <span className="w-1.5 h-3 bg-blue-500 rounded-full" />
           {parseInlineText(title)}
         </div>
       );
@@ -93,8 +101,8 @@ export function ChatMarkdown({ content }: ChatMarkdownProps) {
     if (bulletMatch) {
       const itemText = bulletMatch[1];
       currentListItems.push(
-        <div key={`bullet-${idx}`} className="flex items-start gap-2 text-xs text-white/90 leading-relaxed">
-          <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 shrink-0 shadow-sm shadow-purple-500/50" />
+        <div key={`bullet-${idx}`} className="flex items-start gap-2.5 text-xs text-white/90 leading-relaxed">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0 shadow-sm shadow-blue-500/50" />
           <div className="flex-1 min-w-0">{parseInlineText(itemText)}</div>
         </div>
       );
@@ -107,8 +115,8 @@ export function ChatMarkdown({ content }: ChatMarkdownProps) {
       const num = numberMatch[1];
       const itemText = numberMatch[2];
       currentListItems.push(
-        <div key={`num-${idx}`} className="flex items-start gap-2 text-xs text-white/90 leading-relaxed">
-          <span className="w-4 h-4 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 border border-purple-500/30">
+        <div key={`num-${idx}`} className="flex items-start gap-2.5 text-xs text-white/90 leading-relaxed">
+          <span className="w-4 h-4 rounded-full bg-white/10 text-white/80 flex items-center justify-center text-[10px] font-mono font-medium shrink-0 mt-0.5 border border-white/15">
             {num}
           </span>
           <div className="flex-1 min-w-0">{parseInlineText(itemText)}</div>
@@ -128,7 +136,14 @@ export function ChatMarkdown({ content }: ChatMarkdownProps) {
 
   flushList();
 
-  return <div className="space-y-1 text-xs">{elements}</div>;
+  return (
+    <div className="space-y-1 text-xs">
+      {elements}
+      {isStreaming && (
+        <span className="inline-block w-2 h-3.5 bg-blue-400 ml-1 translate-y-0.5 animate-pulse rounded-[1px]" />
+      )}
+    </div>
+  );
 }
 
 // Parses inline bold, italic, code, and markdown links
